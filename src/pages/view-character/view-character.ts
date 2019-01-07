@@ -1,15 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Character } from '../../models/character/character.model';
 
-/**
- * Generated class for the ViewCharacterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -17,6 +11,8 @@ import { Character } from '../../models/character/character.model';
   templateUrl: 'view-character.html',
 })
 export class ViewCharacterPage {
+
+  @ViewChild(Content) content: Content;
 
   group: Group = {
     key: '',
@@ -44,20 +40,20 @@ export class ViewCharacterPage {
     console.log("chiamato ionViewWillLoad");
   }
 
-  ionViewDidLoad(){
+  ionViewDidLoad() {
     console.log("chiamato ionViewDidLoad");
   }
 
-  editCharacter(character: Character){
+  editCharacter(character: Character) {
     this.characters.editCharacter(character).then(() => {
-        this.navCtrl.push('ViewGroupPage',{group : this.group});
-      }); 
+      this.navCtrl.push('ViewGroupPage', { group: this.group });
+    });
   }
 
-  removeCharacter(character: Character){
+  removeCharacter(character: Character) {
     this.characters.removeCharacter(character).then(() => {
-        this.navCtrl.push('ViewGroupPage',{group : this.group});
-      }); 
+      this.navCtrl.push('ViewGroupPage', { group: this.group });
+    });
   }
 
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule, Content } from 'ionic-angular';
 import { ViewMonsterPage } from './view-monster';
-import {ScrollingHeaderModule} from 'ionic-scrolling-header'
+import { ScrollingHeaderModule } from 'ionic-scrolling-header'
 
 @NgModule({
   declarations: [
@@ -12,4 +12,4 @@ import {ScrollingHeaderModule} from 'ionic-scrolling-header'
     ScrollingHeaderModule,
   ],
 })
-export class ViewMonsterPageModule {}
+export class ViewMonsterPageModule { }

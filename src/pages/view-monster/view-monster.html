@@ -2,19 +2,19 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
 <ion-header [scrollingHeader]='content'>
-  
-  <ion-navbar >
+
+  <ion-navbar>
     <ion-title>{{monster.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content>  
- 
+<ion-content>
+
   <div class="stat-block">
 
     <img class="monster-image" src="assets/img/Cpi6p9LQAiactID2WF1e_26178837_10215476951743182_2135416190_o.jpg" />
-    
+
     <div class="section-left">
       <div class="creature-heading">
         <h1>{{monster.name}}</h1>
@@ -37,8 +37,8 @@
           <p>{{monster.speed}}</p>
         </div> <!-- property line -->
         <svg height="5" width="100%" class="tapered-rule">
-        <polyline points="0,0 400,2.5 0,5"></polyline>
-      </svg>
+          <polyline points="0,0 400,2.5 0,5"></polyline>
+        </svg>
         <div class="abilities">
           <div class="ability-strength">
             <h4>STR</h4>
@@ -66,23 +66,23 @@
           </div> <!-- ability charisma -->
         </div> <!-- abilities -->
         <svg height="5" width="100%" class="tapered-rule">
-        <polyline points="0,0 400,2.5 0,5"></polyline>
-      </svg>
+          <polyline points="0,0 400,2.5 0,5"></polyline>
+        </svg>
         <div *ngIf="monster.damage_vulnerabilities!= ''" class="property-line">
           <h4>Damage Vulnerabilities</h4>
           <p>{{monster.damage_vulnerabilities}}</p>
         </div>
         <div *ngIf="monster.damage_resistances!= ''" class="property-line">
-            <h4>Damage Resistances</h4>
-            <p>{{monster.damage_resistances}}</p>
+          <h4>Damage Resistances</h4>
+          <p>{{monster.damage_resistances}}</p>
         </div>
         <div *ngIf="monster.damage_immunities != ''" class="property-line">
           <h4>Damage Immunities</h4>
           <p>{{monster.damage_immunities}}</p>
         </div>
         <div *ngIf="monster.condition_immunities != ''" class="property-line">
-            <h4>Condition Immunities</h4>
-            <p>{{monster.condition_immunities}}</p>
+          <h4>Condition Immunities</h4>
+          <p>{{monster.condition_immunities}}</p>
         </div> <!-- property line -->
         <div *ngIf="monster.senses!= ''" class="property-line">
           <h4>Senses</h4>
@@ -111,16 +111,17 @@
           <p>{{action.desc}}</p>
         </div>
         <h3>Legendary Actions</h3>
-        <p>{{monster.name}} can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature’s turn. {{monster.name}} regains spent legendary actions at the start of their turn.</p>
+        <p>{{monster.name}} can take 3 legendary actions, choosing from the options below. Only one legendary action
+          option can be used at a time and only at the end of another creature’s turn. {{monster.name}} regains spent
+          legendary actions at the start of their turn.</p>
         <div *ngFor="let action of monster.legendary_actions" class="property-block">
           <h4>{{action.name}}</h4>
           <p>{{action.desc}}</p>
         </div> <!-- property block -->
       </div> <!-- actions -->
     </div> <!-- section right -->
-    
+
   </div> <!-- stat block -->
 
 
 </ion-content>
-
