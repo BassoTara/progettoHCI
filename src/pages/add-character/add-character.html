@@ -14,10 +14,10 @@
   <img src="assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg" style="display:block;width:128px;height:128px;margin-left:auto;margin-right:auto;" />
 
   <ion-item>
-      <ion-label>
+      <ion-label stacked>
         Nome:
       </ion-label>
-      <ion-input [(ngModel)]="character.name" type="text" ></ion-input>
+      <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="character.name" ></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label>
@@ -33,15 +33,15 @@
     </ion-item>
     <ion-item>
       <ion-label>
-        Punti Salute
+        Punti Salute:
       </ion-label>
       <ion-input  [(ngModel)]="character.healthPoints" type="number" ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>
-        Descrizione
+      <ion-label stacked><!-- non so se metterci stacked o no-->
+        Descrizione:
       </ion-label>
-      <ion-textarea #myInput id="myInput" rows="1" maxLength="500" (input)="resize()" [(ngModel)]="character.description"></ion-textarea>
+      <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="character.description"></ion-textarea>
     </ion-item>
   <button ion-button block clear (click)="addCharacter(character)"> Add </button>
 

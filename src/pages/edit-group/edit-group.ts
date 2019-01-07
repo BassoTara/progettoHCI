@@ -32,6 +32,7 @@ export class EditGroupPage {
 
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
+    setTimeout(() => this.resize(),0);
   }
 
   editGroup(group: Group){

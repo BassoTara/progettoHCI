@@ -40,6 +40,8 @@ export class AddCharacterPage {
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
     this.character.group = this.navParams.get('group').key;
+    setTimeout(() => this.resizeName(),0);
+    setTimeout(() => this.resizeDesc(),0);
     console.log(this.navParams.get('group'));
   }
 
@@ -49,13 +51,22 @@ export class AddCharacterPage {
     });
   }
 
-  @ViewChild('myInput') myInput: ElementRef;
+  @ViewChild('myInputName') myInputName: ElementRef;
+  @ViewChild('myInputDesc') myInputDesc: ElementRef;
 
-  resize() {
-      var element = this.myInput['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
+  resizeName() {
+      var element = this.myInputName['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
       element.style.height = 0 + 'px';
       var scrollHeight = element.scrollHeight;
       element.style.height = scrollHeight + 'px';
-      this.myInput['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
+      this.myInputName['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
   }
+
+  resizeDesc() {
+    var element = this.myInputDesc['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
+    element.style.height = 0 + 'px';
+    var scrollHeight = element.scrollHeight;
+    element.style.height = scrollHeight + 'px';
+    this.myInputDesc['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
+}
 }
