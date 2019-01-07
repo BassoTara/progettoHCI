@@ -22,7 +22,7 @@ export class AddCharacterPage {
     key: '',
     name: '',
     players: undefined,
-    description: undefined,
+    description: '',
   };
 
   character: Character = {
