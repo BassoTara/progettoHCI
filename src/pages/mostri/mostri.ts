@@ -39,7 +39,7 @@ export class MostriPage {
         if (navCtrl.canGoBack()) { // CHECK IF THE USER IS IN THE ROOT PAGE.
           navCtrl.pop(); // IF IT'S NOT THE ROOT, POP A PAGE.
         } else {
-          platform.exitApp(); // IF IT'S THE ROOT, EXIT THE APP. giulio puzza
+          platform.exitApp(); // IF IT'S THE ROOT, EXIT THE APP
         }
       }
     });
