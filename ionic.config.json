@@ -1,0 +1,8 @@
+{
+  "name": "progettoHCI",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "id": "3c51c610"
+}
