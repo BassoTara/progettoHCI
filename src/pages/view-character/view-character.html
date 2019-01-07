@@ -28,15 +28,11 @@
       <h2>Punti Salute: {{character.healthPoints}}</h2>
     </ion-item>
 
-    <ion-item>
-      <ion-label stacked>
-        Descrizione
-      </ion-label>
-      <ion-textarea #myInput id="myInput" rows="1" maxLength="500" (input)="resize()" [(ngModel)]="character.description"></ion-textarea>
+    <ion-item *ngIf="character.description != ''">
+      <h2>Descrizione:</h2>
+      <p text-wrap type="text" > {{character.description}} </p>
     </ion-item>
-    <button ion-button block clear (click)="editCharacter(character)" > Save </button>
-    <button ion-button block clear color="danger" (click)="removeCharacter(character)"> Delete </button>
-  
+ 
   
     {{character | json}}
     {{group | json}}

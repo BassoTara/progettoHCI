@@ -45,7 +45,6 @@ export class ViewCharacterPage {
   }
 
   ionViewDidLoad(){
-    setTimeout(() => this.resize(),0);
     console.log("chiamato ionViewDidLoad");
   }
 
@@ -61,14 +60,6 @@ export class ViewCharacterPage {
       }); 
   }
 
-  @ViewChild('myInput') myInput: ElementRef;
 
-  resize() {
-      var element = this.myInput['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
-      element.style.height = 0 + 'px';
-      var scrollHeight = element.scrollHeight;
-      element.style.height = scrollHeight + 'px';
-      this.myInput['_elementRef'].nativeElement.style.height = (scrollHeight + 24) + 'px';
-  }
 
 }
