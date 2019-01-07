@@ -6,6 +6,7 @@ import { PopOverPage } from '../pop-over/pop-over';
 import { Renderer } from '@angular/core';
 
 
+declare var require: any
 
 
 @IonicPage()
@@ -19,9 +20,15 @@ export class MostriPage {
   isOn: boolean = false;
   searchString : string ="";
 
+  isAtoZ: boolean;
+  isZtoA: boolean;
+  is1to9: boolean;
+  is9to1: boolean;
+
   
 
   constructor(public navCtrl: NavController, private dataFinder: DataFinder, public popoverCtrl: PopoverController, public renderer: Renderer, public platform: Platform) {
+    this.isAtoZ=true;
 
     platform.registerBackButtonAction(() => {
       if (this.searchString != "") {
