@@ -16,12 +16,12 @@
 <ion-content padding>
   <ion-item>
     <ion-label stacked>Nome:</ion-label>
-    <ion-input #myInput id="myInput" rows="1" maxLength="500" [(ngModel)]="group.name" type="text" ></ion-input>
+    <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="group.name" type="text" ></ion-textarea>
   </ion-item>
 
   <ion-item>
     <ion-label stacked>Descrizione:</ion-label>
-    <ion-textarea #myInput id="myInput" rows="1" maxLength="500" (input)="resize()" [(ngModel)]="group.description"></ion-textarea>
+    <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="group.description"></ion-textarea>
   </ion-item>
 
   {{group | json}}
