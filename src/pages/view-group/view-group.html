@@ -8,12 +8,7 @@
 
 
 <ion-content padding>
-  <ion-item>
-    <ion-label>Nome:</ion-label>
-    <ion-label type="text" >{{group.name}}</ion-label>
-  </ion-item>
-
-  <ion-item>
+  <ion-item *ngIf="group.description != ''">
     <h2>Descrizione:</h2>
     <p text-wrap type="text" > {{group.description}} </p>
   </ion-item>
