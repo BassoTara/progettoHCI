@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Incontri
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page1">
+  <ion-list id="incontri-list3">
+    <ion-list-header>
+      Incontri
+    </ion-list-header>
+    <button ion-item *ngFor="let encounter of encountersList$ | async">
+      {{encounter.location}}{{encounter.date}}
+    </button>
+  </ion-list>
+
+   <!-- Real floating action button, fixed. It will not scroll with the content -->
+  <ion-fab right bottom>
+    <button navPush="AddEncounterPage" ion-fab color="light"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+</ion-content>
+
+

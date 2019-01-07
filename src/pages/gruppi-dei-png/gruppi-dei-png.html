@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        Gruppi di Png
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content >
+    <ion-list id="gruppiDeiGiocatori-list5">
+      <button ion-item *ngFor="let group of groupsList$ | async" navPush="ViewGroupPage" [navParams]="{group: group}">
+        {{group.name}}
+      </button>
+    </ion-list>
+      <!-- Real floating action button, fixed. It will not scroll with the content -->
+      <ion-fab right bottom>
+      <button ion-fab color="light" (click)="goToNewGroupPage()" ><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+  </ion-content>

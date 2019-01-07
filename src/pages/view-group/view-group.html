@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{group.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label>Nome:</ion-label>
+    <ion-label type="text" >{{group.name}}</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <h2>Descrizione:</h2>
+    <p text-wrap type="text" > {{group.description}} </p>
+  </ion-item>
+
+  <ion-item>
+      <ion-label>
+        Membri
+      </ion-label>
+      <ion-icon item-right name = "add" navPush="AddCharacterPage" [navParams]="{group: group}" ></ion-icon>
+  </ion-item>
+
+  <ion-list>
+    <button ion-item *ngFor="let character of charactersList$ | async" navPush="EditCharacterPage" [navParams]="
+    {character: character, group: group}">
+      {{character.name}}
+    </button>
+  </ion-list>
+
+
+  {{group | json}}
+
+
+
+</ion-content>

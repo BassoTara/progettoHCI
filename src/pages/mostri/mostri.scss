@@ -1,0 +1,29 @@
+.item ion-thumbnail {
+    min-width: 5rem;    
+    min-height: 5rem;
+    img {
+        width: 5rem;    
+        height: 5rem;
+    }
+}
+
+.myLabel {
+    padding-left: 6.75rem;
+}
+
+.myLabel2 {
+    padding-right: 1rem;
+}
+
+.searchbar-ios-cancel{
+    margin-right: 0px !important;
+    opacity: 1!important;
+    padding-left: 10px !important;
+}
+.searchbar-md .searchbar-md-cancel{
+    display: inline-flex !important;
+    background-color: white !important;
+}
+.searchbar-search-icon{
+    display: none;
+}

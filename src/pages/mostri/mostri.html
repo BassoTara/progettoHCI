@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+<ion-header>
+
+  <ion-navbar >
+
+    <button *ngIf="!isOn" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="!isOn">
+      Mostri
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="!isOn" (click)="openSearchBar()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-only *ngIf="!isOn" (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-searchbar debounce=0 #mainSearchBar *ngIf="isOn" placeholder="Cerca Mostro" (input)="onInput($event)" (search)="onSearch($event)" showCancelButton="true" (ionCancel)="isOn=false; searchString='' " (ionClear)="searchString=''" ></ion-searchbar>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content id="page4">
+
+
+  <ion-item>
+    <ion-label class="myLabel" (click)="monsters=monsters.sort(predicateBy('name') );">Name <i class="fas fa-sort-alpha-down"></i></ion-label>
+    <ion-label class="myLabel2" (click)="monsters=monsters.sort(predicateBy('challenge_rating') );">GS <i class="fas fa-sort-numeric-down"></i></ion-label>  
+  </ion-item>
+  
+  <ion-list id="mostri-list5">
+      
+    <ng-container *ngFor="let monster of monsters">
+      <button ion-item *ngIf="monster.name.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 || !searchString"  
+        navPush = 'ViewMonsterPage' [navParams]="{monster: monster}">
+          <ion-thumbnail item-left>
+            <img src="assets/img/Cpi6p9LQAiactID2WF1e_26178837_10215476951743182_2135416190_o.jpg">
+          </ion-thumbnail>
+          <h3 item-right >{{toFraction(monster.challenge_rating)}}</h3>
+          <h2>{{monster.name}}</h2>
+          <p>{{monster.size}}, {{monster.type}}, {{monster.alignment}} </p>
+      </button>
+    </ng-container>
+  </ion-list>
+
+</ion-content>
