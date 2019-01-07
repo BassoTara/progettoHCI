@@ -20,15 +20,15 @@ export class MostriPage {
   isOn: boolean = false;
   searchString : string ="";
 
-  isAtoZ: boolean;
-  isZtoA: boolean;
-  is1to9: boolean;
-  is9to1: boolean;
+  numOrder: number; // -1 Descending, +1 Ascending, 0 not shown
+  alphaOrder: number;// -1 Z->A, +1 A->Z, 0 not shown
 
   
 
   constructor(public navCtrl: NavController, private dataFinder: DataFinder, public popoverCtrl: PopoverController, public renderer: Renderer, public platform: Platform) {
-    this.isAtoZ=true;
+    this.alphaOrder=1;
+    this.numOrder=0;
+
 
     platform.registerBackButtonAction(() => {
       if (this.searchString != "") {
@@ -120,5 +120,33 @@ export class MostriPage {
     return frac.toString();
   }
  
- 
+  nameClicked(){
+    if(this.alphaOrder!=1){
+      this.monsters=this.monsters.sort(this.predicateBy('name') );
+      this.alphaOrder = 1;
+    }
+
+    else{
+      this.monsters=this.monsters.sort(this.predicateByDesc('name') );
+      this.alphaOrder = -1;
+    }
+
+    this.numOrder = 0;
+
+  }
+
+  gsClicked(){
+    if(this.numOrder!=1){
+      this.monsters=this.monsters.sort(this.predicateBy('challenge_rating') );
+      this.numOrder = 1;
+    }
+
+    else{
+      this.monsters=this.monsters.sort(this.predicateByDesc('challenge_rating') );
+      this.numOrder = -1;
+    }
+
+    this.alphaOrder = 0;
+
+  }
 }

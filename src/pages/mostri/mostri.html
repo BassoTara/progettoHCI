@@ -28,13 +28,13 @@
 
 
   <ion-item>
-    <ion-label class="myLabel" (click)="monsters=monsters.sort(predicateBy('name') );">Name 
-      <i *ngIf="isAtoZ" class="fas fa-sort-alpha-down"></i>
-      <i *ngIf="isZtoA" class="fas fa-sort-alpha-up"></i>
+    <ion-label class="myLabel" (click)="nameClicked()">Name 
+      <i *ngIf="alphaOrder==1" class="fas fa-sort-alpha-down"></i>
+      <i *ngIf="alphaOrder==-1" class="fas fa-sort-alpha-up"></i>
     </ion-label>
-    <ion-label class="myLabel2" (click)="monsters=monsters.sort(predicateBy('challenge_rating') );">GS 
-      <i *ngIf="is1to9" class="fas fa-sort-numeric-down"></i>
-      <i *ngIf="is9to1" class="fas fa-sort-numeric-up"></i>
+    <ion-label class="myLabel2" (click)="gsClicked()">GS 
+      <i *ngIf="numOrder==1" class="fas fa-sort-numeric-down"></i>
+      <i *ngIf="numOrder==-1" class="fas fa-sort-numeric-up"></i>
       <!-- Fabiozappo-->
     </ion-label>  
   </ion-item>
