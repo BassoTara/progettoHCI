@@ -1,9 +1,6 @@
-<!--
-  Generated template for the EditCharacterPage page.
+<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:700" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -13,7 +10,7 @@
 </ion-header>
 
 
-<ion-content padding >
+<!-- <ion-content padding >
     <img src="assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg" style="display:block;width:128px;height:128px;margin-left:auto;margin-right:auto;" />
     
     <ion-item>
@@ -37,5 +34,43 @@
     {{character | json}}
     {{group | json}}
   
-  </ion-content>
-  
+  </ion-content> -->
+
+<ion-content>
+
+  <div class="stat-block">
+
+    <img class="monster-image" src="assets/img/Cpi6p9LQAiactID2WF1e_26178837_10215476951743182_2135416190_o.jpg" />
+
+    <div class="section-left">
+      <div class="creature-heading">
+        <h1>{{character.name}}</h1>
+        <h2>{{group.name}}</h2>
+      </div> <!-- creature heading -->
+      <svg height="5" width="100%" class="tapered-rule">
+        <polyline points="0,0 400,2.5 0,5"></polyline>
+      </svg>
+      <div class="top-stats">
+        <div class="property-line first">
+          <h4>Armor Class</h4>
+          <p>{{character.armorClass}}</p>
+        </div> <!-- property line -->
+        <div class="property-line">
+          <h4>Hit Points</h4>
+          <p>{{character.healthPoints}}</p>
+        </div> <!-- property line -->
+        <div class="property-line last">
+          <h4>Bonus Iniziativa</h4>
+          <p>{{character.initiativeModifier}}</p>
+        </div> <!-- property line -->
+        <svg height="5" width="100%" class="tapered-rule">
+          <polyline points="0,0 400,2.5 0,5"></polyline>
+        </svg>
+        
+      </div> <!-- actions -->
+    </div> <!-- section right -->
+
+  </div> <!-- stat block -->
+
+
+</ion-content>
