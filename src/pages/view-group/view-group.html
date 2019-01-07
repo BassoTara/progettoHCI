@@ -26,7 +26,7 @@
   </ion-item>
 
   <ion-list>
-    <button ion-item *ngFor="let character of charactersList$ | async" navPush="EditCharacterPage" [navParams]="
+    <button ion-item *ngFor="let character of charactersList$ | async" navPush="ViewCharacterPage" [navParams]="
     {character: character, group: group}">
       {{character.name}}
     </button>

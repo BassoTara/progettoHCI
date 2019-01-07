@@ -1,5 +1,5 @@
 <!--
-  Generated template for the ViewCharacterPage page.
+  Generated template for the EditCharacterPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,12 +7,43 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>view-character</ion-title>
+    <ion-title>{{character?.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
-</ion-content>
+<ion-content padding >
+    <img src="assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg" style="display:block;width:128px;height:128px;margin-left:auto;margin-right:auto;" />
+    
+    <ion-item>
+      <h2>Classe Armatura::</h2>
+      <p text-wrap type="number" > {{character.armorClass}} </p>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Bonus di Iniziativa:
+      </ion-label>
+      <ion-input [(ngModel)]="character.initiativeModifier" type="number" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Punti Salute
+      </ion-label>
+      <ion-input  [(ngModel)]="character.healthPoints" type="number" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>
+        Descrizione
+      </ion-label>
+      <ion-textarea #myInput id="myInput" rows="1" maxLength="500" (input)="resize()" [(ngModel)]="character.description"></ion-textarea>
+    </ion-item>
+    <button ion-button block clear (click)="editCharacter(character)" > Save </button>
+    <button ion-button block clear color="danger" (click)="removeCharacter(character)"> Delete </button>
+  
+  
+    {{character | json}}
+    {{group | json}}
+  
+  </ion-content>
+  
