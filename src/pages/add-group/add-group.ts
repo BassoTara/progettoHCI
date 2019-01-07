@@ -16,7 +16,7 @@ export class AddGroupPage {
     // key: '',
     name: '',
     players: undefined,
-    description: undefined,
+    description: '',
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private groups:GroupsListService) {
