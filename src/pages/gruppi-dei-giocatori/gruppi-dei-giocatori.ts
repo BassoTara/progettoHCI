@@ -1,3 +1,5 @@
+// TODO IMPLEMENTARE METODO ESPORTA E CREARE UN'ALTRA PAGINA UGUALE A GRUPPI DEI GIOCATORI
+
 import { Component } from '@angular/core';
 import { NavController, IonicPage, NavParams } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';

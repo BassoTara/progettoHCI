@@ -9,7 +9,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 })
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
-    //rootPage:any = IncontriPage;
     rootPage: string = 'IncontriPage';
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
@@ -32,9 +31,5 @@ export class MyApp {
   }goToMostri(params){
     if (!params) params = {};
     this.navCtrl.setRoot('MostriPage');
-  }
-  goToCharacters(params){
-    if (!params) params = {};
-    this.navCtrl.setRoot('CharactersPage');
   }
 }

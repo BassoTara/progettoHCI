@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-// import { Autosize } from '../autosize';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
@@ -22,10 +20,6 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     MyApp,
-    //IncontriPage,
-    //GruppiDeiGiocatoriPage,
-    //GruppiDeiPNGPage,
-    //MostriPage
   ],
   imports: [
     BrowserModule,
@@ -38,10 +32,6 @@ import { HttpModule } from '@angular/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    //IncontriPage,
-    //GruppiDeiGiocatoriPage,
-    //GruppiDeiPNGPage,
-    //MostriPage
   ],
   providers: [
     StatusBar,
