@@ -27,9 +27,7 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 })
 export class AddCharacterPage {
 
-  base64ImageData: string = "assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg";
-  imgSrcSaved: string = this.file.dataDirectory + "nome.jpg";
-  myBlob: Blob;
+  imgSrc : string = "assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg";
 
   group: Group = {
     key: '',
@@ -61,8 +59,6 @@ export class AddCharacterPage {
 
   addCharacter(character: Character) {
     this.characters.addCharacter(character).then(ref => {
-      //this.writeFile(this.base64ImageData, "MyPicture", "sample.jpeg");//Base64, Data Folder Name, File Name  
-      // this.file.writeFile(this.file.dataDirectory,"nome.jpeg",this.imgSrc);
       this.navCtrl.push('ViewGroupPage', { group: this.group });
     });
   }
@@ -89,18 +85,19 @@ export class AddCharacterPage {
   pickAndCropImage() {
 
     const options: CameraOptions = {
-      quality: 100,
+      quality: 70,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       allowEdit: true,
-      targetWidth: 300,
-      targetHeight: 300,
+      targetWidth: -1,
+      targetHeight: -1,
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      this.character.base64ImageData = 'data:image/jpeg;base64,' + imageData;
+      this.imgSrc = 'data:image/jpeg;base64,' + imageData;
+      this.character.base64ImageData = this.imgSrc;
     });
 
   }

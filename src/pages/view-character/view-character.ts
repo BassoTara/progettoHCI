@@ -29,6 +29,7 @@ export class ViewCharacterPage {
     healthPoints: undefined,
     description: undefined,
     group: 0,
+    base64ImageData: ""
   };
 
 
