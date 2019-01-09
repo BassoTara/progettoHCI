@@ -105,7 +105,7 @@ export class AddCharacterPage {
 
   }
 
-  public writeFile(base64Data: any, folderName: string, fileName: any) {
+  /* public writeFile(base64Data: any, folderName: string, fileName: any) {
     let contentType = this.getContentType(base64Data);
     let DataBlob = this.base64toBlob(base64Data, contentType);
     let filePath = this.file.externalRootDirectory + folderName;
@@ -141,5 +141,5 @@ export class AddCharacterPage {
       type: contentType
     });
     return blob;
-  }
+  } */
 }
