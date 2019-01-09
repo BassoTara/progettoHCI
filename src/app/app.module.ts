@@ -16,7 +16,7 @@ import { DataFinder } from '../services/datafinder';
 import { HttpModule } from '@angular/http';
 
 import { Camera } from '@ionic-native/camera';
-
+import { File } from '@ionic-native/file';
 
 
 @NgModule({
@@ -43,7 +43,8 @@ import { Camera } from '@ionic-native/camera';
     CharactersListService,
     GroupsListService,
     DataFinder,
-    Camera
+    Camera,
+    File
   ]
 })
 export class AppModule {}
