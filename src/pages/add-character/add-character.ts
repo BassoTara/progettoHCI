@@ -22,7 +22,7 @@ import { File } from '@ionic-native/file';
 })
 export class AddCharacterPage {
 
-  imgSrc : string = "assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg";
+  imgSrc : string = "assets/imgs/characters/nome.jpeg";
 
   group: Group = {
     key: '',
