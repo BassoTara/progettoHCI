@@ -54,7 +54,7 @@ export class AddCharacterPage {
 
   addCharacter(character: Character){
     this.characters.addCharacter(character).then(ref => {
-      this.file.writeFile("assets/imgs/characters/","nome.jpeg",this.imgSrc);
+      this.file.writeFile("assets/imgs/characters","nome.jpeg",this.imgSrc);
       this.navCtrl.push('ViewGroupPage',{group : this.group});
     });
   }
