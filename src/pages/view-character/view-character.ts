@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content} from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Character } from '../../models/character/character.model';
@@ -10,6 +10,7 @@ import { Character } from '../../models/character/character.model';
   selector: 'page-view-character',
   templateUrl: 'view-character.html',
 })
+
 export class ViewCharacterPage {
 
   @ViewChild(Content) content: Content;
