@@ -105,13 +105,12 @@ export class AddCharacterPage {
   public writeFile(base64Data: any, folderName: string, fileName: any) {
     let contentType = this.getContentType(base64Data);
     let DataBlob = this.base64toBlob(base64Data, contentType);
-    // here iam mentioned this line this.file.externalRootDirectory is a native pre-defined file path storage. You can change a file path whatever pre-defined method.  
     let filePath = this.file.externalRootDirectory + folderName;
     this.file.writeFile(filePath, fileName, DataBlob, contentType).then((success) => {
       console.log("File Writed Successfully", success);
     }).catch((err) => {
       console.log("Error Occured While Writing File", err);
-    })
+    });
   }
 
   //here is the method is used to get content type of an bas64 data  
