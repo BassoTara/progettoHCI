@@ -8,10 +8,7 @@
 
 
 <ion-content padding>
-  <ion-item *ngIf="group.description != ''">
-    <h2>Descrizione:</h2>
-    <p text-wrap type="text" > {{group.description}} </p>
-  </ion-item>
+
 
   <ion-item>
       <ion-label>
@@ -27,8 +24,13 @@
     </button>
   </ion-list>
 
+  <ion-item *ngIf="group.description != ''">
+    <h2>Descrizione:</h2>
+    <p text-wrap type="text" > {{group.description}} </p>
+  </ion-item>
 
-  {{group | json}}
+
+  <!-- {{group | json}} -->
 
 
 
