@@ -21,6 +21,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class AddCharacterPage {
 
+  imgSrc : string = "assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg";
+
   group: Group = {
     key: '',
     name: '',
@@ -87,7 +89,7 @@ export class AddCharacterPage {
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.imgSrc = 'data:image/jpeg;base64,' + imageData;
      }, (err) => {
       // Handle error
      });
