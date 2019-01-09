@@ -150,7 +150,16 @@ export class AddCharacterPage {
     }
     let blob = new Blob(byteArrays, {
       type: contentType
+    }); 
+
+    let toast = this.toastCtrl.create({
+      message: 'Blob Returned Succesfully',
+      duration: 3000,
+      position: 'top'
     });
+
+    toast.present();
+
     return blob;
   }
 }
