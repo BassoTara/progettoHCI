@@ -10,6 +10,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 
+import { ToastController } from 'ionic-angular';
+
 
 /**
  * Generated class for the AddCharacterPage page.
@@ -46,7 +48,7 @@ export class AddCharacterPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
-    private camera: Camera, private file: File, private base64toGallery: Base64ToGallery) { }
+    private camera: Camera, private file: File, private base64toGallery: Base64ToGallery, private toastCtrl: ToastController) { }
 
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
@@ -100,6 +102,14 @@ export class AddCharacterPage {
       this.base64ImageData = 'data:image/jpeg;base64,' + imageData;
     });
 
+    let toast = this.toastCtrl.create({
+      message: 'Crop Acquired Correctly',
+      duration: 3000,
+      position: 'top'
+    });
+  
+    toast.present();
+
   }
 
   public writeFile(base64Data: any, folderName: string, fileName: any) {
@@ -107,9 +117,13 @@ export class AddCharacterPage {
     let DataBlob = this.base64toBlob(base64Data, contentType);
     let filePath = this.file.externalRootDirectory + folderName;
     this.file.writeFile(filePath, fileName, DataBlob, contentType).then((success) => {
-      console.log("File Writed Successfully", success);
-    }).catch((err) => {
-      console.log("Error Occured While Writing File", err);
+      let toast = this.toastCtrl.create({
+        message: 'File Writed Succesfully',
+        duration: 3000,
+        position: 'top'
+      });
+    
+      toast.present();
     });
   }
 
