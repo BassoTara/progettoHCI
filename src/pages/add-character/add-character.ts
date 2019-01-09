@@ -6,6 +6,7 @@ import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Group } from '../../models/group/group.model';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
 
 /**
  * Generated class for the AddCharacterPage page.
@@ -40,7 +41,7 @@ export class AddCharacterPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-     private characters: CharactersListService, private camera: Camera) { }
+     private characters: CharactersListService, private camera: Camera, private file: File) { }
 
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
@@ -52,6 +53,7 @@ export class AddCharacterPage {
 
   addCharacter(character: Character){
     this.characters.addCharacter(character).then(ref => {
+      this.file.writeFile("assets/imgs/characters/","nome.jpeg",this.imgSrc);
       this.navCtrl.push('ViewGroupPage',{group : this.group});
     });
   }
