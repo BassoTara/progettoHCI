@@ -26,7 +26,7 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 export class AddCharacterPage {
 
   base64ImageData: string = "assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg";
-  imgSrcSaved: string = this.file.dataDirectory + "/nome.jpg";
+  imgSrcSaved: string = this.file.dataDirectory + "nome.jpg";
   myBlob: Blob;
 
   group: Group = {
