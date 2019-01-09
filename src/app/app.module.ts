@@ -15,6 +15,8 @@ import { GroupsListService } from '../services/groups-list/groups-list.service';
 import { DataFinder } from '../services/datafinder';
 import { HttpModule } from '@angular/http';
 
+import { Camera } from '@ionic-native/camera';
+
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { HttpModule } from '@angular/http';
     EncountersListService,
     CharactersListService,
     GroupsListService,
-    DataFinder
+    DataFinder,
+    Camera
   ]
 })
 export class AppModule {}

@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Group } from '../../models/group/group.model';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 /**
  * Generated class for the AddCharacterPage page.
@@ -37,7 +38,7 @@ export class AddCharacterPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-     private characters: CharactersListService) { }
+     private characters: CharactersListService, private camera: Camera) { }
 
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
@@ -71,4 +72,16 @@ export class AddCharacterPage {
     element.style.height = scrollHeight + 'px';
     this.myInputDesc['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
 }
+
+  pickAndCropImage(){
+    const options : CameraOptions =  {
+      quality: 70,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      saveToPhotoAlbum: false,
+      allowEdit: true,
+      targetWidth: 300,
+      targetHeight: 300,      
+    }
+  }
 }

@@ -1,6 +1,4 @@
-<!-- TODO RIPRENDERE LA VIEW DI VIEW CHARACTER -->
 <!-- CARICARE IMMAGINE DA GALLERIA -->
-<!-- AGGIUNGERE FRECCIA IN AVANTI NELL'HEADER -->
 <!-- TITOLO CENTRATO -->
 
 <ion-header>
@@ -8,15 +6,21 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
+    <ion-title center>
       Nuovo Personaggio
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only >
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <img src="assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg" style="display:block;width:128px;height:128px;margin-left:auto;margin-right:auto;" />
+  <img src="assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg" style="display:block;width:128px;height:128px;margin-left:auto;margin-right:auto;" (click)="pickAndCropImage()" />
 
   <ion-item>
     <ion-label stacked>
@@ -49,7 +53,7 @@
     </ion-label>
     <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="character.description"></ion-textarea>
   </ion-item>
-  <button ion-button block clear (click)="addCharacter(character)"> Add </button>
+  <button ion-button block clear (click)="addCharacter(character)"> Conferma </button>
 
   {{character | json}}
 
