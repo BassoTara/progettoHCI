@@ -17,6 +17,7 @@ import { HttpModule } from '@angular/http';
 
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { File } from '@ionic-native/file';
     GroupsListService,
     DataFinder,
     Camera,
-    File
+    File,
+    Base64ToGallery
   ]
 })
 export class AppModule {}

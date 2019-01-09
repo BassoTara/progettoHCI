@@ -20,8 +20,7 @@
 
 
 <ion-content padding>
-  <img [src]="imgSrc" style="display:block;width:128px;height:128px;margin-left:auto;margin-right:auto;" (click)="pickAndCropImage();" />
-  {{imgSrc}}
+  <img [src]="base64ImageData" style="display:block;width:128px;height:128px;margin-left:auto;margin-right:auto;" (click)="pickAndCropImage();" />
   <img [src]="imgSrcSaved" style="display:block;width:128px;height:128px;margin-left:auto;margin-right:auto;" (click)="pickAndCropImage();" />
   <ion-item>
     <ion-label stacked>
