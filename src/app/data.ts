@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { AngularFireStorage, AngularFireUploadTask } from "angularfire2/storage";
 import { url } from "inspector";
+import { threadId } from "worker_threads";
 
 @Injectable()
 export class DataProvider {
@@ -51,6 +52,6 @@ export class DataProvider {
   }
 
   getCharacterImgDownloadUrl(key) {
-    this.afStorage.ref(`images/characters/${key}`).getDownloadURL();
+    return this.afStorage.storage.ref().child(`images/characters/${key}`).getDownloadURL();
   }
 }
