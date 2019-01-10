@@ -62,12 +62,12 @@ export class AddCharacterPage {
 
   addCharacter(character: Character) {
     this.characters.addCharacter(character).then(ref => {
-      this.uploadImage(this.imgSrc);
+      this.uploadImage();
       this.navCtrl.push('ViewGroupPage', { group: this.group });
     });
   }
 
-  uploadImage(imageURI) {
+  uploadImage() {
     return new Promise<any>((resolve, reject) => {
       let storageRef = storage().ref();
       let imageRef = storageRef.child('image').child('imageName');
