@@ -29,9 +29,7 @@ export class ViewCharacterPage {
     healthPoints: undefined,
     description: undefined,
     group: 0,
-    // base64ImageData: ""
   };
-
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService) {
   }
@@ -57,7 +55,5 @@ export class ViewCharacterPage {
       this.navCtrl.push('ViewGroupPage', { group: this.group });
     });
   }
-
-
 
 }

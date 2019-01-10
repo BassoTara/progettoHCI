@@ -7,13 +7,8 @@ import { CharactersListService } from '../../services/characters-list/characters
 import { Group } from '../../models/group/group.model';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { storage } from 'firebase/app';
 import { DataProvider } from '../../app/data';
 import { Observable } from 'rxjs';
-
-
-
-
 
 
 @IonicPage()
@@ -25,6 +20,10 @@ export class AddCharacterPage {
 
   imgSrc: string = "assets/imgs/no-image.png";
 
+  files:Observable<any[]>;
+
+  @ViewChild('myInputName') myInputName: ElementRef;
+  @ViewChild('myInputDesc') myInputDesc: ElementRef;
 
   group: Group = {
     key: '',
@@ -41,8 +40,6 @@ export class AddCharacterPage {
     description: undefined,
     group: 0
   };
-
-  files:Observable<any[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
     private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) { 
@@ -63,8 +60,7 @@ export class AddCharacterPage {
       });
     });
   }
-
-
+  
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
     this.character.group = this.navParams.get('group').key;
@@ -79,10 +75,6 @@ export class AddCharacterPage {
       this.navCtrl.push('ViewGroupPage', { group: this.group });
     });
   }
-
-
-  @ViewChild('myInputName') myInputName: ElementRef;
-  @ViewChild('myInputDesc') myInputDesc: ElementRef;
 
   resizeName() {
     var element = this.myInputName['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
