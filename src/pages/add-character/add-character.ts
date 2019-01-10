@@ -47,7 +47,7 @@ export class AddCharacterPage {
       this.files = this.dataProvider.getFiles();
     }
 
-  uploadInformation(base64String, name) {
+  uploadInformation(base64String:string , name: string) {
     let upload = this.dataProvider.uploadImageCharacterToStorage(base64String, name);
 
     upload.then().then(res => {

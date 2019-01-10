@@ -15,8 +15,6 @@ import { DataProvider } from '../../app/data';
 
 export class ViewCharacterPage {
 
-  @ViewChild(Content) content: Content;
-
   group: Group = {
     key: '',
     name: '',

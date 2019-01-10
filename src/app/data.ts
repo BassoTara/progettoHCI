@@ -24,7 +24,7 @@ export class DataProvider {
     return this.afStorage.ref(`images/characters/${newName}`).putString(information, 'data_url');
   }
 
-  uploadToStorage(information): AngularFireUploadTask {
+  uploadToStorage(information: string): AngularFireUploadTask {
     let newName = `${new Date().getTime()}.txt`;
 
     return this.afStorage.ref(`files/${newName}`).putString(information);
@@ -49,7 +49,7 @@ export class DataProvider {
     return this.afStorage.ref(storagePath).delete();
   }
 
-  getCharacterImgDownloadUrl(key) {
+  getCharacterImgDownloadUrl(key: string) {
     return this.afStorage.storage.ref().child(`images/characters/${key}`).getDownloadURL();
   }
 }
