@@ -6,5 +6,5 @@ export interface Character {
     healthPoints: number;
     description: string;
     group: number;
-    base64ImageData: string;
+    // base64ImageData: string;
 }

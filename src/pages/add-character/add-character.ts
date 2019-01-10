@@ -9,6 +9,9 @@ import { Group } from '../../models/group/group.model';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
+import { storage } from 'firebase/app';
+
+
 
 
 
@@ -42,12 +45,11 @@ export class AddCharacterPage {
     initiativeModifier: undefined,
     healthPoints: undefined,
     description: undefined,
-    group: 0,
-    base64ImageData: ""
+    group: 0
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
-    private camera: Camera, private file: File, private base64toGallery: Base64ToGallery) { }
+    private camera: Camera, private file: File, private base64toGallery: Base64ToGallery,) { }
 
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
@@ -59,6 +61,7 @@ export class AddCharacterPage {
 
   addCharacter(character: Character) {
     this.characters.addCharacter(character).then(ref => {
+      storage().ref("pictures/myPhoto").putString(this.imgSrc, "data_url"); 
       this.navCtrl.push('ViewGroupPage', { group: this.group });
     });
   }
@@ -97,7 +100,7 @@ export class AddCharacterPage {
 
     this.camera.getPicture(options).then((imageData) => {
       this.imgSrc = 'data:image/jpeg;base64,' + imageData;
-      this.character.base64ImageData = this.imgSrc;
+      // this.character.base64ImageData = this.imgSrc;
     });
 
   }
