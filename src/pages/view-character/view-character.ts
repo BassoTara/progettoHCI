@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, Content} from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Character } from '../../models/character/character.model';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { DataProvider } from '../../app/data';
 
 
 @IonicPage()
@@ -31,7 +33,13 @@ export class ViewCharacterPage {
     group: 0,
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService) {
+  imgSrc : string = "";
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, private dataProvider : DataProvider) {
+  }
+
+  loadImageFromStorage() {
+   this.dataProvider.getCharacterImgDownloadUrl(this.character.key);
   }
 
   ionViewWillLoad() {
@@ -42,6 +50,7 @@ export class ViewCharacterPage {
 
   ionViewDidLoad() {
     console.log("chiamato ionViewDidLoad");
+    this.loadImageFromStorage();
   }
 
   editCharacter(character: Character) {

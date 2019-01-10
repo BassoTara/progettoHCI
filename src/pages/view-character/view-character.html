@@ -14,7 +14,7 @@
 
   <div class="stat-block">
 
-    <img class="monster-image" /> <!-- src={{character.base64ImageData}}  -->
+    <img *ngIf="imgSrc!=''" id="characterImg" class="character-image" src="imgSrc"/>
 
     <div class="section-left">
       <div class="creature-heading">
