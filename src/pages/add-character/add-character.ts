@@ -7,11 +7,7 @@ import { CharactersListService } from '../../services/characters-list/characters
 import { Group } from '../../models/group/group.model';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { File } from '@ionic-native/file';
-import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 import { storage } from 'firebase/app';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { DataProvider } from '../../app/data';
 import { Observable } from 'rxjs';
 
@@ -19,13 +15,6 @@ import { Observable } from 'rxjs';
 
 
 
-
-/**
- * Generated class for the AddCharacterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -56,38 +45,12 @@ export class AddCharacterPage {
   files:Observable<any[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
-    private camera: Camera, private file: File, private base64toGallery: Base64ToGallery, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) { 
+    private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) { 
       this.files = this.dataProvider.getFiles();
     }
 
-  addFile() {
-    let inputAlert = this.alertCtrl.create({
-      title: 'Store new information',
-      inputs: [
-        {
-          name: 'info',
-          placeholder: 'Lorem ipsum dolor...'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        },
-        {
-          text: 'Store',
-          handler: data => {
-            this.uploadInformation(data.info);
-          }
-        }
-      ]
-    });
-    inputAlert.present();
-
-  }
-
-  uploadInformation(text) {
-    let upload = this.dataProvider.uploadToStorage(text);
+  uploadInformation(base64String, name) {
+    let upload = this.dataProvider.uploadImageCharacterToStorage(base64String, name);
 
     upload.then().then(res => {
       console.log('res: ', res);
@@ -101,19 +64,6 @@ export class AddCharacterPage {
     });
   }
 
-  deleteFile(file) {
-    this.dataProvider.deleteFile(file).subscribe(() => {
-      let toast = this.toastCtrl.create({
-        message: 'File removed!',
-        duration: 3000
-      });
-      toast.present();
-    });
-  }
-
-  viewFile() {
-
-  }
 
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
@@ -125,28 +75,11 @@ export class AddCharacterPage {
 
   addCharacter(character: Character) {
     this.characters.addCharacter(character).then(ref => {
-      //var storageRef = storage().ref();
-      //console.log(storageRef);
-      //var imageRef = storageRef.child('image').child('imageName');
-      //console.log(imageRef);
+      this.uploadInformation(this.imgSrc,ref.key);
       this.navCtrl.push('ViewGroupPage', { group: this.group });
     });
   }
 
-  uploadImage() {
-    return new Promise<any>((resolve, reject) => {
-      let storageRef = storage().ref();
-      let imageRef = storageRef.child('image').child('imageName');
-      imageRef.putString(this.imgSrc, 'data_url')
-        .then(snapshot => {
-          console.log('bono');
-          //resolve(snapshot.downloadURL)
-        }, err => {
-          console.log('errore');
-          //reject(err);
-        })
-    })
-  }
 
   @ViewChild('myInputName') myInputName: ElementRef;
   @ViewChild('myInputDesc') myInputDesc: ElementRef;
@@ -181,48 +114,9 @@ export class AddCharacterPage {
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      // this.imgSrc = 'data:image/jpeg;base64,' + imageData;
-      this.imgSrc = imageData;
-      // this.character.base64ImageData = this.imgSrc;
+      this.imgSrc = 'data:image/jpeg;base64,' + imageData;
     });
 
   }
 
-  /* public writeFile(base64Data: any, folderName: string, fileName: any) {
-    let contentType = this.getContentType(base64Data);
-    let DataBlob = this.base64toBlob(base64Data, contentType);
-    let filePath = this.file.externalRootDirectory + folderName;
-    this.file.writeFile(filePath, fileName, DataBlob, contentType).then((success) => {
-      console.log("File Writed Successfully", success);
-    }).catch((err) => {
-      console.log("Error Occured While Writing File", err);
-    });
-  }
-
-  //here is the method is used to get content type of an bas64 data  
-  public getContentType(base64Data: any) {
-    let block = base64Data.split(";");
-    let contentType = block[0].split(":")[1];
-    return contentType;
-  }
-
-  public base64toBlob(b64Data, contentType) {
-    contentType = contentType || '';
-    let sliceSize = 512;
-    let byteCharacters = atob(b64Data);
-    let byteArrays = [];
-    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      let slice = byteCharacters.slice(offset, offset + sliceSize);
-      let byteNumbers = new Array(slice.length);
-      for (let i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
-      var byteArray = new Uint8Array(byteNumbers);
-      byteArrays.push(byteArray);
-    }
-    let blob = new Blob(byteArrays, {
-      type: contentType
-    });
-    return blob;
-  } */
 }

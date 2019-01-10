@@ -18,10 +18,16 @@ export class DataProvider {
           });
       }
   
-      uploadToStorage(information): AngularFireUploadTask {
-        let newName = 'myImage';
+      uploadImageCharacterToStorage(information, name): AngularFireUploadTask {
+        let newName = name;
   
-        return this.afStorage.ref('files/myImage').putString(information, 'data_url');
+        return this.afStorage.ref(`images/characters/${newName}`).putString(information, 'data_url');
+      }
+
+      uploadToStorage(information): AngularFireUploadTask {
+        let newName = `${new Date().getTime()}.txt`;
+     
+        return this.afStorage.ref(`files/${newName}`).putString(information);
       }
   
       storeInfoToDatabase(metainfo) {

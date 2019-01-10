@@ -8,7 +8,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
 import { FIREBASE_CONFIG } from './firebase.credentials';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 
 
@@ -19,8 +18,6 @@ import { DataFinder } from '../services/datafinder';
 import { HttpModule } from '@angular/http';
 
 import { Camera } from '@ionic-native/camera';
-import { File } from '@ionic-native/file';
-import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 import { DataProvider } from './data';
 
 @NgModule({
@@ -33,7 +30,6 @@ import { DataProvider } from './data';
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
     HttpModule,
-    AngularFirestoreModule,
     AngularFireStorageModule
   ],
   bootstrap: [IonicApp],
@@ -49,8 +45,6 @@ import { DataProvider } from './data';
     GroupsListService,
     DataFinder,
     Camera,
-    File,
-    Base64ToGallery,
     DataProvider
   ]
 })
