@@ -10,6 +10,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 import { storage } from 'firebase/app';
+import { FirebaseApp } from 'angularfire2';
 
 
 
@@ -30,7 +31,7 @@ import { storage } from 'firebase/app';
 })
 export class AddCharacterPage {
 
-  imgSrc : string = "assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg";
+  imgSrc: string = "assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg";
 
   group: Group = {
     key: '',
@@ -49,7 +50,7 @@ export class AddCharacterPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
-    private camera: Camera, private file: File, private base64toGallery: Base64ToGallery,) { }
+    private camera: Camera, private file: File, private base64toGallery: Base64ToGallery, ) { }
 
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
@@ -61,9 +62,22 @@ export class AddCharacterPage {
 
   addCharacter(character: Character) {
     this.characters.addCharacter(character).then(ref => {
-      storage().ref("pictures/myPhoto").putString(this.imgSrc, "data_url"); 
+      this.uploadImage(this.imgSrc);
       this.navCtrl.push('ViewGroupPage', { group: this.group });
     });
+  }
+
+  uploadImage(imageURI) {
+    return new Promise<any>((resolve, reject) => {
+      let storageRef = storage().ref();
+      let imageRef = storageRef.child('image').child('imageName');
+      imageRef.putString(this.imgSrc, 'data_url')
+        .then(snapshot => {
+          resolve(snapshot.downloadURL)
+        }, err => {
+          reject(err);
+        })
+    })
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;
@@ -99,7 +113,8 @@ export class AddCharacterPage {
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      this.imgSrc = 'data:image/jpeg;base64,' + imageData;
+      // this.imgSrc = 'data:image/jpeg;base64,' + imageData;
+      this.imgSrc = imageData;
       // this.character.base64ImageData = this.imgSrc;
     });
 
