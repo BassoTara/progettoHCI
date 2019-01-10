@@ -15,6 +15,8 @@ import { DataProvider } from '../../app/data';
 
 export class ViewCharacterPage {
 
+  @ViewChild(Content) content: Content;
+
   group: Group = {
     key: '',
     name: '',
@@ -37,9 +39,11 @@ export class ViewCharacterPage {
   }
 
   loadImageFromStorage() {
-    this.dataProvider.getCharacterImgDownloadUrl(this.character.key).then((url) => {
-      this.imgSrc = url;
-    });
+    this.dataProvider.getCharacterImgDownloadUrl(this.character.key).then(
+      (url) => {
+        this.imgSrc = url;
+      },
+      () => { });
   }
 
   ionViewWillLoad() {

@@ -30,7 +30,7 @@ import { DataProvider } from './data';
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
     HttpModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

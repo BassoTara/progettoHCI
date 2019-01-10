@@ -15,6 +15,11 @@ page-view-character {
       .toolbar-background {
         background-color: #FDF1DC;
       }
+
+      .character-total {
+        background: #FDF1DC;
+      }
+
       .stat-block {
         text-align: left;
         margin: 20px;
@@ -25,8 +30,6 @@ page-view-character {
         min-width:280px;
         background: #FDF1DC;
         padding: 5px 10px 20px;
-        box-shadow: 0 0 1.5em #867453;
-        overflow: scroll;
       }
       .stat-block.wide{
         width: 46.5%;

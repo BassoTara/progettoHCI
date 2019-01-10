@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 
 
-
-
 @IonicPage()
 @Component({
   selector: 'page-view-monster',
