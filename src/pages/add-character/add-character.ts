@@ -23,7 +23,8 @@ import { Observable } from 'rxjs';
 })
 export class AddCharacterPage {
 
-  imgSrc: string = "assets/imgs/no-image.png";
+  defaultImgSrc: string = "assets/imgs/no-image.png";
+  imgSrc: string = this.defaultImgSrc;
 
 
   group: Group = {
@@ -75,7 +76,8 @@ export class AddCharacterPage {
 
   addCharacter(character: Character) {
     this.characters.addCharacter(character).then(ref => {
-      this.uploadInformation(this.imgSrc,ref.key);
+      if(this.defaultImgSrc!=this.imgSrc)
+        this.uploadInformation(this.imgSrc,ref.key);
       this.navCtrl.push('ViewGroupPage', { group: this.group });
     });
   }
