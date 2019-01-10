@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { AngularFireStorage, AngularFireUploadTask } from "angularfire2/storage";
-import { url } from "inspector";
-import { threadId } from "worker_threads";
 
 @Injectable()
 export class DataProvider {
