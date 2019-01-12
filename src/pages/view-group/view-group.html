@@ -17,11 +17,29 @@
       <ion-icon item-right name = "add" navPush="AddCharacterPage" [navParams]="{group: group}" ></ion-icon>
   </ion-item>
 
-  <ion-list>
-    <button ion-item *ngFor="let character of charactersList$ | async" navPush="ViewCharacterPage" [navParams]="
-    {character: character, group: group}">
+  <ion-list no-lines>
+
+    <ion-item-sliding padding-left *ngFor="let character of charactersList$ | async" navPush="ViewCharacterPage" [navParams]="
+    {character: character, group: group}" (press)="presentPopover($event)"><button ion-item>
       {{character.name}}
     </button>
+  
+    <ion-item-options>
+      <button ion-button class="slidingButton" color="secondary">
+        <ion-icon name="open"></ion-icon>
+        Edit
+      </button>
+      <button ion-button class="slidingButton" color="dark">
+        <ion-icon name="share-alt"></ion-icon>
+        Export
+      </button>
+      <button ion-button class="slidingButton" color="danger">
+        <ion-icon name="trash"></ion-icon>
+        Remove
+      </button>
+</ion-item-options>
+  
+  </ion-item-sliding>
   </ion-list>
 
   <ion-item *ngIf="group.description != ''">

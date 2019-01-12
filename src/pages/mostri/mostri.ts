@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, IonicPage, Searchbar, Keyboard, Platform } from 'ionic-angular';
 import { DataFinder } from '../../services/datafinder';
-import { PopoverController } from 'ionic-angular';
-import { PopOverPage } from '../pop-over/pop-over';
 import { Renderer } from '@angular/core';
 
 
@@ -25,7 +23,7 @@ export class MostriPage {
 
   
 
-  constructor(public navCtrl: NavController, private dataFinder: DataFinder, public popoverCtrl: PopoverController, public renderer: Renderer, public platform: Platform) {
+  constructor(public navCtrl: NavController, private dataFinder: DataFinder, public renderer: Renderer, public platform: Platform) {
     this.alphaOrder=1;
     this.numOrder=0;
 
@@ -80,13 +78,6 @@ export class MostriPage {
 
   onSearch(event) {
     this.renderer.invokeElementMethod(event.target, 'blur');
-  }
-
-  presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create("PopOverPage");
-    popover.present({
-      ev: myEvent
-    });
   }
 
   predicateBy(prop){

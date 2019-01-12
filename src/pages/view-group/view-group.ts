@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController} from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
-import { GroupsListService } from '../../services/groups-list/groups-list.service';
 import { Observable } from 'rxjs';
-import { group } from '@angular/core/src/animation/dsl';
+import { PopoverViewGroupPage } from '../popover-view-group/popover-view-group';
 
 /**
  * Generated class for the ViewGroupPage page.
@@ -30,7 +29,7 @@ export class ViewGroupPage {
 
   charactersList$: Observable<Character[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, private popoverCtrl: PopoverController) {
     this.charactersList$=characters.getCharactersListByGroupKey(this.navParams.get('group').key).snapshotChanges().map(
       changes => {
         return changes.map(c =>({
@@ -38,6 +37,13 @@ export class ViewGroupPage {
         }));
       }
     );
+  }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverViewGroupPage);
+    popover.present({
+      ev: myEvent
+    });
   }
 
   ionViewDidLoad() {
