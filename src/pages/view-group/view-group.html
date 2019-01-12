@@ -17,6 +17,8 @@
       <ion-icon item-right name = "add" navPush="AddCharacterPage" [navParams]="{group: group}" ></ion-icon>
   </ion-item>
 
+  <button ion-button (click)="presentPopover($event)"></button>
+
   <ion-list no-lines>
 
     <ion-item-sliding padding-left *ngFor="let character of charactersList$ | async" navPush="ViewCharacterPage" [navParams]="

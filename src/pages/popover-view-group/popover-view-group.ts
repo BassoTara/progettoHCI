@@ -15,7 +15,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class PopoverViewGroupPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {

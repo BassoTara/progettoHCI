@@ -29,7 +29,7 @@ export class ViewGroupPage {
 
   charactersList$: Observable<Character[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, private popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController) {
     this.charactersList$=characters.getCharactersListByGroupKey(this.navParams.get('group').key).snapshotChanges().map(
       changes => {
         return changes.map(c =>({
