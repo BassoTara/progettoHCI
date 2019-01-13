@@ -28,10 +28,8 @@ export class GruppiDeiPNGPage {
     );
   }
 
-
-
   goToNewGroupPage(){
-    this.navCtrl.setRoot('AddGroupPage', {players: this.players});
+    this.navCtrl.push('AddGroupPage', {players: this.players});
   }
   
 }
