@@ -56,17 +56,5 @@ export class ViewCharacterPage {
     console.log("chiamato ionViewDidLoad");
     this.loadImageFromStorage();
   }
-
-  editCharacter(character: Character) {
-    this.characters.editCharacter(character).then(() => {
-      this.navCtrl.push('ViewGroupPage', { group: this.group });
-    });
-  }
-
-  removeCharacter(character: Character) {
-    this.characters.removeCharacter(character).then(() => {
-      this.navCtrl.push('ViewGroupPage', { group: this.group });
-    });
-  }
-
+  
 }

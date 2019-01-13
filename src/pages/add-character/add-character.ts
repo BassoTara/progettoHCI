@@ -71,7 +71,8 @@ export class AddCharacterPage {
     this.characters.addCharacter(character).then(ref => {
       if (this.defaultImgSrc != this.imgSrc)
         this.uploadInformation(this.imgSrc, ref.key);
-      this.navCtrl.push('ViewGroupPage', { group: this.group });
+      //this.navCtrl.push('ViewGroupPage', { group: this.group });
+      this.navCtrl.pop();
     });
   }
 

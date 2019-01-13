@@ -63,7 +63,8 @@ export class EditCharacterPage {
     this.characters.editCharacter(character).then(() => {
       if (this.defaultImgSrc != this.imgSrc)
         this.uploadInformation(this.imgSrc, character.key);
-      this.navCtrl.push('ViewGroupPage', { group: this.group });
+      //this.navCtrl.push('ViewGroupPage', { group: this.group });
+      this.navCtrl.pop();
     });
   }
 
