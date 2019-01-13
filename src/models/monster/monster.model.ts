@@ -4,5 +4,4 @@ export interface Monster {
     size: string;
     type: string;
     alignment: string;
-    //TODO add info for MonsterViewPage
 }

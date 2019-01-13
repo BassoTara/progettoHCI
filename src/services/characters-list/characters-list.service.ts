@@ -7,7 +7,6 @@ import { DataProvider } from "../../app/data";
 export class CharactersListService {
 
     // Create a list initialized with the content of table encounters
-    // TODO cosa è encounters-lisT? dOVE LO prende?
     private charactersListRef = this.db.list<Character>('characters-list');
     
     constructor(private db: AngularFireDatabase, private dataProvider: DataProvider){ }

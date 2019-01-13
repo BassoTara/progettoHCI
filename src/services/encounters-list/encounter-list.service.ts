@@ -6,7 +6,6 @@ import { Encounter } from "../../models/encounter/encounter.model";
 export class EncountersListService {
 
     // Create a list initialized with the content of table encounters
-    // TODO cosa è encounters-lisT? dOVE LO prende?
     private encountersListRef = this.db.list<Encounter>('encounters-list');
     
     constructor(private db: AngularFireDatabase){ }
