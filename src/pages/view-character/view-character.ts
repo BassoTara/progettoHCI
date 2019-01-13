@@ -30,7 +30,7 @@ export class ViewCharacterPage {
     initiativeModifier: undefined,
     healthPoints: undefined,
     description: undefined,
-    group: 0,
+    group: "0",
   };
 
   imgSrc: string = "";

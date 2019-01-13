@@ -30,10 +30,13 @@
         <ion-icon name="open"></ion-icon>
         Edit
       </button>
-      <button ion-button class="slidingButton" color="dark">
+      <button ion-button *ngIf="group.players" class="slidingButton" color="dark" navPush="SelectPlayerGroupPage" [navParams]="{character: character}">
         <ion-icon name="share-alt"></ion-icon>
         Export
-        <!-- TODO: Export function -->
+      </button>
+      <button ion-button *ngIf="!group.players" class="slidingButton" color="dark" navPush="SelectNPCGroupPage" [navParams]="{character: character}">
+        <ion-icon name="share-alt"></ion-icon>
+        Export
       </button>
       <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character)">
         <!-- TODO: Check if img is deleted from firebase storage -->

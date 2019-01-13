@@ -31,7 +31,7 @@ export class EditCharacterPage {
     initiativeModifier: undefined,
     healthPoints: undefined,
     description: undefined,
-    group: 0,
+    group: "0",
   };
 
 

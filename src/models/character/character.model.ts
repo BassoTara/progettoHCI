@@ -5,5 +5,5 @@ export interface Character {
     initiativeModifier: number;
     healthPoints: number;
     description: string;
-    group: number;
+    group: string;
 }

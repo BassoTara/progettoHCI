@@ -37,7 +37,7 @@ export class AddCharacterPage {
     initiativeModifier: undefined,
     healthPoints: undefined,
     description: undefined,
-    group: 0
+    group: "0"
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
