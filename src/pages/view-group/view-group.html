@@ -33,8 +33,10 @@
       <button ion-button class="slidingButton" color="dark">
         <ion-icon name="share-alt"></ion-icon>
         Export
+        <!-- TODO: Export function -->
       </button>
-      <button ion-button class="slidingButton" color="danger">
+      <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character)">
+        <!-- TODO: Check if img is deleted from firebase storage -->
         <ion-icon name="trash"></ion-icon>
         Remove
       </button>

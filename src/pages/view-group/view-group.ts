@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
@@ -30,10 +30,10 @@ export class ViewGroupPage {
   charactersList$: Observable<Character[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController) {
-    this.charactersList$=characters.getCharactersListByGroupKey(this.navParams.get('group').key).snapshotChanges().map(
+    this.charactersList$ = characters.getCharactersListByGroupKey(this.navParams.get('group').key).snapshotChanges().map(
       changes => {
-        return changes.map(c =>({
-          key: c.payload.key,...c.payload.val(),
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val(),
         }));
       }
     );
@@ -48,6 +48,10 @@ export class ViewGroupPage {
 
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
+  }
+
+  removeCharacter(character: Character) {
+    this.characters.removeCharacter(character);
   }
 
 }

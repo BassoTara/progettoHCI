@@ -52,4 +52,8 @@ export class DataProvider {
   getCharacterImgDownloadUrl(key: string) {
     return this.afStorage.storage.ref().child(`images/characters/${key}`).getDownloadURL();
   }
+
+  deleteCharacterImg(key: string) {
+    return this.afStorage.ref(`images/characters/${key}`).delete();
+  }
 }

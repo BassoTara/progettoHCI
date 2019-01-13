@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { Character } from "../../models/character/character.model";
+import { DataProvider } from "../../app/data";
 
 @Injectable()
 export class CharactersListService {
@@ -9,7 +10,7 @@ export class CharactersListService {
     // TODO cosa è encounters-lisT? dOVE LO prende?
     private charactersListRef = this.db.list<Character>('characters-list');
     
-    constructor(private db: AngularFireDatabase){ }
+    constructor(private db: AngularFireDatabase, private dataProvider: DataProvider){ }
 
     getCharactersList(){
         return this.charactersListRef;
@@ -28,6 +29,7 @@ export class CharactersListService {
     }
 
     removeCharacter(character: Character){
+        this.dataProvider.deleteCharacterImg(character.key);
         return this.charactersListRef.remove(character.key);
     }
 }

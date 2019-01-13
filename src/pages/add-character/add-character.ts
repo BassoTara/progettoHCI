@@ -21,7 +21,7 @@ export class AddCharacterPage {
   defaultImgSrc: string = "assets/imgs/no-image.png";
   imgSrc: string = this.defaultImgSrc;
 
-  files:Observable<any[]>;
+  files: Observable<any[]>;
 
   @ViewChild('myInputName') myInputName: ElementRef;
   @ViewChild('myInputDesc') myInputDesc: ElementRef;
@@ -43,25 +43,22 @@ export class AddCharacterPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
-    private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) { 
-      this.files = this.dataProvider.getFiles();
-    }
+    private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
+  }
 
-  uploadInformation(base64String:string , name: string) {
+  uploadInformation(base64String: string, name: string) {
     let upload = this.dataProvider.uploadImageCharacterToStorage(base64String, name);
 
     upload.then().then(res => {
       console.log('res: ', res);
-      this.dataProvider.storeInfoToDatabase(res.metadata).then(() => {
-        let toast = this.toastCtrl.create({
-          message: 'New file added!',
-          duration: 3000
-        });
-        toast.present();
+      let toast = this.toastCtrl.create({
+        message: 'New file added!',
+        duration: 3000
       });
+      toast.present();
     });
   }
-  
+
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
     this.character.group = this.navParams.get('group').key;
@@ -72,8 +69,8 @@ export class AddCharacterPage {
 
   addCharacter(character: Character) {
     this.characters.addCharacter(character).then(ref => {
-      if(this.defaultImgSrc!=this.imgSrc)
-        this.uploadInformation(this.imgSrc,ref.key);
+      if (this.defaultImgSrc != this.imgSrc)
+        this.uploadInformation(this.imgSrc, ref.key);
       this.navCtrl.push('ViewGroupPage', { group: this.group });
     });
   }

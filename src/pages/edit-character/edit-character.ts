@@ -1,8 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Group } from '../../models/group/group.model';
+import { DataProvider } from '../../app/data';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
 
@@ -12,7 +14,9 @@ import { Group } from '../../models/group/group.model';
   templateUrl: 'edit-character.html',
 })
 export class EditCharacterPage {
-  
+
+  defaultImgSrc: string = "assets/imgs/no-image.png";
+  imgSrc: string = this.defaultImgSrc;
 
   group: Group = {
     key: '',
@@ -31,7 +35,15 @@ export class EditCharacterPage {
   };
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
+  }
+
+  loadImageFromStorage() {
+    this.dataProvider.getCharacterImgDownloadUrl(this.character.key).then(
+      (url) => {
+        this.imgSrc = url;
+      },
+      () => { });
   }
 
   ionViewWillLoad() {
@@ -40,33 +52,36 @@ export class EditCharacterPage {
     console.log("chiamato ionViewWillLoad");
   }
 
-  ionViewDidLoad(){
-    setTimeout(() => this.resizeName(),0);
-    setTimeout(() => this.resizeDesc(),0);
+  ionViewDidLoad() {
+    setTimeout(() => this.resizeName(), 0);
+    setTimeout(() => this.resizeDesc(), 0);
+    this.loadImageFromStorage();
     console.log("chiamato ionViewDidLoad");
   }
 
-  editCharacter(character: Character){
+  editCharacter(character: Character) {
     this.characters.editCharacter(character).then(() => {
-        this.navCtrl.push('ViewGroupPage',{group : this.group});
-      }); 
+      if (this.defaultImgSrc != this.imgSrc)
+        this.uploadInformation(this.imgSrc, character.key);
+      this.navCtrl.push('ViewGroupPage', { group: this.group });
+    });
   }
 
-  removeCharacter(character: Character){
+  removeCharacter(character: Character) {
     this.characters.removeCharacter(character).then(() => {
-        this.navCtrl.push('ViewGroupPage',{group : this.group});
-      }); 
+      this.navCtrl.push('ViewGroupPage', { group: this.group });
+    });
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;
   @ViewChild('myInputDesc') myInputDesc: ElementRef;
 
   resizeName() {
-      var element = this.myInputName['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
-      element.style.height = 0 + 'px';
-      var scrollHeight = element.scrollHeight;
-      element.style.height = scrollHeight + 'px';
-      this.myInputName['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
+    var element = this.myInputName['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
+    element.style.height = 0 + 'px';
+    var scrollHeight = element.scrollHeight;
+    element.style.height = scrollHeight + 'px';
+    this.myInputName['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
   }
 
   resizeDesc() {
@@ -75,5 +90,37 @@ export class EditCharacterPage {
     var scrollHeight = element.scrollHeight;
     element.style.height = scrollHeight + 'px';
     this.myInputDesc['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
-}
+  }
+
+  pickAndCropImage() {
+
+    const options: CameraOptions = {
+      quality: 70,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      targetWidth: -1,
+      targetHeight: -1,
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.imgSrc = 'data:image/jpeg;base64,' + imageData;
+    });
+
+  }
+
+  uploadInformation(base64String: string, name: string) {
+    let upload = this.dataProvider.uploadImageCharacterToStorage(base64String, name);
+
+    upload.then().then(res => {
+      console.log('res: ', res);
+      let toast = this.toastCtrl.create({
+        message: 'New file added!',
+        duration: 3000
+      });
+      toast.present();
+    });
+  }
 }

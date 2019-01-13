@@ -11,7 +11,8 @@
 
 
 <ion-content padding >
-    <img src="assets/img/T8jfvA5LTnOU0xnrg3V9_faccina-sorridente-emoticon_318-40334.jpg" style="display:block;width:128px;height:128px;margin-left:auto;margin-right:auto;" />
+  <img [src]="imgSrc" style="display:block;width:128px;height:128px;margin-left:auto;margin-right:auto;" (click)="pickAndCropImage();" />
+
     
     <!-- TODO: Test-->
     <ion-item>
@@ -40,7 +41,7 @@
     </ion-item>
     <ion-item>
       <ion-label stacked>
-        <!-- non so se metterci stacked o no-->
+      
         Descrizione:
       </ion-label>
       <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="character.description"></ion-textarea>
