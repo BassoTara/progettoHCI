@@ -42,7 +42,7 @@ export class GruppiDeiGiocatoriPage {
   }
 
   removeGroup(group: Group) {
-    
+    this.groups.removeCharactersListByGroupKey(group.key);
   }
   
 }
