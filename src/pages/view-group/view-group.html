@@ -19,14 +19,14 @@
 
   <ion-list no-lines>
 
-    <ion-item-sliding padding-left *ngFor="let character of charactersList$ | async" (press)="presentPopover($event, character)"><button ion-item navPush="ViewCharacterPage" [navParams]="
+    <ion-item-sliding #slidingItem padding-left *ngFor="let character of charactersList$ | async" (press)="presentPopover($event, character)"><button ion-item navPush="ViewCharacterPage" [navParams]="
       {character: character, group: group}">
       {{character.name}}
     </button>
   
     <ion-item-options>
       <button ion-button class="slidingButton" color="secondary" navPush="EditCharacterPage" [navParams]="
-      {character: character, group: group}">
+      {character: character, group: group}" (click)="slidingItem.close()">
         <ion-icon name="open"></ion-icon>
         Edit
       </button>

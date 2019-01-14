@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ToastController } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
@@ -29,7 +29,7 @@ export class ViewGroupPage {
 
   charactersList$: Observable<Character[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController, public toastCtrl: ToastController) {
     this.charactersList$ = characters.getCharactersListByGroupKey(this.navParams.get('group').key).snapshotChanges().map(
       changes => {
         return changes.map(c => ({
@@ -54,7 +54,13 @@ export class ViewGroupPage {
   }
 
   removeCharacter(character: Character) {
-    this.characters.removeCharacter(character);
+    this.characters.removeCharacter(character).then(res => {
+      console.log('res: ', res);
+      let toast = this.toastCtrl.create({
+        message: 'Character removed successfully!',
+        duration: 3000
+      });
+      toast.present();
+    });
   }
-
 }

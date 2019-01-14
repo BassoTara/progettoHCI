@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { Group } from '../../models/group/group.model';
 import { GroupsListService } from '../../services/groups-list/groups-list.service';
@@ -25,7 +25,7 @@ export class SelectPlayerGroupPage {
 
   groupsList$: Observable<Group[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, private characters: CharactersListService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, private characters: CharactersListService, public toastCtrl : ToastController) {
     this.players = true;
     this.character = this.navParams.get('character');
     this.groupsList$=groups.getGroupsList(this.players).snapshotChanges().map(
@@ -43,7 +43,15 @@ export class SelectPlayerGroupPage {
 
   selectGroup(group : Group) {
     this.character.group = group.key;
-    this.characters.editCharacter(this.character);
+    this.characters.editCharacter(this.character).then(res => {
+      console.log('res: ', res);
+      let toast = this.toastCtrl.create({
+        message: 'Character' + this.character.name + 'moved to ' + group.name + '!',
+        duration: 3000
+      });
+      toast.present();
+    });
+
     this.navCtrl.pop();
   }
 

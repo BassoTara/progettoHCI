@@ -63,15 +63,26 @@ export class EditCharacterPage {
     this.characters.editCharacter(character).then(() => {
       if (this.defaultImgSrc != this.imgSrc)
         this.uploadInformation(this.imgSrc, character.key);
+      let toast = this.toastCtrl.create({
+        message: 'Character edited successfully!',
+        duration: 3000
+      });
+      toast.present();
       //this.navCtrl.push('ViewGroupPage', { group: this.group });
       this.navCtrl.pop();
     });
   }
 
   removeCharacter(character: Character) {
-    this.characters.removeCharacter(character).then(() => {
-      this.navCtrl.push('ViewGroupPage', { group: this.group });
+    this.characters.removeCharacter(character).then(res => {
+      console.log('res: ', res);
+      let toast = this.toastCtrl.create({
+        message: 'Character removed successfully!',
+        duration: 3000
+      });
+      toast.present();
     });
+    this.navCtrl.pop();
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;

@@ -3,9 +3,9 @@
   <!-- TODO: Link functions-->
   <ion-list>
     <button ion-item no-lines navPush="EditCharacterPage" [navParams]="
-    {character: character, group: group}">Edit character</button>
-    <button ion-item no-lines *ngIf="group.players" navPush="SelectPlayerGroupPage" [navParams]="{character: character}">Move to another group</button>
-    <button ion-item no-lines *ngIf="!group.players" navPush="SelectNpcGroupPage" [navParams]="{character: character}">Move to another group</button>
+    {character: character, group: group}" (click)="this.viewCtrl.dismiss()">Edit character</button>
+    <button ion-item no-lines *ngIf="group.players" navPush="SelectPlayerGroupPage" [navParams]="{character: character}" (click)="this.viewCtrl.dismiss()">Move to another group</button>
+    <button ion-item no-lines *ngIf="!group.players" navPush="SelectNpcGroupPage" [navParams]="{character: character}" (click)="this.viewCtrl.dismiss()">Move to another group</button>
     <button ion-item no-lines (click)="removeCharacter()">Remove from the group</button>
   </ion-list>
 

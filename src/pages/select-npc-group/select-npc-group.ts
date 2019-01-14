@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { Group } from '../../models/group/group.model';
 import { Character } from '../../models/character/character.model';
@@ -25,25 +25,33 @@ export class SelectNpcGroupPage {
 
   groupsList$: Observable<Group[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, private characters: CharactersListService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, private characters: CharactersListService, public toastCtrl: ToastController) {
     this.players = false;
     this.character = this.navParams.get('character');
-    this.groupsList$=groups.getGroupsList(this.players).snapshotChanges().map(
+    this.groupsList$ = groups.getGroupsList(this.players).snapshotChanges().map(
       changes => {
-        return changes.map(c =>({
-          key: c.payload.key,...c.payload.val(),
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val(),
         }));
       }
     );
   }
 
-  goToNewGroupPage(){
-    this.navCtrl.push('AddGroupPage', {players: this.players});
+  goToNewGroupPage() {
+    this.navCtrl.push('AddGroupPage', { players: this.players });
   }
 
-  selectGroup(group : Group) {
+  selectGroup(group: Group) {
     this.character.group = group.key;
-    this.characters.editCharacter(this.character);
+    this.characters.editCharacter(this.character).then(res => {
+      console.log('res: ', res);
+      let toast = this.toastCtrl.create({
+        message: 'NPC character' + this.character.name + 'moved to ' + group.name + '!',
+        duration: 3000
+      });
+      toast.present();
+    });
+
     this.navCtrl.pop();
   }
 

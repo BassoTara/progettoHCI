@@ -69,6 +69,11 @@ export class AddCharacterPage {
     this.characters.addCharacter(character).then(ref => {
       if (this.defaultImgSrc != this.imgSrc)
         this.uploadInformation(this.imgSrc, ref.key);
+      let toast = this.toastCtrl.create({
+        message: 'Character added successfully!',
+        duration: 3000
+      });
+      toast.present();
       //this.navCtrl.push('ViewGroupPage', { group: this.group });
       this.navCtrl.pop();
     });

@@ -54,6 +54,6 @@ export class DataProvider {
   }
 
   deleteCharacterImg(key: string) {
-    return this.afStorage.ref(`images/characters/${key}`).delete();
+      this.afStorage.ref(`images/characters/${key}`).delete().subscribe(() => {}, () => {});
   }
 }
