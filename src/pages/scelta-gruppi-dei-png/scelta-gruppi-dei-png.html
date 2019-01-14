@@ -11,7 +11,7 @@
   </ion-header>
   <ion-content >
     <ion-list id="gruppiDeiGiocatori-list4">
-      <button ion-item *ngFor="let group of groupsList$ | async" (click)="selectGroup(group)">
+      <button ion-item *ngFor="let group of groupsList$ | async" >
         <ion-label>
           {{group.name}}
         </ion-label>
