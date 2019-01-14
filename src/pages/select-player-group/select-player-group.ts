@@ -46,7 +46,7 @@ export class SelectPlayerGroupPage {
     this.characters.editCharacter(this.character).then(res => {
       console.log('res: ', res);
       let toast = this.toastCtrl.create({
-        message: 'Character' + this.character.name + 'moved to ' + group.name + '!',
+        message: 'Character ' + this.character.name + ' moved to ' + group.name + '!',
         duration: 3000
       });
       toast.present();
