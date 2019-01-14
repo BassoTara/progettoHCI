@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
@@ -9,17 +8,34 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content >
+<ion-content>
   <ion-list id="gruppiDeiGiocatori-list4">
-    <button ion-item *ngFor="let group of groupsList$ | async" navPush="ViewGroupPage" [navParams]="{group: group}">
-      <ion-label>
-        {{group.name}}
-      </ion-label>
-      
-    </button>
+    <ion-item-sliding #slidingItem padding-left *ngFor="let group of groupsList$ | async" (press)="presentPopover($event, group)">
+      <button ion-item navPush="ViewGroupPage" [navParams]="{group: group}">
+        <ion-label>
+          {{group.name}}
+        </ion-label>
+
+      </button>
+
+      <ion-item-options>
+        <button ion-button class="slidingButton" color="secondary" navPush="EditGroupPage" [navParams]="{group: group}"
+          (click)="slidingItem.close()">
+          <ion-icon name="open"></ion-icon>
+          Edit
+        </button>
+        <button ion-button class="slidingButton" color="danger" (click)="removeGroup(group)">
+          <ion-icon name="trash"></ion-icon>
+          Remove
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
   </ion-list>
-    <!-- Real floating action button, fixed. It will not scroll with the content -->
-    <ion-fab right bottom>
-    <button ion-fab color="light" (click)="goToNewGroupPage()" ><ion-icon name="add"></ion-icon></button>
+  <!-- Real floating action button, fixed. It will not scroll with the content -->
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="goToNewGroupPage()">
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-fab>
 </ion-content>

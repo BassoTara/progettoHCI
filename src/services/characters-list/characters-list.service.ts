@@ -28,6 +28,8 @@ export class CharactersListService {
     }
 
     removeCharacter(character: Character){
+        console.log('Removing character ' + character.name);
+        
         this.dataProvider.deleteCharacterImg(character.key);
         return this.charactersListRef.remove(character.key);
     }
