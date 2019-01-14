@@ -19,10 +19,10 @@ export class GruppiDeiPNGPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public popoverCtrl: PopoverController, public toastCtrl: ToastController) {
     this.players = false;
-    this.groupsList$=groups.getGroupsList(this.players).snapshotChanges().map(
+    this.groupsList$ = groups.getGroupsList(this.players).snapshotChanges().map(
       changes => {
-        return changes.map(c =>({
-          key: c.payload.key,...c.payload.val(),
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val(),
         }));
       }
     );
@@ -37,12 +37,19 @@ export class GruppiDeiPNGPage {
     });
   }
 
-  goToNewGroupPage(){
-    this.navCtrl.push('AddGroupPage', {players: this.players});
+  goToNewGroupPage() {
+    this.navCtrl.push('AddGroupPage', { players: this.players });
   }
 
   removeGroup(group: Group) {
-    this.groups.removeGroup(group);
+    this.groups.removeGroup(group).then(() => {
+      let toast = this.toastCtrl.create({
+        message: 'Group removed successfully!',
+        duration: 3000
+      });
+      toast.present();
+
+    });
   }
-  
+
 }

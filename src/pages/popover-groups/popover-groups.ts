@@ -32,8 +32,14 @@ export class PopoverGroupsPage {
   }
 
   removeGroup() {
-    this.groups.removeGroup(this.group);
     this.close();
+    this.groups.removeGroup(this.group).then(() => {
+      let toast = this.toastCtrl.create({
+        message: 'Group removed successfully!',
+        duration: 3000
+      });
+      toast.present();
+    });
   }
 
 }
