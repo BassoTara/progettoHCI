@@ -35,11 +35,26 @@ export class GroupsListService {
              }
          }); */
 
-        this.db.database.ref('characters-list').orderByChild('group').equalTo(key).once('value').then(snapshot => {
-            snapshot.forEach((character) => {
-                character.ref.remove();
-            })
-        });
+        /*         this.db.database.ref('characters-list').orderByChild('group').equalTo(key).once('value').then(snapshot => {
+                    snapshot.forEach((character) => {
+                        character.ref.remove();
+                    })
+                }); */
+
+
+        let charactersList = this.characters.getCharactersListByGroupKey(key).snapshotChanges().map(
+            changes => {
+                return changes.map(c => ({
+                    key: c.payload.key, ...c.payload.val(),
+                }));
+            }
+        );
+
+        charactersList.subscribe((list) => {
+            for (let character of list) {
+                this.characters.removeCharacter(character);
+            }
+        })
 
 
     }
