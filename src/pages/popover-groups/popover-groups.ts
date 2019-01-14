@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
+import { GroupsListService } from '../../services/groups-list/groups-list.service';
 
 /**
  * Generated class for the PopoverGroupsPage page.
@@ -18,7 +19,7 @@ export class PopoverGroupsPage {
 
   group: Group;
 
-  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController) {
+  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public toastCtrl: ToastController) {
     this.group = this.navParams.get('group');
   }
 
@@ -31,7 +32,8 @@ export class PopoverGroupsPage {
   }
 
   removeGroup() {
-
+    this.groups.removeGroup(this.group);
+    this.close();
   }
 
 }

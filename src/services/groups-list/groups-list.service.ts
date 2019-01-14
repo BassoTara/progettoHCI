@@ -25,6 +25,7 @@ export class GroupsListService {
     }
 
     removeGroup(group: Group) {
+        this.removeCharactersListByGroupKey(group.key);
         return this.groupsListRef.remove(group.key);
     }
 

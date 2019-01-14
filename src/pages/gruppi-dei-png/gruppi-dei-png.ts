@@ -42,7 +42,7 @@ export class GruppiDeiPNGPage {
   }
 
   removeGroup(group: Group) {
-
+    this.groups.removeGroup(group);
   }
   
 }
