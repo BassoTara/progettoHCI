@@ -20,11 +20,13 @@ import { HttpModule } from '@angular/http';
 import { Camera } from '@ionic-native/camera';
 import { DataProvider } from './data';
 import { PopoverViewGroupPage } from '../pages/popover-view-group/popover-view-group';
+import { PopoverGroupsPage } from '../pages/popover-groups/popover-groups';
 
 @NgModule({
   declarations: [
     MyApp,
     PopoverViewGroupPage,
+    PopoverGroupsPage,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,7 @@ import { PopoverViewGroupPage } from '../pages/popover-view-group/popover-view-g
   entryComponents: [
     MyApp,
     PopoverViewGroupPage,
+    PopoverGroupsPage,
   ],
   providers: [
     StatusBar,

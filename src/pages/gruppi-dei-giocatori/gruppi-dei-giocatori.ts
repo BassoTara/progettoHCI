@@ -1,10 +1,11 @@
 
 import { Component } from '@angular/core';
-import { NavController, IonicPage, NavParams } from 'ionic-angular';
+import { NavController, IonicPage, NavParams, PopoverController } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { GroupsListService } from '../../services/groups-list/groups-list.service';
+import { PopoverGroupsPage } from '../popover-groups/popover-groups';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,7 @@ export class GruppiDeiGiocatoriPage {
 
   groupsList$: Observable<Group[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public popoverCtrl: PopoverController) {
     this.players = true;
     this.groupsList$=groups.getGroupsList(this.players).snapshotChanges().map(
       changes => {
@@ -27,8 +28,21 @@ export class GruppiDeiGiocatoriPage {
     );
   }
 
+  presentPopover(myEvent, myGroup) {
+    let popover = this.popoverCtrl.create(PopoverGroupsPage, {
+      group: myGroup,
+    });
+    popover.present({
+      ev: myEvent
+    });
+  }
+
   goToNewGroupPage(){
     this.navCtrl.push('AddGroupPage', {players: this.players});
+  }
+
+  removeGroup(group: Group) {
+
   }
   
 }

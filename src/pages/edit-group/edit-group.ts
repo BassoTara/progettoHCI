@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { GroupsListService } from '../../services/groups-list/groups-list.service';
 
@@ -25,7 +25,7 @@ export class EditGroupPage {
     description: undefined, 
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private groups:GroupsListService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private groups:GroupsListService, public toastCtrl: ToastController) {
     console.log(navParams.get("players")); 
     this.group.players = navParams.get('players');
    }
@@ -38,13 +38,19 @@ export class EditGroupPage {
 
   editGroup(group: Group){
     this.groups.editGroup(group).then(() => {
-      this.navCtrl.setRoot('GruppiDeiGiocatoriPage');
+      let toast = this.toastCtrl.create({
+        message: 'Group edited successfully!',
+        duration: 3000
+      });
+      toast.present();
+
+      this.navCtrl.pop();
     }); 
   }
 
   removeGroup(group: Group){
     this.groups.removeGroup(group).then(() => {
-        this.navCtrl.setRoot('GruppiDeiGiocatoriPage');
+        this.navCtrl.pop();
       }); 
   }
 
