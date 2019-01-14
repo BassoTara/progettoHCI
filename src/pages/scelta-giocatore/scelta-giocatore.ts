@@ -20,23 +20,27 @@ import { Group } from '../../models/group/group.model';
 export class SceltaGiocatorePage {
 
   group: Group;
+  callback;
 
   charactersList$: Observable<Character[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public toastCtrl : ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public toastCtrl: ToastController) {
     this.group = this.navParams.get('group');
-    this.charactersList$=characters.getCharactersListByGroupKey(this.group.key).snapshotChanges().map(
+    this.callback = this.navParams.get('callback');
+    this.charactersList$ = characters.getCharactersListByGroupKey(this.group.key).snapshotChanges().map(
       changes => {
-        return changes.map(c =>({
-          key: c.payload.key,...c.payload.val(),
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val(),
         }));
       }
     );
   }
 
-  funzione(){
-    this.navCtrl.remove(2,1);
-    this.navCtrl.pop(); 
+  chooseCharacter(character: Character) {
+    this.callback(character).then(() => {
+      this.navCtrl.remove(2, 1);
+      this.navCtrl.pop();
+    });
   }
 
 }

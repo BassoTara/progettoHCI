@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { Encounter } from "../../models/encounter/encounter.model";
+import { Character } from "../../models/character/character.model";
 
 @Injectable()
 export class EncountersListService {

@@ -1,7 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, List } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
+import { SceltaGruppiDeiGiocatoriPage } from '../scelta-gruppi-dei-giocatori/scelta-gruppi-dei-giocatori';
+import { Character } from '../../models/character/character.model';
+import { CharactersListService } from '../../services/characters-list/characters-list.service';
 
 
 @IonicPage()
@@ -12,18 +15,22 @@ import { EncountersListService } from '../../services/encounters-list/encounter-
 export class AddEncounterPage {
   encounter: Encounter = {
     name: '',
-    description: ''
+    description: '',
+    characterList: [],
   };
 
+  characterList$: Character[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService) {
+    this.characterList$ = [];
   }
 
 
   addEncounter(encounter: Encounter) {
+    for (let character of this.characterList$)
+      this.encounter.characterList.push(character.key);
     this.encounters.addEncounter(encounter).then(ref => {
-      this.navCtrl.setRoot('IncontriPage', { key: ref.key });
-      console.log(ref.key);
+      this.navCtrl.pop();
     });
   }
 
@@ -50,6 +57,20 @@ export class AddEncounterPage {
     var scrollHeight = element.scrollHeight;
     element.style.height = scrollHeight + 'px';
     this.myInputDesc['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
+  }
+
+  pushToPlayerChoice() {
+    var myCallbackFunction = (_params) => {
+      return new Promise((resolve, reject) => {
+        this.characterList$.push(_params);
+        resolve();
+      });
+    }
+
+    this.navCtrl.push(SceltaGruppiDeiGiocatoriPage, {
+      callback: myCallbackFunction
+    });
+
   }
 
 }

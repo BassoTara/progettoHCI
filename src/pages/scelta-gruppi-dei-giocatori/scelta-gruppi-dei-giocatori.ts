@@ -19,12 +19,14 @@ import { Group } from '../../models/group/group.model';
 export class SceltaGruppiDeiGiocatoriPage {
 
   players: boolean;
+  callback;
   // character: Character;
 
   groupsList$: Observable<Group[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public toastCtrl : ToastController) {
     this.players = true;
+    this.callback = this.navParams.get('callback');
     // this.character = this.navParams.get('character');
     this.groupsList$=groups.getGroupsList(this.players).snapshotChanges().map(
       changes => {

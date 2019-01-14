@@ -21,12 +21,15 @@ import { Camera } from '@ionic-native/camera';
 import { DataProvider } from './data';
 import { PopoverViewGroupPage } from '../pages/popover-view-group/popover-view-group';
 import { PopoverGroupsPage } from '../pages/popover-groups/popover-groups';
+import { SceltaGruppiDeiGiocatoriPage } from '../pages/scelta-gruppi-dei-giocatori/scelta-gruppi-dei-giocatori';
+import { SceltaGiocatorePage } from '../pages/scelta-giocatore/scelta-giocatore';
 
 @NgModule({
   declarations: [
     MyApp,
     PopoverViewGroupPage,
     PopoverGroupsPage,
+    SceltaGruppiDeiGiocatoriPage,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { PopoverGroupsPage } from '../pages/popover-groups/popover-groups';
     MyApp,
     PopoverViewGroupPage,
     PopoverGroupsPage,
+    SceltaGruppiDeiGiocatoriPage,
   ],
   providers: [
     StatusBar,

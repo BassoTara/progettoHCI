@@ -22,26 +22,32 @@
     <ion-label>
       Personaggi dei Giocatori:
     </ion-label>
-    <ion-icon item-right name="add" navPush="SceltaGruppiDeiGiocatoriPage" ></ion-icon>
+    <ion-icon item-right name="add" (click)="pushToPlayerChoice()"></ion-icon>
   </ion-item>
+
+  <ion-list padding-left no-lines>
+    <ion-item *ngFor="let character of characterList$">
+      {{character.name}}
+    </ion-item>
+  </ion-list>
 
   <ion-item>
     <ion-label>
       Personaggi del Master:
     </ion-label>
-    <ion-icon item-right name="add" navPush="AddCharacterPage" ></ion-icon>
+    <ion-icon item-right name="add" navPush="AddCharacterPage"></ion-icon>
   </ion-item>
 
   <ion-item>
     <ion-label>
       Mostri dal Manuale:
     </ion-label>
-    <ion-icon item-right name="add" navPush="AddCharacterPage" ></ion-icon>
+    <ion-icon item-right name="add" navPush="AddCharacterPage"></ion-icon>
   </ion-item>
 
 
   <ion-item>
-    <ion-label stacked >Nome dell'Incontro</ion-label>
+    <ion-label stacked>Nome dell'Incontro</ion-label>
     <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="encounter.name"></ion-textarea>
   </ion-item>
 
