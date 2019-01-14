@@ -15,8 +15,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class EditCharacterPage {
 
-  defaultImgSrc: string = "assets/imgs/no-image.png";
-  imgSrc: string = this.defaultImgSrc;
+
+  imgHasChanged: boolean = false;
+  imgSrc: string;
 
   group: Group = {
     key: '',
@@ -61,7 +62,7 @@ export class EditCharacterPage {
 
   editCharacter(character: Character) {
     this.characters.editCharacter(character).then(() => {
-      if (this.defaultImgSrc != this.imgSrc)
+      if (this.imgHasChanged)
         this.uploadInformation(this.imgSrc, character.key);
       let toast = this.toastCtrl.create({
         message: 'Character edited successfully!',
@@ -119,6 +120,7 @@ export class EditCharacterPage {
 
     this.camera.getPicture(options).then((imageData) => {
       this.imgSrc = 'data:image/jpeg;base64,' + imageData;
+      this.imgHasChanged = true;
     });
 
   }
