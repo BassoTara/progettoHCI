@@ -4,13 +4,13 @@
         <ion-icon name="menu"></ion-icon>
       </button>
       <ion-title>
-        Gruppi dei Giocatori
+        Gruppi dei PNG
       </ion-title>
     </ion-navbar>
   </ion-header>
   <ion-content>
     <ion-list id="gruppiDeiGiocatori-list5">
-      <ion-item-sliding #slidingItem padding-left *ngFor="let group of groupsList$ | async" (press)="presentPopover($event, group)">
+      <ion-item-sliding #slidingItem *ngFor="let group of groupsList$ | async" (press)="presentPopover($event, group)">
         <button ion-item navPush="ViewGroupPage" [navParams]="{group: group}">
           <ion-label>
             {{group.name}}

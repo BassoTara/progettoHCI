@@ -1,0 +1,22 @@
+
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        Seleziona un Personaggio
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content >
+    <ion-list id="gruppiDeiGiocatori-list4">
+      <button ion-item *ngFor="let character of charactersList$ | async" (click)="funzione()">
+        <ion-label>
+          {{character.name}}
+        </ion-label>
+        
+      </button>
+    </ion-list>
+
+  </ion-content>

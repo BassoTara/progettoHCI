@@ -1,30 +1,56 @@
-<!--
-  Generated template for the AddEncounterPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>addEncounter</ion-title>
-  </ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title center>
+      Nuovo Incontro
+    </ion-title>
+    <ion-buttons end>
+      <button (click)="addEncounter(encounter)" ion-button icon-only>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-buttons>
 
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+
   <ion-item>
-    <ion-label>Location</ion-label>
-    <ion-input [(ngModel)]="encounter.location" ></ion-input>
+    <ion-label>
+      Personaggi dei Giocatori:
+    </ion-label>
+    <ion-icon item-right name="add" navPush="SceltaGruppiDeiGiocatoriPage" ></ion-icon>
   </ion-item>
 
   <ion-item>
-    <ion-label stacked>Date</ion-label>
-    <ion-textarea #myInput id="myInput" rows="1" maxLength="500" (input)="resize()" [(ngModel)]="encounter.date"></ion-textarea>
-  </ion-item>  
+    <ion-label>
+      Personaggi del Master:
+    </ion-label>
+    <ion-icon item-right name="add" navPush="AddCharacterPage" ></ion-icon>
+  </ion-item>
 
-  
+  <ion-item>
+    <ion-label>
+      Mostri dal Manuale:
+    </ion-label>
+    <ion-icon item-right name="add" navPush="AddCharacterPage" ></ion-icon>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label stacked >Nome dell'Incontro</ion-label>
+    <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="encounter.name"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Descrizione</ion-label>
+    <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="encounter.description"></ion-textarea>
+  </ion-item>
+
+
 
   <button ion-button block clear (click)="addEncounter(encounter)">Add</button>
 </ion-content>

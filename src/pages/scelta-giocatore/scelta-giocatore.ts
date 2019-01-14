@@ -1,0 +1,42 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Character } from '../../models/character/character.model';
+import { Observable } from 'rxjs';
+import { CharactersListService } from '../../services/characters-list/characters-list.service';
+import { Group } from '../../models/group/group.model';
+
+/**
+ * Generated class for the SceltaGiocatorePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
+@Component({
+  selector: 'page-scelta-giocatore',
+  templateUrl: 'scelta-giocatore.html',
+})
+export class SceltaGiocatorePage {
+
+  group: Group;
+
+  charactersList$: Observable<Character[]>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public toastCtrl : ToastController) {
+    this.group = this.navParams.get('group');
+    this.charactersList$=characters.getCharactersListByGroupKey(this.group.key).snapshotChanges().map(
+      changes => {
+        return changes.map(c =>({
+          key: c.payload.key,...c.payload.val(),
+        }));
+      }
+    );
+  }
+
+  funzione(){
+    this.navCtrl.remove(2,1);
+    this.navCtrl.pop(); 
+  }
+
+}

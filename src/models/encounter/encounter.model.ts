@@ -1,5 +1,5 @@
 export interface Encounter {
     key?: string;
-    location: string;
-    date: number;
+    name: string;
+    description: string;
 }

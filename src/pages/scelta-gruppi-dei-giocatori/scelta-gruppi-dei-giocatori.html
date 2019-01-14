@@ -1,0 +1,22 @@
+
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        Seleziona un gruppo
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content >
+    <ion-list id="gruppiDeiGiocatori-list4">
+      <button ion-item *ngFor="let group of groupsList$ | async" navPush="SceltaGiocatorePage" [navParams]="{group: group}">
+        <ion-label>
+          {{group.name}}
+        </ion-label>
+        
+      </button>
+    </ion-list>
+
+  </ion-content>

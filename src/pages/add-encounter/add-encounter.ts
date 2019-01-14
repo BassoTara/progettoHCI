@@ -11,34 +11,45 @@ import { EncountersListService } from '../../services/encounters-list/encounter-
 })
 export class AddEncounterPage {
   encounter: Encounter = {
-    location: '',
-    date: 0
+    name: '',
+    description: ''
   };
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-    private encounters: EncountersListService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddEncounterPage');
-  }
 
-  addEncounter(encounter: Encounter){
+  addEncounter(encounter: Encounter) {
     this.encounters.addEncounter(encounter).then(ref => {
-      this.navCtrl.setRoot('IncontriPage', {key: ref.key});
+      this.navCtrl.setRoot('IncontriPage', { key: ref.key });
       console.log(ref.key);
     });
   }
 
-  @ViewChild('myInput') myInput: ElementRef;
+  ionViewDidLoad() {
+    setTimeout(() => this.resizeName(), 0);
+    setTimeout(() => this.resizeDesc(), 0);
+    console.log('ionViewDidLoad AddGroupPage');
+  }
 
-  resize() {
-      var element = this.myInput['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
-      element.style.height = 0 + 'px';
-      var scrollHeight = element.scrollHeight;
-      element.style.height = scrollHeight + 'px';
-      this.myInput['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
+  @ViewChild('myInputName') myInputName: ElementRef;
+  @ViewChild('myInputDesc') myInputDesc: ElementRef;
+
+  resizeName() {
+    var element = this.myInputName['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
+    element.style.height = 0 + 'px';
+    var scrollHeight = element.scrollHeight;
+    element.style.height = scrollHeight + 'px';
+    this.myInputName['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
+  }
+
+  resizeDesc() {
+    var element = this.myInputDesc['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
+    element.style.height = 0 + 'px';
+    var scrollHeight = element.scrollHeight;
+    element.style.height = scrollHeight + 'px';
+    this.myInputDesc['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
   }
 
 }
