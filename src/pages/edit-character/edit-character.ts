@@ -17,7 +17,7 @@ export class EditCharacterPage {
 
 
   imgHasChanged: boolean = false;
-  imgSrc: string;
+  imgSrc: string = "assets/imgs/no-image.png";
 
   group: Group = {
     key: '',
