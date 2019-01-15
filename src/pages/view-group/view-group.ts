@@ -40,7 +40,7 @@ export class ViewGroupPage {
   }
 
   presentPopover(myEvent, myChar) {
-    let popover = this.popoverCtrl.create(PopoverViewGroupPage, {
+    let popover = this.popoverCtrl.create('PopoverViewGroupPage', {
       character: myChar,
       group: this.group,
     });

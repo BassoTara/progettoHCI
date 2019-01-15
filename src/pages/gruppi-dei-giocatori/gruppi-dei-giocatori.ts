@@ -29,7 +29,7 @@ export class GruppiDeiGiocatoriPage {
   }
 
   presentPopover(myEvent, myGroup) {
-    let popover = this.popoverCtrl.create(PopoverGroupsPage, {
+    let popover = this.popoverCtrl.create('PopoverGroupsPage', {
       group: myGroup,
     });
     popover.present({

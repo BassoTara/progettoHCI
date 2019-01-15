@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Group } from '../../models/group/group.model';
 import 'rxjs/add/operator/map';
 import { GroupsListService } from '../../services/groups-list/groups-list.service';
-import { PopoverGroupsPage } from '../popover-groups/popover-groups';
 
 @IonicPage()
 @Component({
@@ -29,7 +28,7 @@ export class GruppiDeiPNGPage {
   }
 
   presentPopover(myEvent, myGroup) {
-    let popover = this.popoverCtrl.create(PopoverGroupsPage, {
+    let popover = this.popoverCtrl.create('PopoverGroupsPage', {
       group: myGroup,
     });
     popover.present({
