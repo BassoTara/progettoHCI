@@ -94,4 +94,18 @@ export class AddEncounterPage {
     });
   }
 
+  pushToMonsterChoice(){
+    var myCallbackFunction = (_params) => {
+      return new Promise((resolve, reject) => {
+        this.npcList$.push(_params);
+        resolve();
+      });
+    }
+    
+
+    this.navCtrl.push('SceltaMostriPage', {
+      callback: myCallbackFunction
+    });
+  }
+
 }

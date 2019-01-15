@@ -1,18 +1,55 @@
-<!--
-  Generated template for the SceltaMostriPage page.
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>scelta-mostri</ion-title>
-  </ion-navbar>
+  <ion-navbar [hideBackButton]="isOn" >
 
+    <button *ngIf="!isOn" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="!isOn">
+      Mostri
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only padding *ngIf="!isOn" (click)="openSearchBar()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-searchbar debounce=0 #mainSearchBar *ngIf="isOn" placeholder="Cerca Mostro" (input)="onInput($event)" (search)="onSearch($event)" showCancelButton="true" (ionCancel)="isOn=false; searchString='' " (ionClear)="searchString=''" ></ion-searchbar>
+
+  </ion-navbar>
 </ion-header>
 
+<ion-content id="page4">
 
-<ion-content padding>
+
+  <ion-item>
+    <ion-label class="myLabel">Ordina Per: </ion-label>
+    <ion-label class="myLabel1" (click)="nameClicked()">Name 
+      <i *ngIf="alphaOrder==1" class="fas fa-sort-alpha-down"></i>
+      <i *ngIf="alphaOrder==-1" class="fas fa-sort-alpha-up"></i>
+    </ion-label>
+    <ion-label class="myLabel2" (click)="gsClicked()">GS 
+      <i *ngIf="numOrder==1" class="fas fa-sort-numeric-down"></i>
+      <i *ngIf="numOrder==-1" class="fas fa-sort-numeric-up"></i>
+    </ion-label>  
+  </ion-item>
+  
+  <ion-list id="mostri-list5">
+      
+    <ng-container *ngFor="let monster of monsters">
+      <button ion-item *ngIf="monster.name.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 || !searchString"  
+        navPush = 'ViewMonsterPage' [navParams]="{monster: monster}">
+            <ion-icon item-left name="remove-circle" (click)="decrement()"></ion-icon>
+            <p>0</p>
+            <ion-icon item-left name="add-circle" (click)="increment()"></ion-icon>
+          
+          <h3 item-right >{{toFraction(monster.challenge_rating)}}</h3>
+          <h2>{{monster.name}}</h2>
+          <p>{{monster.size}}, {{monster.type}}, {{monster.alignment}} </p>
+      </button>
+    </ng-container>
+  </ion-list>
 
 </ion-content>
