@@ -71,7 +71,7 @@ export class AddEncounterPage {
     }
     
 
-    this.navCtrl.push(SceltaGruppiDeiGiocatoriPage, {
+    this.navCtrl.push('SceltaGruppiDeiGiocatoriPage', {
       callback: myCallbackFunction
     });
 

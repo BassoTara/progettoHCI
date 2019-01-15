@@ -24,7 +24,7 @@ export class PopoverGroupsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PopoverViewGroupPage');
+    console.log('ionViewDidLoad PopoverGroupsPage');
   }
 
   close() {
