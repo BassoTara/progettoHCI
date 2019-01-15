@@ -5,12 +5,6 @@ import { Observable } from 'rxjs';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Group } from '../../models/group/group.model';
 
-/**
- * Generated class for the SceltaGiocatorePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

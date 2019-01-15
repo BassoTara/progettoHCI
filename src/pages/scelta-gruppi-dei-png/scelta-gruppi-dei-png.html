@@ -11,11 +11,10 @@
   </ion-header>
   <ion-content >
     <ion-list id="gruppiDeiGiocatori-list4">
-      <button ion-item *ngFor="let group of groupsList$ | async" >
+      <button ion-item *ngFor="let group of groupsList$ | async" navPush="SceltaGiocatorePage" [navParams]="{callback: this.callback, group: group}">
         <ion-label>
           {{group.name}}
         </ion-label>
-        
       </button>
     </ion-list>
   </ion-content>

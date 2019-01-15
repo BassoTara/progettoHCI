@@ -5,6 +5,7 @@ import { EncountersListService } from '../../services/encounters-list/encounter-
 import { SceltaGruppiDeiGiocatoriPage } from '../scelta-gruppi-dei-giocatori/scelta-gruppi-dei-giocatori';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
+import { SceltaGruppiDeiPngPage } from '../scelta-gruppi-dei-png/scelta-gruppi-dei-png';
 
 
 @IonicPage()
@@ -20,9 +21,11 @@ export class AddEncounterPage {
   };
 
   characterList$: Character[];
+  npcList$: Character[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService) {
     this.characterList$ = [];
+    this.npcList$ = [];
   }
 
 
@@ -66,11 +69,26 @@ export class AddEncounterPage {
         resolve();
       });
     }
+    
 
     this.navCtrl.push(SceltaGruppiDeiGiocatoriPage, {
       callback: myCallbackFunction
     });
 
+  }
+
+  pushToNPCChoice(){
+    var myCallbackFunction = (_params) => {
+      return new Promise((resolve, reject) => {
+        this.npcList$.push(_params);
+        resolve();
+      });
+    }
+    
+
+    this.navCtrl.push('SceltaGruppiDeiPngPage', {
+      callback: myCallbackFunction
+    });
   }
 
 }

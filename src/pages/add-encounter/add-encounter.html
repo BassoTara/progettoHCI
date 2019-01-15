@@ -35,8 +35,14 @@
     <ion-label>
       Personaggi del Master:
     </ion-label>
-    <ion-icon item-right name="add" navPush="AddCharacterPage"></ion-icon>
+    <ion-icon item-right name="add" (click)="pushToNPCChoice()"></ion-icon>
   </ion-item>
+
+  <ion-list padding-left no-lines>
+    <ion-item *ngFor="let character of npcList$">
+      {{character.name}}
+    </ion-item>
+  </ion-list>
 
   <ion-item>
     <ion-label>

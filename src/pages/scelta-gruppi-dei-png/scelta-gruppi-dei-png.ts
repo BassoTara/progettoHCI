@@ -4,12 +4,6 @@ import { Observable } from 'rxjs';
 import { Group } from '../../models/group/group.model';
 import { GroupsListService } from '../../services/groups-list/groups-list.service';
 
-/**
- * Generated class for the SceltaGruppiDeiPngPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -19,17 +13,19 @@ import { GroupsListService } from '../../services/groups-list/groups-list.servic
 export class SceltaGruppiDeiPngPage {
 
   players: boolean;
+  callback;
   // character: Character;
 
   groupsList$: Observable<Group[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public toastCtrl : ToastController) {
     this.players = false;
+    this.callback = this.navParams.get('callback');
     // this.character = this.navParams.get('character');
-    this.groupsList$ = groups.getGroupsList(this.players).snapshotChanges().map(
+    this.groupsList$=groups.getGroupsList(this.players).snapshotChanges().map(
       changes => {
-        return changes.map(c => ({
-          key: c.payload.key, ...c.payload.val(),
+        return changes.map(c =>({
+          key: c.payload.key,...c.payload.val(),
         }));
       }
     );
