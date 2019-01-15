@@ -36,7 +36,7 @@ export class AddEncounterPage {
     for (let npc of this.npcList$)
       this.encounter.npcList.push(npc.key);
     this.encounter.monsterList = this.monsterList$;
-    
+
     this.encounters.addEncounter(encounter).then(ref => {
       this.navCtrl.pop();
     });
@@ -70,10 +70,15 @@ export class AddEncounterPage {
   pushToPlayerChoice() {
     var myCallbackFunction = (_params) => {
       return new Promise((resolve, reject) => {
-        this.characterList$.push(_params);
+        for (let element of _params){
+          console.log()
+          if (this.characterList$.indexOf(element) == -1)
+            this.characterList$.push(element);
+      }
+        // this.characterList$ = this.characterList$.concat(_params);
         resolve();
       });
-    }   
+    }
 
     this.navCtrl.push('SceltaGruppiDeiGiocatoriPage', {
       callback: myCallbackFunction
@@ -81,28 +86,28 @@ export class AddEncounterPage {
 
   }
 
-  pushToNPCChoice(){
+  pushToNPCChoice() {
     var myCallbackFunction = (_params) => {
       return new Promise((resolve, reject) => {
-        this.npcList$.push(_params);
+        this.npcList$ = this.npcList$.concat(_params);
         resolve();
       });
     }
-    
+
 
     this.navCtrl.push('SceltaGruppiDeiPngPage', {
       callback: myCallbackFunction
     });
   }
 
-  pushToMonsterChoice(){
+  pushToMonsterChoice() {
     var myCallbackFunction = (_params) => {
       return new Promise((resolve, reject) => {
         this.monsterList$ = this.monsterList$.concat(_params);
         resolve();
       });
     }
-    
+
 
     this.navCtrl.push('SceltaMostriPage', {
       callback: myCallbackFunction

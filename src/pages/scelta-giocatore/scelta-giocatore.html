@@ -1,22 +1,28 @@
-
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title>
-        Seleziona un Personaggio
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-  <ion-content >
-    <ion-list id="gruppiDeiGiocatori-list4">
-      <button ion-item *ngFor="let character of charactersList$ | async" (click)="chooseCharacter(character)">
-        <ion-label>
-          {{character.name}}
-        </ion-label>
-        
-      </button>
-    </ion-list>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Seleziona un Personaggio
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list id="gruppiDeiGiocatori-list4">
+    <button ion-item *ngFor="let character of charactersList$ | async ; let in = index" >
+      <ion-checkbox [(ngModel)]="checkedCharacters[in]"  ></ion-checkbox>
+      <ion-label>
+        {{character.name}}
+      </ion-label>
 
-  </ion-content>
+    </button>
+  </ion-list>
+
+  <ion-fab right bottom>
+    <button (click)="confirmCharacters()" ion-fab color="light">
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

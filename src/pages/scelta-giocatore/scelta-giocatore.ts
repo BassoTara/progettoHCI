@@ -4,6 +4,7 @@ import { Character } from '../../models/character/character.model';
 import { Observable } from 'rxjs';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Group } from '../../models/group/group.model';
+import { listChanges } from 'angularfire2/database';
 
 
 @IonicPage()
@@ -15,6 +16,8 @@ export class SceltaGiocatorePage {
 
   group: Group;
   callback;
+  checkedCharacters: boolean[];
+  list = [];
 
   charactersList$: Observable<Character[]>;
 
@@ -23,18 +26,33 @@ export class SceltaGiocatorePage {
     this.callback = this.navParams.get('callback');
     this.charactersList$ = characters.getCharactersListByGroupKey(this.group.key).snapshotChanges().map(
       changes => {
+        this.checkedCharacters = new Array(changes.length).fill(false);
         return changes.map(c => ({
           key: c.payload.key, ...c.payload.val(),
         }));
       }
     );
-  }
-
-  chooseCharacter(character: Character) {
-    this.callback(character).then(() => {
-      this.navCtrl.remove(2, 1);
-      this.navCtrl.pop();
+    this.charactersList$.subscribe(list => {
+      this.list = list;
     });
   }
 
+  confirmCharacters() {
+    var chosenCharacters = [];
+    for (let index in this.list) {
+      if (this.checkedCharacters[index])
+        chosenCharacters.push(this.list[index]);
+      
+        
+    }
+ 
+    console.log(this.checkedCharacters);
+    console.log(chosenCharacters);
+
+     this.callback(chosenCharacters).then(() => {
+       this.navCtrl.remove(2,1);
+       this.navCtrl.pop();
+     });
+
+  }
 }

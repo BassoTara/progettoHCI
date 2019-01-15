@@ -11,7 +11,7 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content  >
+<ion-content>
     <ion-list>
 
         <ion-item-sliding #slidingItem *ngFor="let encounter of encountersList$ | async" (press)="presentPopover($event, encounter)"><button ion-item navPush="" [navParams]="
