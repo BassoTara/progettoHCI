@@ -70,11 +70,15 @@ export class AddEncounterPage {
   pushToPlayerChoice() {
     var myCallbackFunction = (_params) => {
       return new Promise((resolve, reject) => {
-        for (let element of _params){
-          console.log()
-          if (this.characterList$.indexOf(element) == -1)
+        for (let element of _params) {
+          let toAdd = true;
+          for (let character of this.characterList$) {
+            if (character.key == element.key)
+              toAdd = false;
+          }
+          if (toAdd)
             this.characterList$.push(element);
-      }
+        }
         // this.characterList$ = this.characterList$.concat(_params);
         resolve();
       });
@@ -89,7 +93,16 @@ export class AddEncounterPage {
   pushToNPCChoice() {
     var myCallbackFunction = (_params) => {
       return new Promise((resolve, reject) => {
-        this.npcList$ = this.npcList$.concat(_params);
+        for (let element of _params) {
+          let toAdd = true;
+          for (let character of this.npcList$) {
+            if (character.key == element.key)
+              toAdd = false;
+          }
+          if (toAdd)
+            this.npcList$.push(element);
+        }
+        // this.characterList$ = this.characterList$.concat(_params);
         resolve();
       });
     }
