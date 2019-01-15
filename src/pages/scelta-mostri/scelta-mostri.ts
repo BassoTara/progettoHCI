@@ -59,7 +59,7 @@ export class SceltaMostriPage {
   /* Sets data with returned JSON array */
   SetQueryOptionsData(data : any) {
     this.monsters = data;
-    this.counters = new Array(this.monsters.length).fill(0);
+    this.counters = new Array(this.monsters.length+1).fill(0);
   }
   
   @ViewChild('mainSearchBar') searchBar: Searchbar ;
