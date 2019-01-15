@@ -138,4 +138,12 @@ export class SceltaMostriPage {
 
   }
 
+  decrement(){
+
+  }
+
+  increment(){
+    
+  }
+
 }
