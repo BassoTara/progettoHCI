@@ -71,8 +71,7 @@ export class AddEncounterPage {
         this.characterList$.push(_params);
         resolve();
       });
-    }
-    
+    }   
 
     this.navCtrl.push('SceltaGruppiDeiGiocatoriPage', {
       callback: myCallbackFunction
