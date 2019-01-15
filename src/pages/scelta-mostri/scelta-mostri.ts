@@ -12,6 +12,7 @@ declare var require: any
 export class SceltaMostriPage {
 
   monsters = [];
+  counters: number[];
   isOn: boolean = false;
   searchString : string ="";
 
@@ -58,6 +59,7 @@ export class SceltaMostriPage {
   /* Sets data with returned JSON array */
   SetQueryOptionsData(data : any) {
     this.monsters = data;
+    this.counters = new Array(this.monsters.length).fill(0);
   }
   
   @ViewChild('mainSearchBar') searchBar: Searchbar ;
@@ -142,8 +144,8 @@ export class SceltaMostriPage {
 
   }
 
-  increment(){
-    
+  increment(index: number){
+    this.counters[index] = this.counters[index] + 1;
   }
 
 }
