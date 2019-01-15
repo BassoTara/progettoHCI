@@ -3,4 +3,5 @@ export interface Encounter {
     name: string;
     description: string;
     characterList: string[];
+    npcList: string[];
 }

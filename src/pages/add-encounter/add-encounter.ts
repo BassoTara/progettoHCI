@@ -18,6 +18,7 @@ export class AddEncounterPage {
     name: '',
     description: '',
     characterList: [],
+    npcList: [],
   };
 
   characterList$: Character[];
