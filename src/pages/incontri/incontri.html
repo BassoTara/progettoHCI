@@ -11,15 +11,28 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page1">
-  <ion-list id="incontri-list3">
-    <ion-list-header>
-      Incontri
-    </ion-list-header>
-    <button ion-item *ngFor="let encounter of encountersList$ | async">
-      {{encounter.name}}
-    </button>
-  </ion-list>
+<ion-content  >
+    <ion-list>
+
+        <ion-item-sliding #slidingItem *ngFor="let encounter of encountersList$ | async" (press)="presentPopover($event, encounter)"><button ion-item navPush="" [navParams]="
+          {encounter: encounter}">
+          {{encounter.name}}
+        </button>
+      
+        <ion-item-options>
+          <button ion-button class="slidingButton" color="secondary" navPush="EditEncounterPage" [navParams]="
+          {encounter: encounter}" (click)="slidingItem.close()">
+            <ion-icon name="open"></ion-icon>
+            Edit
+          </button>
+          <button ion-button class="slidingButton" color="danger" (click)="removeEncounter(encounter)">
+            <ion-icon name="trash"></ion-icon>
+            Remove
+          </button>
+    </ion-item-options>
+      
+      </ion-item-sliding>
+      </ion-list>
 
    <!-- Real floating action button, fixed. It will not scroll with the content -->
   <ion-fab right bottom>

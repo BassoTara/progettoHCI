@@ -15,18 +15,18 @@ import { SceltaGruppiDeiPngPage } from '../scelta-gruppi-dei-png/scelta-gruppi-d
 })
 export class AddEncounterPage {
   encounter: Encounter = {
-    name: '',
+    name: undefined,
     description: '',
     characterList: [],
     npcList: [],
+    monsterList: [],
   };
 
-  characterList$: Character[];
-  npcList$: Character[];
+  characterList$: Character[] = [];
+  npcList$: Character[] = [];
+  monsterList$ = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService) {
-    this.characterList$ = [];
-    this.npcList$ = [];
   }
 
 
@@ -35,6 +35,8 @@ export class AddEncounterPage {
       this.encounter.characterList.push(character.key);
     for (let npc of this.npcList$)
       this.encounter.npcList.push(npc.key);
+    this.encounter.monsterList = this.monsterList$;
+    
     this.encounters.addEncounter(encounter).then(ref => {
       this.navCtrl.pop();
     });
@@ -96,7 +98,7 @@ export class AddEncounterPage {
   pushToMonsterChoice(){
     var myCallbackFunction = (_params) => {
       return new Promise((resolve, reject) => {
-        this.npcList$.push(_params);
+        this.monsterList$ = this.monsterList$.concat(_params);
         resolve();
       });
     }

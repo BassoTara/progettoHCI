@@ -4,4 +4,5 @@ export interface Encounter {
     description: string;
     characterList: string[];
     npcList: string[];
+    monsterList;
 }

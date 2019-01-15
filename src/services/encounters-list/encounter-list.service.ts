@@ -18,4 +18,8 @@ export class EncountersListService {
     addEncounter(encounter: Encounter){
         return this.encountersListRef.push(encounter);
     }
+
+    removeEncounter(encounter: Encounter){
+        return this.encountersListRef.remove(encounter.key);
+    }
 }
