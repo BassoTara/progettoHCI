@@ -33,6 +33,8 @@ export class AddEncounterPage {
   addEncounter(encounter: Encounter) {
     for (let character of this.characterList$)
       this.encounter.characterList.push(character.key);
+    for (let npc of this.npcList$)
+      this.encounter.npcList.push(npc.key);
     this.encounters.addEncounter(encounter).then(ref => {
       this.navCtrl.pop();
     });
