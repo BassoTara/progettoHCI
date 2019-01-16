@@ -2,10 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, List } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
-import { SceltaGruppiDeiGiocatoriPage } from '../scelta-gruppi-dei-giocatori/scelta-gruppi-dei-giocatori';
 import { Character } from '../../models/character/character.model';
-import { CharactersListService } from '../../services/characters-list/characters-list.service';
-import { SceltaGruppiDeiPngPage } from '../scelta-gruppi-dei-png/scelta-gruppi-dei-png';
 
 
 @IonicPage()

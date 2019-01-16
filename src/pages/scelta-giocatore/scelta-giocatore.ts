@@ -4,7 +4,6 @@ import { Character } from '../../models/character/character.model';
 import { Observable } from 'rxjs';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Group } from '../../models/group/group.model';
-import { listChanges } from 'angularfire2/database';
 
 
 @IonicPage()
