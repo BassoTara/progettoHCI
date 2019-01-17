@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, group } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, ToastController } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Observable } from 'rxjs';
 import { PopoverViewGroupPage } from '../popover-view-group/popover-view-group';
+import { GESTURE_PRIORITY_SLIDING_ITEM } from 'ionic-angular/umd/gestures/gesture-controller';
 
 /**
  * Generated class for the ViewGroupPage page.
@@ -62,5 +63,14 @@ export class ViewGroupPage {
       });
       toast.present();
     });
+  }
+
+  pushToEditCharacter(character: Character) {
+    var characterCopy = Object.assign({}, character);
+    this.navCtrl.push('EditCharacterPage', {
+      group: this.group,
+      character: characterCopy,
+    });
+    
   }
 }
