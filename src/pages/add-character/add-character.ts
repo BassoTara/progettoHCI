@@ -36,6 +36,7 @@ export class AddCharacterPage {
     armorClass: undefined,
     initiativeModifier: undefined,
     healthPoints: undefined,
+    currentHealth: undefined,
     description: undefined,
     group: "0"
   };
@@ -66,6 +67,7 @@ export class AddCharacterPage {
   }
 
   addCharacter(character: Character) {
+    this.character.currentHealth = this.character.healthPoints;
     this.characters.addCharacter(character).then(ref => {
       if (this.defaultImgSrc != this.imgSrc)
         this.uploadInformation(this.imgSrc, ref.key);

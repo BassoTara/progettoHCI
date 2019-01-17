@@ -31,6 +31,7 @@ export class EditCharacterPage {
     armorClass: undefined,
     initiativeModifier: undefined,
     healthPoints: undefined,
+    currentHealth: undefined,
     description: undefined,
     group: "0",
   };
@@ -136,5 +137,12 @@ export class EditCharacterPage {
       });
       toast.present();
     });
+  }
+
+  checkCurrentHealth() {
+    console.log(this.character.currentHealth);
+    if (this.character.currentHealth > this.character.healthPoints)
+      setTimeout(() => {this.character.currentHealth = this.character.healthPoints;}, 0);
+      
   }
 }

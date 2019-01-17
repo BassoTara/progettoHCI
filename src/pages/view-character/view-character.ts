@@ -29,6 +29,7 @@ export class ViewCharacterPage {
     armorClass: undefined,
     initiativeModifier: undefined,
     healthPoints: undefined,
+    currentHealth: undefined,
     description: undefined,
     group: "0",
   };

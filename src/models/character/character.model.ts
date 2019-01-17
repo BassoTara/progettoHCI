@@ -4,6 +4,7 @@ export interface Character {
     armorClass: number;
     initiativeModifier: number;
     healthPoints: number;
+    currentHealth: number;
     description: string;
     group: string;
 }
