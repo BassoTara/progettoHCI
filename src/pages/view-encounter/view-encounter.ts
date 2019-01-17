@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ModalController } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Observable } from 'rxjs';
@@ -23,13 +23,13 @@ export class ViewEncounterPage {
   encounterCharacters = [];
   encounterMonsters = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController) {
     let encounter = this.navParams.get('encounter');
 
     this.encounterCharacters = this.encounterCharacters.concat(encounter.characterList);
     this.encounterCharacters = this.encounterCharacters.concat(encounter.npcList);
     console.log(this.encounterCharacters);
-    this.encounterMonsters = this.encounterMonsters.concat(encounter.monsterList);    
+    this.encounterMonsters = this.encounterMonsters.concat(encounter.monsterList);
     console.log(this.encounterMonsters);
 
     this.encounterMembers = this.encounterCharacters.concat(this.encounterMonsters);
@@ -52,4 +52,12 @@ export class ViewEncounterPage {
     });
   }
 
+  presentModal(member) {
+    let modal = this.modalCtrl.create('ModalViewEncounterPage', {
+      encounterMember: member,
+    }, {
+      cssClass: 'select-modal'
+    });
+    modal.present();
+  }
 }

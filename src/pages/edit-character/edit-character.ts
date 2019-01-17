@@ -48,6 +48,7 @@ export class EditCharacterPage {
   }
 
   ionViewDidLoad() {
+    // TODO: Back di Android, CSS dell'alert
     this.navBar.backButtonClick = (e: UIEvent) => {
       let alert = this.alertCtrl.create({
         title: 'Salvare le modifiche?',
