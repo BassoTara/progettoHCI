@@ -15,6 +15,10 @@ export class CharactersListService {
         return this.charactersListRef;
     }
 
+    getCharacterByKey(key: string){
+        return this.db.list<Character>('characters-list', ref => ref.orderByChild('key').equalTo(key));
+    }
+
     getCharactersListByGroupKey(key: string){
         return this.db.list<Character>('characters-list', ref => ref.orderByChild('group').equalTo(key));
     }
