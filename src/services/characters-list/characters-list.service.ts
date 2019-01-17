@@ -8,37 +8,33 @@ export class CharactersListService {
 
     // Create a list initialized with the content of table encounters
     private charactersListRef = this.db.list<Character>('characters-list');
-    
-    constructor(private db: AngularFireDatabase, private dataProvider: DataProvider){ }
 
-    getCharactersList(){
+    constructor(private db: AngularFireDatabase, private dataProvider: DataProvider) { }
+
+    getCharactersList() {
         return this.charactersListRef;
     }
 
-    getCharacterByKey(key: string){
-        return this.db.list<Character>('characters-list', ref => ref.child(key));
+    getCharacterByKey(key: string) {
+        return this.db.object('characters-list/' + key);
     }
 
-    getCharactersListByGroupKey(key: string){
+    getCharactersListByGroupKey(key: string) {
         return this.db.list<Character>('characters-list', ref => ref.orderByChild('group').equalTo(key));
     }
 
-    addCharacter(character: Character){
+    addCharacter(character: Character) {
         return this.charactersListRef.push(character);
     }
 
-    editCharacter(character: Character){
+    editCharacter(character: Character) {
         return this.charactersListRef.update(character.key, character);
     }
 
-    removeCharacter(character: Character){
+    removeCharacter(character: Character) {
         console.log('Removing character ' + character.name);
-        
+
         this.dataProvider.deleteCharacterImg(character.key);
         return this.charactersListRef.remove(character.key);
-    }
-
-    printTest(key){
-        console.log(this.db.list<Character>('characters-list', ref => ref.child(key)));
     }
 }

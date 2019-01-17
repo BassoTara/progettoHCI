@@ -51,7 +51,6 @@ export class ViewCharacterPage {
     this.character = this.navParams.get('character');
     this.group = this.navParams.get('group');
     console.log("chiamato ionViewWillLoad");
-    this.characters.printTest(this.character.key);
   }
 
   ionViewDidLoad() {

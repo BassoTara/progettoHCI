@@ -10,10 +10,11 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content>
   <ion-list>
-    <button ion-item *ngFor="let member of encounterCharacters" (click)="editMember(member)">
+    <button ion-item *ngFor="let member of encounterMembers$ | async" (click)="editMember(member)">
       {{member.name}}
     </button>
   </ion-list>
+
 </ion-content>
