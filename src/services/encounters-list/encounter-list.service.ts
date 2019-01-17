@@ -22,4 +22,8 @@ export class EncountersListService {
     removeEncounter(encounter: Encounter){
         return this.encountersListRef.remove(encounter.key);
     }
+
+    editEncounter(encounter : Encounter){
+        return this.encountersListRef.update(encounter.key, encounter);
+    }
 }

@@ -4,13 +4,8 @@ import { Encounter } from '../../models/encounter/encounter.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Observable } from 'rxjs';
 import { Character } from '../../models/character/character.model';
+import { group } from '@angular/core/src/animation/dsl';
 
-/**
- * Generated class for the ViewEncounterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -19,28 +14,41 @@ import { Character } from '../../models/character/character.model';
 })
 export class ViewEncounterPage {
 
-  encounterMembers = [];
-  encounterCharacters = [];
+  encounter: Encounter;
+  encounterCharacters =[];
   encounterMonsters = [];
+  encounterMembers = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController) {
-    let encounter = this.navParams.get('encounter');
+    this.encounter = this.navParams.get('encounter');
 
-    this.encounterCharacters = this.encounterCharacters.concat(encounter.characterList);
-    this.encounterCharacters = this.encounterCharacters.concat(encounter.npcList);
+    this.encounterCharacters = this.encounter.characterList;
+    this.encounterCharacters = this.encounterCharacters.concat(this.encounter.npcList);
     console.log(this.encounterCharacters);
-    this.encounterMonsters = this.encounterMonsters.concat(encounter.monsterList);    
+    this.encounterMonsters = this.encounter.monsterList;    
     console.log(this.encounterMonsters);
 
     this.encounterMembers = this.encounterCharacters.concat(this.encounterMonsters);
     console.log(this.encounterMembers);
 
-    this.encounterMembers[0].name = "stronzolo";
-    this.characters.editCharacter(this.encounterCharacters[0]);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewEncounterPage');
+  }
+
+  editMember(member){
+    let amount = 10;
+
+    if(member.group != null){
+      console.log(member.name + " fa parte di encounterCharacters!");
+      this.characters.editCharacter(member);
+      this.encounter.characterList.
+    }
+    else{
+      console.log(member.name + " fa parte di encounterMonsters!");
+    }
+    
   }
 
   presentPopover(myEvent, member) {
