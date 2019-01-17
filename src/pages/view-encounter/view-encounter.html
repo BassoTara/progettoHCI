@@ -12,8 +12,8 @@
 
 <ion-content >
   <ion-list>
-    <ion-item *ngFor="let member of encounterMembers">
+    <button ion-item *ngFor="let member of encounterMembers" (click)="presentPopover($event, member)">
       {{member.name}}
-    </ion-item>
+    </button>
   </ion-list>
 </ion-content>

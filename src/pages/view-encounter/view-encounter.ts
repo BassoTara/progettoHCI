@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Observable } from 'rxjs';
@@ -23,7 +23,7 @@ export class ViewEncounterPage {
   encounterCharacters = [];
   encounterMonsters = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController) {
     let encounter = this.navParams.get('encounter');
 
     this.encounterCharacters = this.encounterCharacters.concat(encounter.characterList);
@@ -41,6 +41,15 @@ export class ViewEncounterPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewEncounterPage');
+  }
+
+  presentPopover(myEvent, member) {
+    let popover = this.popoverCtrl.create('PopoverViewEncounterPage', {
+      encounterMember: member,
+    });
+    popover.present({
+      ev: myEvent
+    });
   }
 
 }
