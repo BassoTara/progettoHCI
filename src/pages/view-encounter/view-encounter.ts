@@ -2,10 +2,13 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, ModalController, Item } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Character } from '../../models/character/character.model';
 import { group } from '@angular/core/src/animation/dsl';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
+import { timeout } from 'rxjs/operator/timeout';
+import { setTimeout } from 'timers';
+import { Monster } from '../../models/monster/monster.model';
 
 
 @IonicPage()
@@ -20,25 +23,48 @@ export class ViewEncounterPage {
   encounterMonsters = [];
   encounterMembers = [];
 
+  charactersList$;
+  monstersList$;
+
+  encounterMembers$;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
     private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController) {
 
     this.encounter = this.navParams.get('encounter');
     this.encounterMonsters = this.encounter.monsterList;
 
-    for (let key of this.encounter.characterKeys) {
-      this.characters.getCharacterByKey(key).valueChanges().subscribe(item => {
-        this.encounterCharacters.push(item);
-        this.encounterMembers.push(item);
-      })
-    }
+    /*  this.characters.getCharacterByKey(key).valueChanges().subscribe(item => {
+       this.encounterCharacters.push(item);
+       this.encounterMembers.push(item);
+     }); */
 
-    this.encounterMembers = this.encounterMembers.concat(this.encounterMonsters);
+    let observables = this.encounter.characterKeys.map(key => {
+      return this.characters.getCharacterByKey(key).valueChanges();
+    });
+
+    this.monstersList$ = this.encounters.getMonstersByEncounterKey(this.encounter.key).snapshotChanges().map(
+      changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val(),
+        }));
+      }
+    );
+
+    console.log(this.encounter.monsterList);
+
+    observables.push(this.monstersList$);
+
+    this.charactersList$ = Observable.combineLatest(
+      observables,
+      (...keys) => {
+        return Array.prototype.concat(...keys);
+      }
+    );
 
   }
 
   ionViewDidLoad() {
-    this.encounterMembers = this.encounterCharacters.concat(this.encounterMonsters);
     console.log('ionViewDidLoad ViewEncounterPage');
   }
 
@@ -50,8 +76,7 @@ export class ViewEncounterPage {
       // console.log(member.name + " fa parte di encounterCharacters!");
       this.characters.editCharacter(member);
 
-    // this.encounters.editEncounter(this.encounter);
-
+    this.encounters.editEncounter(this.encounter);
   }
 
   presentPopover(myEvent, member) {
