@@ -29,7 +29,7 @@ export class EncountersListService {
     }
 
     getMonstersByEncounterKey(key: string) {
-        return this.db.list('encounters-list/' + key);
+        return this.db.list('encounters-list/' + key + '/monsterList');
     }
 
 }

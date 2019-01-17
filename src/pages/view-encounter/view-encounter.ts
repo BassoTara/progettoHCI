@@ -43,17 +43,7 @@ export class ViewEncounterPage {
       return this.characters.getCharacterByKey(key).valueChanges();
     });
 
-    this.monstersList$ = this.encounters.getMonstersByEncounterKey(this.encounter.key).snapshotChanges().map(
-      changes => {
-        return changes.map(c => ({
-          key: c.payload.key, ...c.payload.val(),
-        }));
-      }
-    );
-
-    console.log(this.encounter.monsterList);
-
-    observables.push(this.monstersList$);
+    this.monstersList$ = this.encounters.getMonstersByEncounterKey(this.encounter.key).valueChanges();
 
     this.charactersList$ = Observable.combineLatest(
       observables,
@@ -61,6 +51,14 @@ export class ViewEncounterPage {
         return Array.prototype.concat(...keys);
       }
     );
+
+    this.encounterMembers$ = Observable.combineLatest(
+      this.charactersList$,
+      this.monstersList$,
+      (...keys) => {
+        return Array.prototype.concat(...keys);
+      }
+    )
 
   }
 
