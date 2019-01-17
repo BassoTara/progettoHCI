@@ -38,7 +38,7 @@
       <ion-label>
         Punti Salute attuali
       </ion-label>
-      <ion-input  [(ngModel)]="character.currentHealth" type="number" (input)="checkCurrentHealth();" ></ion-input>
+      <ion-input [(ngModel)]="character.currentHealth" type="number"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>
@@ -47,8 +47,8 @@
       </ion-label>
       <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="character.description"></ion-textarea>
     </ion-item>
-    <button ion-button block clear (click)="editCharacter(character)" > Save </button>
-    <button ion-button block clear color="danger" (click)="removeCharacter(character)"> Delete </button>
+    <button ion-button block clear (click)="editCharacter()" > Save </button>
+    <button ion-button block clear color="danger" (click)="removeCharacter()"> Delete </button>
   
   
     {{character | json}}

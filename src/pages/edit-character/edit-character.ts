@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController, Navbar } from 'ionic-angular';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Group } from '../../models/group/group.model';
@@ -19,6 +19,8 @@ export class EditCharacterPage {
   imgHasChanged: boolean = false;
   imgSrc: string = "assets/imgs/no-image.png";
 
+  @ViewChild(Navbar) navBar: Navbar;
+
   group: Group = {
     key: '',
     name: '',
@@ -26,16 +28,7 @@ export class EditCharacterPage {
     description: undefined,
   };
 
-  character: Character = {
-    name: '',
-    armorClass: undefined,
-    initiativeModifier: undefined,
-    healthPoints: undefined,
-    currentHealth: undefined,
-    description: undefined,
-    group: "0",
-  };
-
+  character: Character;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
   }
@@ -55,16 +48,36 @@ export class EditCharacterPage {
   }
 
   ionViewDidLoad() {
+    this.navBar.backButtonClick = (e: UIEvent) => {
+      let alert = this.alertCtrl.create({
+        title: 'Salvare le modifiche?',
+        buttons: [
+          {
+            text: 'Sì',
+            handler: () => {
+              this.editCharacter();
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+              this.navCtrl.pop();
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
     setTimeout(() => this.resizeName(), 0);
     setTimeout(() => this.resizeDesc(), 0);
     this.loadImageFromStorage();
     console.log("chiamato ionViewDidLoad");
   }
 
-  editCharacter(character: Character) {
-    this.characters.editCharacter(character).then(() => {
+  editCharacter() {
+    this.characters.editCharacter(this.character).then(() => {
       if (this.imgHasChanged)
-        this.uploadInformation(this.imgSrc, character.key);
+        this.uploadInformation(this.imgSrc, this.character.key);
       let toast = this.toastCtrl.create({
         message: 'Character edited successfully!',
         duration: 3000
@@ -75,8 +88,8 @@ export class EditCharacterPage {
     });
   }
 
-  removeCharacter(character: Character) {
-    this.characters.removeCharacter(character).then(res => {
+  removeCharacter() {
+    this.characters.removeCharacter(this.character).then(res => {
       console.log('res: ', res);
       let toast = this.toastCtrl.create({
         message: 'Character removed successfully!',
@@ -139,10 +152,4 @@ export class EditCharacterPage {
     });
   }
 
-  checkCurrentHealth() {
-    console.log(this.character.currentHealth);
-    if (this.character.currentHealth > this.character.healthPoints)
-      setTimeout(() => {this.character.currentHealth = this.character.healthPoints;}, 0);
-      
-  }
 }
