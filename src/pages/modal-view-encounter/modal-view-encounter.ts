@@ -1,19 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
-/**
- * Generated class for the PopoverViewEncounterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
-  selector: 'page-popover-view-encounter',
-  templateUrl: 'popover-view-encounter.html',
+  selector: 'page-modal-view-encounter',
+  templateUrl: 'modal-view-encounter.html',
 })
-export class PopoverViewEncounterPage {
+export class ModalViewEncounterPage {
 
   encounterMember;
 
@@ -22,7 +16,7 @@ export class PopoverViewEncounterPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PopoverViewEncounterPage');
+    console.log('ionViewDidLoad ModalViewEncounterPage');
   }
 
   close() {
