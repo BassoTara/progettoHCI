@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
+import { Observable } from 'rxjs';
+import { Character } from '../../models/character/character.model';
 
 /**
  * Generated class for the ViewEncounterPage page.
@@ -18,43 +20,23 @@ import { CharactersListService } from '../../services/characters-list/characters
 export class ViewEncounterPage {
 
   encounterMembers = [];
-  /* encounter: Encounter = {
-    name: "",
-    description: "",
-    characterList: undefined,
-    npcList: undefined,
-    monsterList: undefined
-  } */
+  encounterCharacters = [];
+  encounterMonsters = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService) {
     let encounter = this.navParams.get('encounter');
 
-    //PROBLEMA: *ngFor deve lavorare con una lista unica, serve quindi salvare personaggi e mostri in un'unica lista. 
-    //Passaggio diretto delle liste o caricamento degli oggetti (non observable) tramite chiavi?
+    this.encounterCharacters = this.encounterCharacters.concat(encounter.characterList);
+    this.encounterCharacters = this.encounterCharacters.concat(encounter.npcList);
+    console.log(this.encounterCharacters);
+    this.encounterMonsters = this.encounterMonsters.concat(encounter.monsterList);    
+    console.log(this.encounterMonsters);
 
-    for (let characterKey of encounter.characterList) {
-      let character = characters.getCharacterByKey(characterKey).snapshotChanges().map(
-        changes => {
-          return changes.map(c => ({
-            key: c.payload.key, ...c.payload.val(),
-          }));
-        }
-      );
-      character.subscribe(character => {
-        this.encounterMembers.concat(character);
-      });
-    }
-
+    this.encounterMembers = this.encounterCharacters.concat(this.encounterMonsters);
     console.log(this.encounterMembers);
 
-    for (let characterKey of encounter.npcList) {
-      let character = characters.getCharacterByKey(characterKey);
-      this.encounterMembers.push(character);
-    }
-    console.log(this.encounterMembers);
-
-    this.encounterMembers = this.encounterMembers.concat(encounter.monsterList);
-    console.log(this.encounterMembers);
+    this.encounterMembers[0].name = "stronzolo";
+    this.characters.editCharacter(this.encounterCharacters[0]);
   }
 
   ionViewDidLoad() {

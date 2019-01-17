@@ -28,10 +28,8 @@ export class AddEncounterPage {
 
 
   addEncounter(encounter: Encounter) {
-    for (let character of this.characterList$)
-      this.encounter.characterList.push(character.key);
-    for (let npc of this.npcList$)
-      this.encounter.npcList.push(npc.key);
+    this.encounter.characterList = this.characterList$;
+    this.encounter.npcList = this.npcList$;
     this.encounter.monsterList = this.monsterList$;
 
     this.encounters.addEncounter(encounter).then(ref => {
