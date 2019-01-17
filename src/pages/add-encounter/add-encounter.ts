@@ -14,8 +14,7 @@ export class AddEncounterPage {
   encounter: Encounter = {
     name: undefined,
     description: '',
-    characterList: [],
-    npcList: [],
+    characterKeys: [],
     monsterList: [],
   };
 
@@ -28,8 +27,9 @@ export class AddEncounterPage {
 
 
   addEncounter(encounter: Encounter) {
-    this.encounter.characterList = this.characterList$;
-    this.encounter.npcList = this.npcList$;
+    for (let character of this.characterList$.concat(this.npcList$))
+      this.encounter.characterKeys.push(character.key);
+      
     this.encounter.monsterList = this.monsterList$;
 
     this.encounters.addEncounter(encounter).then(ref => {

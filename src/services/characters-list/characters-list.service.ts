@@ -16,7 +16,7 @@ export class CharactersListService {
     }
 
     getCharacterByKey(key: string){
-        return this.db.list<Character>('characters-list', ref => ref.child(key));
+        return this.db.object('characters-list/'+key);
     }
 
     getCharactersListByGroupKey(key: string){
