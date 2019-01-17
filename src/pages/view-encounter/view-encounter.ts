@@ -5,6 +5,7 @@ import { CharactersListService } from '../../services/characters-list/characters
 import { Observable } from 'rxjs';
 import { Character } from '../../models/character/character.model';
 import { group } from '@angular/core/src/animation/dsl';
+import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
 
 
 @IonicPage()
@@ -19,20 +20,33 @@ export class ViewEncounterPage {
   encounterMonsters = [];
   encounterMembers = [];
 
+  charactersList$: Observable<Character[]>;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
+              private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController) {
+    
     this.encounter = this.navParams.get('encounter');
 
-
-    this.encounterCharacters = this.encounter.characterList;
-    this.encounterCharacters = this.encounterCharacters.concat(this.encounter.npcList);
+    let key = this.encounter.characterList[0].key;
+    this.charactersList$ = characters.getCharacterByKey(key).snapshotChanges().map(
+      changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val(),
+        }));
+      }
+    );
+    this.charactersList$.subscribe(list => {
+      this.encounterCharacters = this.encounterCharacters.concat(list);
+    });
     console.log(this.encounterCharacters);
+/*     
     this.encounterMonsters = this.encounter.monsterList;    
     console.log(this.encounterMonsters);
 
     this.encounterMembers = this.encounterCharacters.concat(this.encounterMonsters);
-    console.log(this.encounterMembers);
+    console.log(this.encounterMembers); */
 
   }
 
@@ -42,15 +56,14 @@ export class ViewEncounterPage {
 
   editMember(member){
     let amount = 10;
+    member.currentHealth -= 10;
 
-    if(member.group != null){
-      console.log(member.name + " fa parte di encounterCharacters!");
+    if(member.group != null)
+      // console.log(member.name + " fa parte di encounterCharacters!");
       this.characters.editCharacter(member);
-      this.encounter.characterList.
-    }
-    else{
-      console.log(member.name + " fa parte di encounterMonsters!");
-    }
+    
+    
+    this.encounters.editEncounter(this.encounter);
     
   }
 

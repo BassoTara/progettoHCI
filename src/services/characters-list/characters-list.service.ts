@@ -16,7 +16,7 @@ export class CharactersListService {
     }
 
     getCharacterByKey(key: string){
-        return this.db.list<Character>('characters-list', ref => ref.orderByChild('key').equalTo(key));
+        return this.db.list<Character>('characters-list', ref => ref.child(key));
     }
 
     getCharactersListByGroupKey(key: string){
@@ -36,5 +36,9 @@ export class CharactersListService {
         
         this.dataProvider.deleteCharacterImg(character.key);
         return this.charactersListRef.remove(character.key);
+    }
+
+    printTest(key){
+        console.log(this.db.list<Character>('characters-list', ref => ref.child(key)));
     }
 }
