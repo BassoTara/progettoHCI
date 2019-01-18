@@ -18,6 +18,7 @@ export class ViewEncounterPage {
 
   charactersList$;
   monstersList$;
+  initiatives = {};
 
   encounterMembers$;
 
@@ -38,6 +39,7 @@ export class ViewEncounterPage {
           return Array.prototype.concat(...keys);
         }
       );
+
     }
 
     this.monstersList$ = this.encounters.getMonstersByEncounterKey(this.encounter.key).snapshotChanges().map(
@@ -60,6 +62,12 @@ export class ViewEncounterPage {
     else
       this.encounterMembers$ = this.monstersList$;
 
+    this.encounters.getInitiatives(this.encounter).valueChanges().subscribe(list => {
+      for (let e of list) {
+        this.initiatives[e["key"]] = e["value"];
+      }
+    })
+
   }
 
   ionViewDidLoad() {
@@ -69,6 +77,9 @@ export class ViewEncounterPage {
   editMember(member) {
     let amount = 10;
     member.currentHealth -= 10;
+
+    console.log(this.initiatives);
+    console.log(this.initiatives[member.key])
 
     if (member.group != null)
       this.characters.editCharacter(member);

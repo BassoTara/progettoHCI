@@ -35,4 +35,8 @@ export class EncountersListService {
         return this.db.list('encounters-list/' + key + '/monsterList');
     }
 
+    getInitiatives(encounter: Encounter) {
+        return this.db.list('encounters-list/'+ encounter.key + '/initiatives/');
+    }
+
 }

@@ -16,6 +16,7 @@ export class AddEncounterPage {
     description: '',
     characterKeys: [],
     monsterList: [],
+    initiatives: [],
   };
 
   characterList$: Character[] = [];
@@ -27,10 +28,23 @@ export class AddEncounterPage {
 
 
   addEncounter(encounter: Encounter) {
-    for (let character of this.characterList$.concat(this.npcList$))
+    for (let character of this.characterList$.concat(this.npcList$)) {
       this.encounter.characterKeys.push(character.key);
-      
+      let initiative = {
+        key: character.key,
+        value: 0,
+      }    
+      this.encounter.initiatives.push(initiative);
+    }
+
     this.encounter.monsterList = this.monsterList$;
+    for (let index in this.monsterList$) {
+      let initiative = {
+        key: index,
+        value: 0,
+      }
+      this.encounter.initiatives.push(initiative);    
+    }
 
     this.encounters.addEncounter(encounter).then(ref => {
       this.navCtrl.pop();

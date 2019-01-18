@@ -4,4 +4,5 @@ export interface Encounter {
     description: string;
     characterKeys: string[];
     monsterList;
+    initiatives;
 }

@@ -13,7 +13,7 @@
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="let member of encounterMembers$ | async" (click)="editMember(member)">
-      {{member.name}}
+      {{member.name}} {{initiatives[member.key]}}
     </button>
   </ion-list>
 
