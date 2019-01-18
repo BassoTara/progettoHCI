@@ -4,6 +4,7 @@ import { Encounter } from '../../models/encounter/encounter.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Observable, Subject } from 'rxjs';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
+import { m } from '@angular/core/src/render3';
 
 
 
@@ -19,6 +20,8 @@ export class ViewEncounterPage {
   charactersList$;
   monstersList$;
   initiatives = {};
+
+  encounterMembers;
 
   encounterMembers$;
 
@@ -62,6 +65,11 @@ export class ViewEncounterPage {
     else
       this.encounterMembers$ = this.monstersList$;
 
+
+    this.encounterMembers$.subscribe(list => {
+      this.encounterMembers = list;
+    })
+    
     this.encounters.getInitiatives(this.encounter).valueChanges().subscribe(list => {
       for (let e of list) {
         this.initiatives[e["key"]] = e["value"];
@@ -104,5 +112,12 @@ export class ViewEncounterPage {
         cssClass: 'select-modal'
       });
     modal.present();
+  }
+
+  rollInitiative() {
+    for (let member of this.encounterMembers) {
+      this.initiatives[member.key] = 20;
+    }
+    this.encounters.editInitiatives(this.encounter, this.initiatives);
   }
 }
