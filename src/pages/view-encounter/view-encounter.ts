@@ -26,12 +26,20 @@ export class ViewEncounterPage {
 
     this.encounter = this.navParams.get('encounter');
 
-    
-    let observables = this.encounter.characterKeys.map(
-      key => {
-      return this.characters.getCharacterByKey(key).valueChanges();
-    });
-    
+    if (this.encounter.characterKeys != null) {
+      let observables = this.encounter.characterKeys.map(
+        key => {
+          return this.characters.getCharacterByKey(key).valueChanges();
+        });
+
+      this.charactersList$ = Observable.combineLatest(
+        observables,
+        (...keys) => {
+          return Array.prototype.concat(...keys);
+        }
+      );
+    }
+
     this.monstersList$ = this.encounters.getMonstersByEncounterKey(this.encounter.key).snapshotChanges().map(
       changes => {
         return changes.map(c => ({
@@ -40,20 +48,17 @@ export class ViewEncounterPage {
       }
     );
 
-    this.charactersList$ = Observable.combineLatest(
-      observables,
-      (...keys) => {
-        return Array.prototype.concat(...keys);
-      }
-    );
-
-    this.encounterMembers$ = Observable.combineLatest(
-      this.charactersList$,
-      this.monstersList$,
-      (...keys) => {
-        return Array.prototype.concat(...keys);
-      }
-    )
+    if (this.encounter.characterKeys != null) {
+      this.encounterMembers$ = Observable.combineLatest(
+        this.charactersList$,
+        this.monstersList$,
+        (...keys) => {
+          return Array.prototype.concat(...keys);
+        }
+      )
+    }
+    else
+      this.encounterMembers$ = this.monstersList$;
 
   }
 
