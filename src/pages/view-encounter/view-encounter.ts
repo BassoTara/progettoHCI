@@ -4,7 +4,7 @@ import { Encounter } from '../../models/encounter/encounter.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Observable, Subject } from 'rxjs';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
-import { m } from '@angular/core/src/render3';
+import { WheelSelector } from '@ionic-native/wheel-selector';
 
 
 
@@ -26,7 +26,7 @@ export class ViewEncounterPage {
   encounterMembers$;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
-    private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController) {
+    private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController, public wheelSelector: WheelSelector) {
 
     this.encounter = this.navParams.get('encounter');
 
@@ -96,17 +96,23 @@ export class ViewEncounterPage {
     console.log('ionViewDidLoad ViewEncounterPage');
   }
 
-  editMember(member) {
-    let amount = 10;
-    member.currentHealth -= 10;
+  editMemberHP(member, offset) {
+    member.currentHealth += offset;
 
-    console.log(this.initiatives);
-    console.log(this.initiatives[member.key])
+    if (member.currentHealth < 0)
+      member.currentHealth = 0;
 
-    if (member.group != null)
+    if (member.group != null) {
+      if (member.currentHealth > member.healthPoints)
+        member.currentHealth = member.healthPoints;
       this.characters.editCharacter(member);
-    else
+    }
+    else {
+      if (member.currentHealth > member.hit_points)
+        member.currentHealth = member.hit_points;
       this.encounters.editEncounterByMonster(this.encounter, member);
+    }
+
 
   }
 
@@ -123,7 +129,7 @@ export class ViewEncounterPage {
     let modal = this.modalCtrl.create('ModalViewEncounterPage', {
       encounterMember: member,
     }, {
-        cssClass: 'select-modal'
+        cssClass: 'select-modal',
       });
     modal.present();
   }
@@ -153,5 +159,37 @@ export class ViewEncounterPage {
   computeModifier(stat: number) {
     var n = (stat < 10 ? ((stat - 11) / 2) >> 0 : ((stat - 10) / 2) >> 0);
     return n;
+  }
+
+  selectHealth(member) {
+    var jsonData = {
+      numbers: [
+      ],
+      type: [
+        { description: "Damage" },
+        { description: "Healing" },
+      ],
+    };
+
+    for (let index = 1; index < 1000; index++) {
+      jsonData.numbers.push({ description: index });
+    }
+
+    this.wheelSelector.show({
+      title: "How Many?",
+      items: [
+        jsonData.type,
+        jsonData.numbers,
+      ],
+    }).then(
+      result => {
+        var offset = parseInt(result[1].description);
+
+        if (result[0].description == "Damage")
+          offset *= -1;
+
+        this.editMemberHP(member, offset);
+      }
+    );
   }
 }

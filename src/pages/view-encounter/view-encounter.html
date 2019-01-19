@@ -12,13 +12,16 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let member of encounterMembers$ | async " (click)="presentModal(member)">
-      {{member.name}} {{initiatives[member.key]}}
+    <button ion-item *ngFor="let member of encounterMembers$ | async " (click)="selectHealth(member)">
+      {{member.name}} {{initiatives[member.key]}} {{member.currentHealth}}
     </button>
   </ion-list>
 
   <ion-fab right bottom>
-    <button (click)="rollInitiative()" ion-fab color="light"><ion-icon name="add"></ion-icon></button>
+    <button (click)="rollInitiative()" ion-fab color="light">
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-fab>
+
 
 </ion-content>

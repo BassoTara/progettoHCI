@@ -19,6 +19,7 @@ import { HttpModule } from '@angular/http';
 
 import { Camera } from '@ionic-native/camera';
 import { DataProvider } from './data';
+import { WheelSelector } from '@ionic-native/wheel-selector';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { DataProvider } from './data';
     GroupsListService,
     DataFinder,
     Camera,
-    DataProvider
+    DataProvider,
+    WheelSelector,
   ]
 })
 export class AppModule {}
