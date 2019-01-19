@@ -123,7 +123,8 @@ export class ViewEncounterPage {
     let modal = this.modalCtrl.create('ModalViewEncounterPage', {
       encounterMember: member,
     }, {
-        cssClass: 'select-modal'
+        cssClass: 'select-modal',
+        enableBackdropDismiss: false
       });
     modal.present();
   }
