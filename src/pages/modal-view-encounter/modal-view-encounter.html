@@ -3,6 +3,18 @@
 </ion-navbar>
 
 <ion-content>
-  <ion-buttons left bottom> <button ion-button (click)="closeModal()"> Close </button> </ion-buttons>
-  <ion-buttons right bottom> <button ion-button > Save </button> </ion-buttons>
+  <ion-list radio-group>
+    <ion-item>
+      <ion-label>Friends</ion-label>
+      <ion-radio value="friends" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Family</ion-label>
+      <ion-radio value="family"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Danni: </ion-label>
+      <ion-input type=number></ion-input>
+    </ion-item>
+  </ion-list>
 </ion-content>
