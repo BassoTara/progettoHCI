@@ -25,6 +25,7 @@ export class ViewEncounterPage {
 
   encounterMembers$;
 
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
     private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController, public wheelSelector: WheelSelector) {
 
@@ -135,6 +136,9 @@ export class ViewEncounterPage {
   }
 
   rollInitiative() {
+    this.encounter.turn = 0;
+    this.encounters.editTurn(this.encounter, this.encounter.turn);
+    console.log(this.encounter.turn);
     for (let member of this.encounterMembers) {
       if (member.group != null)
         this.initiatives[member.key] = Math.floor(Math.random() * 20) + 1 + parseInt(member.initiativeModifier);

@@ -17,6 +17,7 @@ export class AddEncounterPage {
     characterKeys: [],
     monsterList: [],
     initiatives: [],
+    turn: -1
   };
 
   characterList$: Character[] = [];

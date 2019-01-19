@@ -39,6 +39,10 @@ export class EncountersListService {
         return this.db.list('encounters-list/'+ encounter.key + '/initiatives/');
     }
 
+    editTurn(encounter: Encounter, turn: number){
+        this.db.database.ref('encounters-list/' + encounter.key + '/turn/').set(turn);
+    }
+
     editInitiatives(encounter: Encounter, initiatives) {
         let initiatives_array = new Array();
         for (let inKey in initiatives) {
