@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ModalController, Item } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ModalController, Item, Modal, ModalOptions } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Observable, Subject } from 'rxjs';
@@ -21,7 +21,7 @@ export class ViewEncounterPage {
   monstersList$;
   initiatives = {};
 
-  encounterMembers;
+  encounterMembers = [];
 
   encounterMembers$;
 
@@ -66,16 +66,30 @@ export class ViewEncounterPage {
       this.encounterMembers$ = this.monstersList$;
 
 
-    this.encounterMembers$.subscribe(list => {
-      this.encounterMembers = list;
-    })
-    
+
+
     this.encounters.getInitiatives(this.encounter).valueChanges().subscribe(list => {
       for (let e of list) {
         this.initiatives[e["key"]] = e["value"];
       }
+
+
     })
 
+    this.encounterMembers$.subscribe(list => {
+      this.encounterMembers = list;
+      this.encounterMembers$ = Observable.of(this.encounterMembers).map((data) => {
+        data.sort((a, b) => {
+          if (this.initiatives[a.key] > this.initiatives[b.key]) {
+            return -1;
+          } else if (this.initiatives[a.key] < this.initiatives[b.key]) {
+            return 1;
+          }
+          return 0;
+        });
+        return data;
+      });
+    })
   }
 
   ionViewDidLoad() {
@@ -116,8 +130,28 @@ export class ViewEncounterPage {
 
   rollInitiative() {
     for (let member of this.encounterMembers) {
-      this.initiatives[member.key] = 20;
+      if (member.group != null)
+        this.initiatives[member.key] = Math.floor(Math.random() * 20) + 1 + parseInt(member.initiativeModifier);
+      else
+        this.initiatives[member.key] = this.computeModifier(member.dexterity) + Math.floor(Math.random() * 20) + 1;
     }
     this.encounters.editInitiatives(this.encounter, this.initiatives);
+    this.encounterMembers$ = Observable.of(this.encounterMembers).map((data) => {
+      data.sort((a, b) => {
+        if (this.initiatives[a.key] > this.initiatives[b.key]) {
+          return -1;
+        } else if (this.initiatives[a.key] < this.initiatives[b.key]) {
+          return 1;
+        }
+        return 0;
+      });
+      return data;
+    });
+
+  }
+
+  computeModifier(stat: number) {
+    var n = (stat < 10 ? ((stat - 11) / 2) >> 0 : ((stat - 10) / 2) >> 0);
+    return n;
   }
 }

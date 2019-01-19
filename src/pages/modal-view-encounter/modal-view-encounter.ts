@@ -15,11 +15,12 @@ export class ModalViewEncounterPage {
     this.encounterMember = this.navParams.get('encounterMember');
   }
 
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalViewEncounterPage');
   }
 
-  close() {
+  closeModal() {
     this.viewCtrl.dismiss();
   }
   
