@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, List } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
 import { Character } from '../../models/character/character.model';
+import { CharactersListService } from '../../services/characters-list/characters-list.service';
 
 
 @IonicPage()
@@ -24,12 +25,13 @@ export class AddEncounterPage {
   npcList$: Character[] = [];
   monsterList$ = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService, public characters: CharactersListService) {
   }
 
 
   addEncounter(encounter: Encounter) {
     for (let character of this.characterList$.concat(this.npcList$)) {
+      this.characters.editCharacter(character);
       this.encounter.characterKeys.push(character.key);
       let initiative = {
         key: character.key,
