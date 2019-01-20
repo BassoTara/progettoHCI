@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ModalController, Item, Modal, ModalOptions } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ModalController, Item, Modal, ModalOptions, ToastController } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Observable, Subject } from 'rxjs';
@@ -26,8 +26,8 @@ export class ViewEncounterPage {
   encounterMembers$;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
-    private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController, public wheelSelector: WheelSelector) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public toastCtrl: ToastController
+    ,private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController, public wheelSelector: WheelSelector) {
 
     this.encounter = this.navParams.get('encounter');
 
@@ -107,11 +107,21 @@ export class ViewEncounterPage {
       if (member.currentHealth > member.healthPoints)
         member.currentHealth = member.healthPoints;
       this.characters.editCharacter(member);
+      let toast = this.toastCtrl.create({
+        message: member.name+' now have '+member.currentHealth+'hp!',
+        duration: 3000
+      });
+      toast.present();
     }
     else {
       if (member.currentHealth > member.hit_points)
         member.currentHealth = member.hit_points;
       this.encounters.editEncounterByMonster(this.encounter, member);
+      let toast = this.toastCtrl.create({
+        message: member.name+' now have '+member.currentHealth+'hp!',
+        duration: 3000
+      });
+      toast.present();
     }
 
 
