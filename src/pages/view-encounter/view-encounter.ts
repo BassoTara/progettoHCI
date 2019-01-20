@@ -135,6 +135,18 @@ export class ViewEncounterPage {
     modal.present();
   }
 
+  combat() {
+    if (this.encounter.turn == -1) // Non è ancora stata tirata l'iniziativa
+      this.rollInitiative();
+    else {
+      this.encounter.turn += 1;
+      this.encounters.editTurn(this.encounter, this.encounter.turn);
+    }
+
+    console.log("Round = " + this.getRound());
+    console.log("Turno di = " + this.getTurnMember());
+  }
+
   rollInitiative() {
     this.encounter.turn = 0;
     this.encounters.editTurn(this.encounter, this.encounter.turn);
@@ -196,4 +208,13 @@ export class ViewEncounterPage {
       }
     );
   }
+
+  getRound(){
+    return (this.encounter.turn / this.encounterMembers.length) - (( Math.abs(this.encounter.turn) % this.encounterMembers.length ) / this.encounterMembers.length)+1;
+  }
+
+  getTurnMember(){
+    return this.encounter.turn % this.encounterMembers.length;
+  }
+
 }
