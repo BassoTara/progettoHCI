@@ -112,14 +112,7 @@ export class ViewEncounterPage {
       if (member.currentHealth > member.hit_points)
         member.currentHealth = member.hit_points;
       this.encounters.editEncounterByMonster(this.encounter, member);
-      let toast = this.toastCtrl.create({
-        message: member.name + ' now have ' + member.currentHealth + 'hp!',
-        duration: 3000
-      });
-      toast.present();
     }
-
-
   }
 
   presentPopover(myEvent, member) {
@@ -190,7 +183,7 @@ export class ViewEncounterPage {
         { description: "Damage" },
         { description: "Healing" },
       ],
-    };
+    }
 
     for (let index = 1; index < 1000; index++) {
       jsonData.numbers.push({ description: index });
@@ -204,11 +197,12 @@ export class ViewEncounterPage {
       ],
     }).then(
       result => {
+
         var offset = parseInt(result[1].description);
 
-        if (result[0].description == "Damage")
+        if (result[0].description == "Healing")
           offset *= -1;
-
+        
         this.editMemberHP(member, offset);
       }
     );
