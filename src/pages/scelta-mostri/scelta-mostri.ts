@@ -1,6 +1,7 @@
 import { Component, ViewChild, Renderer } from '@angular/core';
 import { IonicPage, NavController, NavParams, Searchbar, Platform } from 'ionic-angular';
 import { DataFinder } from '../../services/datafinder';
+import { WheelSelector } from '@ionic-native/wheel-selector';
 
 declare var require: any
 
@@ -24,7 +25,7 @@ export class SceltaMostriPage {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dataFinder: DataFinder, public renderer: Renderer, public platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dataFinder: DataFinder, public renderer: Renderer, public platform: Platform, public wheelSelector: WheelSelector) {
     this.alphaOrder = 1;
     this.numOrder = 0;
     this.callback = this.navParams.get("callback");
@@ -151,6 +152,29 @@ export class SceltaMostriPage {
 
   increment(index: number) {
     this.counters[index] = this.counters[index] + 1;
+  }
+
+  selectQuantity(monsterIndex: number) {
+    var jsonData = {
+      numbers: [
+      ],
+    }
+
+    for (let index = 1; index < 1000; index++) {
+      jsonData.numbers.push({ description: index });
+    }
+
+    this.wheelSelector.show({
+      title: "How Many?",
+      items: [
+        jsonData.numbers,
+      ],
+    }).then(
+      result => {
+
+        this.counters[monsterIndex] += parseInt(result[0].description);
+      }
+    );
   }
 
   confirmMonsters() {
