@@ -13,7 +13,7 @@
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="let member of encounterMembers$ | async, let i=index" (click)="selectHealth(member)" [class.highlight]="getTurnMember() == i" >
-      {{member.name}} {{initiatives[member.key]}} {{member.currentHealth}} STRONZATA
+      {{member.name}} {{initiatives[member.key]}} {{member.currentHealth}}
     </button>
   </ion-list>
 
