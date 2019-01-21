@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Character } from '../../models/character/character.model';
-import { AngularFireStorage } from 'angularfire2/storage';
 import { DataProvider } from '../../app/data';
 
 

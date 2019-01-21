@@ -6,12 +6,6 @@ import { GroupsListService } from '../../services/groups-list/groups-list.servic
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Character } from '../../models/character/character.model';
 
-/**
- * Generated class for the SelectPlayerGroupPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

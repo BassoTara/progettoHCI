@@ -5,7 +5,6 @@ import { Group } from '../../models/group/group.model';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { GroupsListService } from '../../services/groups-list/groups-list.service';
-import { PopoverGroupsPage } from '../popover-groups/popover-groups';
 
 @IonicPage()
 @Component({

@@ -5,8 +5,6 @@ import { CharactersListService } from '../../services/characters-list/characters
 import { Observable, Subject } from 'rxjs';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
 import { WheelSelector } from '@ionic-native/wheel-selector';
-import { Character } from '../../models/character/character.model';
-import { c } from '@angular/core/src/render3';
 
 
 

@@ -4,15 +4,7 @@ import { Group } from '../../models/group/group.model';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Observable } from 'rxjs';
-import { PopoverViewGroupPage } from '../popover-view-group/popover-view-group';
-import { GESTURE_PRIORITY_SLIDING_ITEM } from 'ionic-angular/umd/gestures/gesture-controller';
 
-/**
- * Generated class for the ViewGroupPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

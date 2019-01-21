@@ -6,12 +6,7 @@ import { Character } from '../../models/character/character.model';
 import { GroupsListService } from '../../services/groups-list/groups-list.service';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 
-/**
- * Generated class for the SelectNpcGroupPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({

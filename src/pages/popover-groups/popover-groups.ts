@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams, ViewController, ToastController } 
 import { Group } from '../../models/group/group.model';
 import { GroupsListService } from '../../services/groups-list/groups-list.service';
 
-/**
- * Generated class for the PopoverGroupsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
