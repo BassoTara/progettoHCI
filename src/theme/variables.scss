@@ -38,7 +38,8 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  page:       #FDF1DC
 );
 
 
@@ -46,6 +47,14 @@ $colors: (
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
+$background-ios-color: #FDF1DC;
+$background-md-color: #FDF1DC;
+$background-wp-color: #FDF1DC;
+
+$ion-item-background-color : #FDF1DC; 
+$list-background-color : #FDF1DC; 
+$toolbar-background : #CABEAA;
+$toolbar-md-title-text-color : #000;
 
 
 

@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:700" rel="stylesheet" type="text/css">
 
 <ion-header>
 
@@ -44,8 +46,8 @@
           <ion-thumbnail item-left>
             <img src="assets/img/Cpi6p9LQAiactID2WF1e_26178837_10215476951743182_2135416190_o.jpg">
           </ion-thumbnail>
-          <h3 item-right >{{toFraction(monster.challenge_rating)}}</h3>
-          <h2>{{monster.name}}</h2>
+          <h3 class="challenge_rating" item-right >{{toFraction(monster.challenge_rating)}}</h3>
+          <h2 class="creature-heading" >{{monster.name}}</h2>
           <p>{{monster.size}}, {{monster.type}}, {{monster.alignment}} </p>
       </button>
     </ng-container>
