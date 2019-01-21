@@ -5,6 +5,8 @@ import { CharactersListService } from '../../services/characters-list/characters
 import { Observable, Subject } from 'rxjs';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
 import { WheelSelector } from '@ionic-native/wheel-selector';
+import { Character } from '../../models/character/character.model';
+import { c } from '@angular/core/src/render3';
 
 
 
@@ -27,7 +29,7 @@ export class ViewEncounterPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public toastCtrl: ToastController
-    ,private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController, public wheelSelector: WheelSelector) {
+    , private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController, public wheelSelector: WheelSelector) {
 
     this.encounter = this.navParams.get('encounter');
 
@@ -43,7 +45,6 @@ export class ViewEncounterPage {
           return Array.prototype.concat(...keys);
         }
       );
-
     }
 
     this.monstersList$ = this.encounters.getMonstersByEncounterKey(this.encounter.key).snapshotChanges().map(
@@ -65,9 +66,6 @@ export class ViewEncounterPage {
     }
     else
       this.encounterMembers$ = this.monstersList$;
-
-
-
 
     this.encounters.getInitiatives(this.encounter).valueChanges().subscribe(list => {
       for (let e of list) {
@@ -98,33 +96,23 @@ export class ViewEncounterPage {
   }
 
   editMemberHP(member, offset) {
-    member.currentHealth += offset;
+
+    member.currentHealth -= offset;
 
     if (member.currentHealth < 0)
       member.currentHealth = 0;
 
-    if (member.group != null) {
+    if (member.group != undefined) {
       if (member.currentHealth > member.healthPoints)
         member.currentHealth = member.healthPoints;
+
       this.characters.editCharacter(member);
-      let toast = this.toastCtrl.create({
-        message: member.name+' now have '+member.currentHealth+'hp!',
-        duration: 3000
-      });
-      toast.present();
     }
     else {
       if (member.currentHealth > member.hit_points)
         member.currentHealth = member.hit_points;
       this.encounters.editEncounterByMonster(this.encounter, member);
-      let toast = this.toastCtrl.create({
-        message: member.name+' now have '+member.currentHealth+'hp!',
-        duration: 3000
-      });
-      toast.present();
     }
-
-
   }
 
   presentPopover(myEvent, member) {
@@ -195,7 +183,7 @@ export class ViewEncounterPage {
         { description: "Damage" },
         { description: "Healing" },
       ],
-    };
+    }
 
     for (let index = 1; index < 1000; index++) {
       jsonData.numbers.push({ description: index });
@@ -209,21 +197,22 @@ export class ViewEncounterPage {
       ],
     }).then(
       result => {
+
         var offset = parseInt(result[1].description);
 
-        if (result[0].description == "Damage")
+        if (result[0].description == "Healing")
           offset *= -1;
-
+        
         this.editMemberHP(member, offset);
       }
     );
   }
 
-  getRound(){
-    return (this.encounter.turn / this.encounterMembers.length) - (( Math.abs(this.encounter.turn) % this.encounterMembers.length ) / this.encounterMembers.length)+1;
+  getRound() {
+    return (this.encounter.turn / this.encounterMembers.length) - ((Math.abs(this.encounter.turn) % this.encounterMembers.length) / this.encounterMembers.length) + 1;
   }
 
-  getTurnMember(){
+  getTurnMember() {
     return this.encounter.turn % this.encounterMembers.length;
   }
 
