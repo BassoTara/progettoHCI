@@ -154,7 +154,7 @@ export class SceltaMostriPage {
     this.counters[index] = this.counters[index] + 1;
   }
 
-  selectQuantity(monsterIndex: number) {
+  selectQuantity(monster) {
     var jsonData = {
       numbers: [
       ],
@@ -165,14 +165,14 @@ export class SceltaMostriPage {
     }
 
     this.wheelSelector.show({
-      title: "How Many?",
+      title: "How Many "+monster.name+"s?",
       items: [
         jsonData.numbers,
       ],
     }).then(
       result => {
 
-        this.counters[monsterIndex] += parseInt(result[0].description);
+        this.counters[monster.index] += parseInt(result[0].description);
       }
     );
   }
