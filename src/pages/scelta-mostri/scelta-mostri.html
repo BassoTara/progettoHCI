@@ -44,6 +44,7 @@
     <ng-container *ngFor="let monster of monsters">
       <button ion-item *ngIf="monster.name.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 || !searchString"
         (click)="selectQuantity(monster)">
+        <h3 class="counter" item-left >{{counters[monster.index]}}</h3>
         <ion-thumbnail item-left>
           <img src="assets/img/Cpi6p9LQAiactID2WF1e_26178837_10215476951743182_2135416190_o.jpg">
         </ion-thumbnail>
