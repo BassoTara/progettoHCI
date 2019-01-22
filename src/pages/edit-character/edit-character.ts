@@ -50,44 +50,46 @@ export class EditCharacterPage {
   ionViewDidLoad() {
     // TODO: Back di Android, CSS dell'alert
     this.navBar.backButtonClick = (e: UIEvent) => {
-      if(this.getAutorization()){
-      let alert = this.alertCtrl.create({
-        title: 'Salvare le modifiche?',
-        buttons: [
-          {
-            text: 'Sì',
-            handler: () => {
-              this.editCharacter();
+      if (this.getAutorization()) {
+        let alert = this.alertCtrl.create({
+          title: 'Salvare le modifiche?',
+          buttons: [
+            {
+              text: 'Sì',
+              handler: () => {
+                this.editCharacter();
+              }
+            },
+            {
+              text: 'No',
+              handler: () => {
+                this.navCtrl.pop();
+              }
             }
-          },
-          {
-            text: 'No',
-            handler: () => {
-              this.navCtrl.pop();
+          ]
+        });
+        alert.present();
+      }
+      else {
+        let alert = this.alertCtrl.create({
+          title: 'Campi vuoti, uscire senza salvare?',
+          buttons: [
+            {
+              text: 'Sì',
+              handler: () => {
+                this.navCtrl.pop();
+              }
+            },
+            {
+              text: 'No',
+              handler: () => {
+
+              }
             }
-          }
-        ]
-      });
-      alert.present();
-    }
-    else{let alert = this.alertCtrl.create({
-      title: 'Campi vuoti, uscire senza salvare?',
-      buttons: [
-        {
-          text: 'Sì',
-          handler: () => {
-            this.navCtrl.pop();
-          }
-        },
-        {
-          text: 'No',
-          handler: () => {
-            
-          }
-        }
-      ]
-    });
-    alert.present();}
+          ]
+        });
+        alert.present();
+      }
 
     }
     setTimeout(() => this.resizeName(), 0);
@@ -174,11 +176,18 @@ export class EditCharacterPage {
     });
   }
 
-  getAutorization(){
-    if(this.character.name !='' && this.character.initiativeModifier!=undefined && this.character.armorClass != undefined && this.character.armorClass!=0 && this.character.healthPoints!=undefined && this.character.healthPoints!= 0)
+  getAutorization() {
+    if (this.character.name != '' && this.character.initiativeModifier != undefined && this.character.armorClass != undefined && this.character.armorClass != 0 && this.character.healthPoints != undefined && this.character.healthPoints != 0)
       return true;
-    else 
+    else
       return false;
+  }
+
+  checkCurrentHealth() {
+    console.log(this.character.currentHealth);
+    if (this.character.currentHealth > this.character.healthPoints)
+      setTimeout(() => { this.character.currentHealth = this.character.healthPoints; }, 0);
+
   }
 
 }
