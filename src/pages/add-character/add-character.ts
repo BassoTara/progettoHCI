@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
 })
 export class AddCharacterPage {
 
-  defaultImgSrc: string = "assets/imgs/no-image.png";
+  defaultImgSrc: string = "assets/imgs/Default-Profile.png";
   imgSrc: string = this.defaultImgSrc;
 
   files: Observable<any[]>;

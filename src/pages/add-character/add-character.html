@@ -19,8 +19,15 @@
 </ion-header>
 
 
-<ion-content padding>
-  <img [src]="imgSrc" class="characterImg" (click)="pickAndCropImage();" />
+<ion-content>
+  <div class="imgDiv">
+    <img [src]="imgSrc" class="characterImg" (click)="pickAndCropImage();" />
+    <ion-fab bottom right edge>
+      <button ion-fab>
+        <ion-icon name="camera"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
 
   <ion-item>
     <ion-label floating class="labelStacked" stacked>
@@ -28,17 +35,17 @@
       Nome:
     </ion-label>
     <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="character.name"></ion-textarea>
-
   </ion-item>
+
   <ion-item>
     <ion-label floating>
       <ion-icon name="custom-shield"></ion-icon>
       Classe Armatura:
-    </ion-label >
+    </ion-label>
     <ion-input [(ngModel)]="character.armorClass" type="number"></ion-input>
   </ion-item>
-  <ion-item>
 
+  <ion-item>
     <ion-label floating>
       <ion-icon name="custom-dice"></ion-icon>
       Bonus di Iniziativa:
