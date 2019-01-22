@@ -13,17 +13,23 @@
 
 <ion-content padding>
   <ion-item>
-    <ion-label stacked>Nome:</ion-label>
+    <ion-label floating>Nome:</ion-label>
     <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="group.name" type="text" ></ion-textarea>
   </ion-item>
 
   <ion-item>
-    <ion-label stacked>Descrizione:</ion-label>
+    <ion-label floating>Descrizione (facoltativa):</ion-label>
     <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="group.description"></ion-textarea>
   </ion-item>
 
-  {{group | json}}
-
-  <button ion-button block clear (click)="addGroup(group)"> Crea Gruppo </button>
-
+  <ion-fab bottom right>
+      <button ion-fab *ngIf="getAutorization()" (click)="addGroup(group)">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-fab>
+    <ion-fab bottom right>
+      <button ion-fab disabled *ngIf="!getAutorization()">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-fab>
 </ion-content>

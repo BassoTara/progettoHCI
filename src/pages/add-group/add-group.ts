@@ -3,6 +3,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { GroupsListService } from '../../services/groups-list/groups-list.service';
+import { group } from '@angular/core/src/animation/dsl';
 
 
 @IonicPage()
@@ -15,7 +16,7 @@ export class AddGroupPage {
 
   group: Group = {
     // key: '',
-    name: '',
+    name: undefined,
     players: undefined,
     description: '',
   };
@@ -54,5 +55,9 @@ export class AddGroupPage {
     var scrollHeight = element.scrollHeight;
     element.style.height = scrollHeight + 'px';
     this.myInputDesc['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
+  }
+
+  getAutorization(){
+    return group.name!=null;
   }
 }
