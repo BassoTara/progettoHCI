@@ -17,7 +17,7 @@ export class EditCharacterPage {
 
 
   imgHasChanged: boolean = false;
-  imgSrc: string = "assets/imgs/no-image.png";
+  imgSrc: string = "assets/imgs/Default-Profile.png";
 
   @ViewChild(Navbar) navBar: Navbar;
 

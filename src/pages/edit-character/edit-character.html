@@ -7,52 +7,54 @@
 </ion-header>
 
 
-<ion-content padding >
-  <img [src]="imgSrc" class="characterImg" (click)="pickAndCropImage();" />
+<ion-content>
+    <div class="imgDiv">
+        <img [src]="imgSrc" class="characterImg" (click)="pickAndCropImage();" />
+        <ion-fab bottom right edge>
+          <button ion-fab>
+            <ion-icon name="camera"></ion-icon>
+          </button>
+        </ion-fab>
+      </div>
 
     <ion-item>
-      <ion-label stacked>
+      <ion-label floating>
         Nome:
       </ion-label>
       <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="character.name"></ion-textarea>
     </ion-item>
     <ion-item>
-      <ion-label>
+      <ion-label floating>
         Classe Armatura:
       </ion-label>
       <ion-input [(ngModel)]="character.armorClass"  type="number" ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>
+      <ion-label floating>
         Bonus di Iniziativa:
       </ion-label>
       <ion-input [(ngModel)]="character.initiativeModifier" type="number" ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>
+      <ion-label floating>
         Punti Salute totali
       </ion-label>
       <ion-input  [(ngModel)]="character.healthPoints" type="number" ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>
+      <ion-label floating>
         Punti Salute attuali
       </ion-label>
       <ion-input [(ngModel)]="character.currentHealth" type="number"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>
+      <ion-label floating>
       
         Descrizione:
       </ion-label>
       <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="character.description"></ion-textarea>
     </ion-item>
     <button ion-button block clear (click)="editCharacter()" > Save </button>
-    <button ion-button block clear color="danger" (click)="removeCharacter()"> Delete </button>
-  
-  
-    {{character | json}}
-    {{group | json}}
   
   </ion-content>
   
