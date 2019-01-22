@@ -184,6 +184,7 @@ export class EditCharacterPage {
   }
 
   checkCurrentHealth() {
+    // @ts-ignore
     if (parseInt(this.character.currentHealth) > parseInt(this.character.healthPoints))
       this.character.currentHealth = this.character.healthPoints;
   }
