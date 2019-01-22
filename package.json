@@ -29,6 +29,7 @@
     "@ionic-native/wheel-selector": "^4.19.0",
     "@ionic/pro": "2.0.4",
     "@ionic/storage": "2.2.0",
+    "@scaffold-digital/ionic-hardware-buttons": "^1.1.0",
     "@types/node": "^10.12.18",
     "angularfire2": "^5.0.0-rc.5-next",
     "cordova-android": "7.1.4",

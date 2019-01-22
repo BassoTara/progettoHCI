@@ -5,6 +5,7 @@ import { CharactersListService } from '../../services/characters-list/characters
 import { Group } from '../../models/group/group.model';
 import { DataProvider } from '../../app/data';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { BackButton } from '@scaffold-digital/ionic-hardware-buttons';
 
 
 
@@ -14,7 +15,6 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
   templateUrl: 'edit-character.html',
 })
 export class EditCharacterPage {
-
 
   imgHasChanged: boolean = false;
   imgSrc: string = "assets/imgs/Default-Profile.png";
