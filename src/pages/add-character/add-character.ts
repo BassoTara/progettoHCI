@@ -117,10 +117,17 @@ export class AddCharacterPage {
   }
 
   getAutorization(){
-    if(this.character.name !='' && this.character.initiativeModifier!=null && this.character.armorClass != null && this.character.healthPoints!=null )
+    if(this.character.name !='' && this.character.initiativeModifier!=undefined && this.character.initiativeModifier!= 0 && this.character.armorClass != undefined && this.character.armorClass!=0 && this.character.healthPoints!=undefined && this.character.healthPoints!= 0)
       return true;
     else 
       return false;
+  }
+
+  log() {
+    console.log(this.character.name);
+    console.log(this.character.initiativeModifier);
+    console.log(this.character.armorClass);
+    console.log(this.character.healthPoints);
   }
 
 }
