@@ -184,10 +184,9 @@ export class EditCharacterPage {
   }
 
   checkCurrentHealth() {
-    console.log(this.character.currentHealth);
-    if (this.character.currentHealth > this.character.healthPoints)
-      setTimeout(() => { this.character.currentHealth = this.character.healthPoints; }, 0);
-
+    if (parseInt(this.character.currentHealth) > parseInt(this.character.healthPoints))
+      this.character.currentHealth = this.character.healthPoints;
   }
+
 
 }
