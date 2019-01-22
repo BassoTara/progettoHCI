@@ -37,7 +37,7 @@ export class AddCharacterPage {
     initiativeModifier: undefined,
     healthPoints: undefined,
     currentHealth: undefined,
-    description: undefined,
+    description: '',
     group: "0"
   };
 
@@ -114,6 +114,13 @@ export class AddCharacterPage {
       this.imgSrc = 'data:image/jpeg;base64,' + imageData;
     });
 
+  }
+
+  getAutorization(){
+    if(this.character.name !='' && this.character.initiativeModifier!=null && this.character.armorClass != null && this.character.healthPoints!=null )
+      return true;
+    else 
+      return false;
   }
 
 }

@@ -23,36 +23,41 @@
   <img [src]="imgSrc" class="characterImg" (click)="pickAndCropImage();" />
 
   <ion-item>
-    <ion-label stacked>
+    <ion-label class="labelStacked" stacked><ion-icon  name="custom-user"></ion-icon>  
       Nome:
     </ion-label>
+    
     <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="character.name"></ion-textarea>
+    
   </ion-item>
   <ion-item>
-    <ion-label>
+    <ion-label><ion-icon name="custom-shield"></ion-icon>
       Classe Armatura:
     </ion-label>
     <ion-input [(ngModel)]="character.armorClass" type="number"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>
+    
+    <ion-label><ion-icon  name="custom-dice"></ion-icon>
       Bonus di Iniziativa:
     </ion-label>
     <ion-input [(ngModel)]="character.initiativeModifier" type="number"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>
+    <ion-label><ion-icon  name="custom-health"></ion-icon>
       Punti Salute:
     </ion-label>
     <ion-input [(ngModel)]="character.healthPoints" type="number"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label stacked>
+    <ion-label stacked class="labelStacked"><ion-icon  name="custom-text"></ion-icon>
       <!-- non so se metterci stacked o no-->
-      Descrizione:
+      Descrizione (facoltativo):
     </ion-label>
     <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="character.description"></ion-textarea>
   </ion-item>
-  <button ion-button block clear (click)="addCharacter(character)"> Conferma </button>
+  <button ion-button color="danger" *ngIf="!getAutorization()" block > Conferma </button>
+  <button ion-button *ngIf="getAutorization()" block (click)="addCharacter(character)"> Conferma </button>
+
 
 </ion-content>

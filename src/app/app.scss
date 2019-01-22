@@ -59,3 +59,31 @@
   .item-complex .item-content{
     background-color: #FDF1DC !important;
   }
+
+  ion-icon {
+    &[class*="custom-"] {
+      mask-size: contain;
+      mask-position: 50% 50%;
+      mask-repeat: no-repeat;
+      background: currentColor;
+      width: 1em;
+      height: 1em;
+    }
+  
+    &[class*="custom-user"] {
+      mask-image: url(../assets/imgs/man-user.svg);
+    }
+    &[class*="custom-shield"] {
+      mask-image: url(../assets/imgs/shield.svg);
+    }
+    &[class*="custom-dice"] {
+      mask-image: url(../assets/imgs/d20dice.svg);
+    }
+    &[class*="custom-health"] {
+      mask-image: url(../assets/imgs/health.svg);
+    }
+    &[class*="custom-text"] {
+      mask-image: url(../assets/imgs/text-file.svg);
+    }
+    
+  }
