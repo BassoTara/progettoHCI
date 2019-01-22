@@ -45,7 +45,7 @@
       <ion-label floating>
         Punti Salute attuali
       </ion-label>
-      <ion-input [(ngModel)]="character.currentHealth" type="number"></ion-input>
+      <ion-input [(ngModel)]="character.currentHealth" type="number" (input)="checkCurrentHealth();"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>
