@@ -16,7 +16,7 @@ export class AddGroupPage {
 
   group: Group = {
     // key: '',
-    name: undefined,
+    name: '',
     players: undefined,
     description: '',
   };
@@ -57,7 +57,10 @@ export class AddGroupPage {
     this.myInputDesc['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
   }
 
-  getAutorization(){
-    return group.name!=null;
+  getAuthorization(){
+    if(this.group.name==="")
+      return false;
+    else  
+      return true;
   }
 }
