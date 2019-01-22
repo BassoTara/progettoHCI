@@ -160,7 +160,7 @@ export class SceltaMostriPage {
       ],
     }
 
-    for (let index = 1; index < 1000; index++) {
+    for (let index = 0; index < 1000; index++) {
       jsonData.numbers.push({ description: index });
     }
 
@@ -172,7 +172,7 @@ export class SceltaMostriPage {
     }).then(
       result => {
 
-        this.counters[monster.index] += parseInt(result[0].description);
+        this.counters[monster.index] = parseInt(result[0].description);
       }
     );
   }
