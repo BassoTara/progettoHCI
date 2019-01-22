@@ -50,6 +50,7 @@ export class EditCharacterPage {
   ionViewDidLoad() {
     // TODO: Back di Android, CSS dell'alert
     this.navBar.backButtonClick = (e: UIEvent) => {
+      if(this.getAutorization()){
       let alert = this.alertCtrl.create({
         title: 'Salvare le modifiche?',
         buttons: [
@@ -68,6 +69,26 @@ export class EditCharacterPage {
         ]
       });
       alert.present();
+    }
+    else{let alert = this.alertCtrl.create({
+      title: 'Campi vuoti, uscire senza salvare?',
+      buttons: [
+        {
+          text: 'Sì',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            
+          }
+        }
+      ]
+    });
+    alert.present();}
+
     }
     setTimeout(() => this.resizeName(), 0);
     setTimeout(() => this.resizeDesc(), 0);
@@ -151,6 +172,13 @@ export class EditCharacterPage {
       });
       toast.present();
     });
+  }
+
+  getAutorization(){
+    if(this.character.name !='' && this.character.initiativeModifier!=undefined && this.character.armorClass != undefined && this.character.armorClass!=0 && this.character.healthPoints!=undefined && this.character.healthPoints!= 0)
+      return true;
+    else 
+      return false;
   }
 
 }
