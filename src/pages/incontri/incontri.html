@@ -20,11 +20,6 @@
         </button>
       
         <ion-item-options>
-          <button ion-button class="slidingButton" color="secondary" navPush="EditEncounterPage" [navParams]="
-          {encounter: encounter}" (click)="slidingItem.close()">
-            <ion-icon name="open"></ion-icon>
-            Edit
-          </button>
           <button ion-button class="slidingButton" color="danger" (click)="removeEncounter(encounter)">
             <ion-icon name="trash"></ion-icon>
             Remove
