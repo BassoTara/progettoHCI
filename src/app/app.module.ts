@@ -20,7 +20,6 @@ import { HttpModule } from '@angular/http';
 import { Camera } from '@ionic-native/camera';
 import { DataProvider } from './data';
 import { WheelSelector } from '@ionic-native/wheel-selector';
-import { HardwareButtons } from '@scaffold-digital/ionic-hardware-buttons';
 
 @NgModule({
   declarations: [
@@ -49,7 +48,6 @@ import { HardwareButtons } from '@scaffold-digital/ionic-hardware-buttons';
     Camera,
     DataProvider,
     WheelSelector,
-    HardwareButtons,
   ]
 })
 export class AppModule {}

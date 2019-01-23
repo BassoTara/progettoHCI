@@ -1,11 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController, Navbar } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController, Navbar, Platform } from 'ionic-angular';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Group } from '../../models/group/group.model';
 import { DataProvider } from '../../app/data';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { BackButton } from '@scaffold-digital/ionic-hardware-buttons';
 
 
 
@@ -15,6 +14,7 @@ import { BackButton } from '@scaffold-digital/ionic-hardware-buttons';
   templateUrl: 'edit-character.html',
 })
 export class EditCharacterPage {
+
 
   imgHasChanged: boolean = false;
   imgSrc: string = "assets/imgs/Default-Profile.png";
@@ -30,7 +30,50 @@ export class EditCharacterPage {
 
   character: Character;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
+    let backAction = platform.registerBackButtonAction(() => {
+      if (this.getAutorization()) {
+        let alert = this.alertCtrl.create({
+          title: 'Salvare le modifiche?',
+          buttons: [
+            {
+              text: 'Sì',
+              handler: () => {
+                this.editCharacter();
+              }
+            },
+            {
+              text: 'No',
+              handler: () => {
+                this.navCtrl.pop();
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
+      else {
+        let alert = this.alertCtrl.create({
+          title: 'Campi vuoti, uscire senza salvare?',
+          buttons: [
+            {
+              text: 'Sì',
+              handler: () => {
+                this.navCtrl.pop();
+              }
+            },
+            {
+              text: 'No',
+              handler: () => {
+
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
+      backAction();
+    }, 2);
   }
 
   loadImageFromStorage() {
