@@ -14,7 +14,6 @@ import { CharactersListService } from '../../services/characters-list/characters
 export class AddEncounterPage {
   encounter: Encounter = {
     name: '',
-    description: '',
     characterKeys: [],
     monsterList: [],
     initiatives: [],
@@ -68,7 +67,6 @@ export class AddEncounterPage {
     }
 
     setTimeout(() => this.resizeName(), 0);
-    setTimeout(() => this.resizeDesc(), 0);
     console.log('ionViewDidLoad AddGroupPage');
   }
 
@@ -119,7 +117,6 @@ export class AddEncounterPage {
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;
-  @ViewChild('myInputDesc') myInputDesc: ElementRef;
 
   resizeName() {
     var element = this.myInputName['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
@@ -127,14 +124,6 @@ export class AddEncounterPage {
     var scrollHeight = element.scrollHeight;
     element.style.height = scrollHeight + 'px';
     this.myInputName['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
-  }
-
-  resizeDesc() {
-    var element = this.myInputDesc['_elementRef'].nativeElement.getElementsByClassName("text-input")[0];
-    element.style.height = 0 + 'px';
-    var scrollHeight = element.scrollHeight;
-    element.style.height = scrollHeight + 'px';
-    this.myInputDesc['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
   }
 
   pushToPlayerChoice() {

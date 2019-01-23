@@ -73,12 +73,6 @@
     <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="encounter.name"></ion-textarea>
   </ion-item>
 
-
-  <ion-item>
-    <ion-label floating>Descrizione (facoltativa)</ion-label>
-    <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="encounter.description"></ion-textarea>
-  </ion-item>
-
   <ion-fab bottom right>
     <button ion-fab *ngIf="getAuthorization()" (click)="addEncounter(encounter)">
       <ion-icon name="checkmark"></ion-icon>
