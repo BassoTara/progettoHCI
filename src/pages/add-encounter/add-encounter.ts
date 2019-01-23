@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, List } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, List, AlertController, Navbar, Platform } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
 import { Character } from '../../models/character/character.model';
@@ -13,7 +13,7 @@ import { CharactersListService } from '../../services/characters-list/characters
 })
 export class AddEncounterPage {
   encounter: Encounter = {
-    name: undefined,
+    name: '',
     description: '',
     characterKeys: [],
     monsterList: [],
@@ -25,7 +25,13 @@ export class AddEncounterPage {
   npcList$: Character[] = [];
   monsterList$ = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService, public characters: CharactersListService) {
+  backAction;
+
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService, public characters: CharactersListService, public alertCtrl: AlertController) {
+
+    this.backAction = platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
   }
 
 
@@ -36,7 +42,7 @@ export class AddEncounterPage {
       let initiative = {
         key: character.key,
         value: 0,
-      }    
+      }
       this.encounter.initiatives.push(initiative);
     }
 
@@ -46,7 +52,7 @@ export class AddEncounterPage {
         key: index,
         value: 0,
       }
-      this.encounter.initiatives.push(initiative);    
+      this.encounter.initiatives.push(initiative);
     }
 
     this.encounters.addEncounter(encounter).then(ref => {
@@ -54,10 +60,62 @@ export class AddEncounterPage {
     });
   }
 
+  @ViewChild(Navbar) navBar: Navbar;
+
   ionViewDidLoad() {
+    this.navBar.backButtonClick = (e: UIEvent) => {
+      this.onBackButton();
+    }
+
     setTimeout(() => this.resizeName(), 0);
     setTimeout(() => this.resizeDesc(), 0);
     console.log('ionViewDidLoad AddGroupPage');
+  }
+
+  onBackButton() {
+    if (this.getAuthorization()) {
+      let alert = this.alertCtrl.create({
+        title: 'Salvare le modifiche?',
+        buttons: [
+          {
+            text: 'Sì',
+            handler: () => {
+              this.addEncounter(this.encounter);
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+              this.navCtrl.pop();
+              this.backAction();
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+    else {
+      let alert = this.alertCtrl.create({
+        title: 'Campi vuoti, uscire senza salvare?',
+        buttons: [
+          {
+            text: 'Sì',
+            handler: () => {
+              this.navCtrl.pop();
+              this.backAction();
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;
@@ -137,6 +195,13 @@ export class AddEncounterPage {
     this.navCtrl.push('SceltaMostriPage', {
       callback: myCallbackFunction
     });
+  }
+
+  getAuthorization() {
+    if (this.encounter.name === "")
+      return false;
+    else
+      return true;
   }
 
 }

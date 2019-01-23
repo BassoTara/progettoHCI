@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, Navbar, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Navbar, AlertController, Platform } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { GroupsListService } from '../../services/groups-list/groups-list.service';
 
@@ -19,58 +19,68 @@ export class EditGroupPage {
     description: undefined,
   };
 
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public toastCtrl: ToastController) {
+  backAction;
+
+  constructor(public platform: Platform, public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public toastCtrl: ToastController) {
     console.log(navParams.get("players"));
     this.group.players = navParams.get('players');
+
+    this.backAction = platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
+  }
+
+  onBackButton() {
+    if (this.getAuthorization()) {
+      let alert = this.alertCtrl.create({
+        title: 'Salvare le modifiche?',
+        buttons: [
+          {
+            text: 'Sì',
+            handler: () => {
+              this.editGroup(this.group);
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+              this.navCtrl.pop();
+              this.backAction();
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+    else {
+      let alert = this.alertCtrl.create({
+        title: 'Campi vuoti, uscire senza salvare?',
+        buttons: [
+          {
+            text: 'Sì',
+            handler: () => {
+              this.navCtrl.pop();
+              this.backAction();
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
   }
 
   ionViewDidLoad() {
 
     this.group = this.navParams.get('group');
 
-    // TODO: Back di Android, CSS dell'alert
     this.navBar.backButtonClick = (e: UIEvent) => {
-      if (this.getAuthorization()) {
-        let alert = this.alertCtrl.create({
-          title: 'Salvare le modifiche?',
-          buttons: [
-            {
-              text: 'Sì',
-              handler: () => {
-                this.editGroup(this.group);
-              }
-            },
-            {
-              text: 'No',
-              handler: () => {
-                this.navCtrl.pop();
-              }
-            }
-          ]
-        });
-        alert.present();
-      }
-      else {
-        let alert = this.alertCtrl.create({
-          title: 'Campi vuoti, uscire senza salvare?',
-          buttons: [
-            {
-              text: 'Sì',
-              handler: () => {
-                this.navCtrl.pop();
-              }
-            },
-            {
-              text: 'No',
-              handler: () => {
-
-              }
-            }
-          ]
-        });
-        alert.present();
-      }
-
+      this.onBackButton();
     }
     setTimeout(() => this.resizeName(), 0);
     setTimeout(() => this.resizeDesc(), 0);
@@ -87,6 +97,7 @@ export class EditGroupPage {
       toast.present();
 
       this.navCtrl.pop();
+      this.backAction();
     });
   }
 
@@ -98,6 +109,7 @@ export class EditGroupPage {
       });
       toast.present();
       this.navCtrl.pop();
+      this.backAction();
     });
   }
 
@@ -121,10 +133,10 @@ export class EditGroupPage {
     this.myInputDesc['_elementRef'].nativeElement.style.height = (scrollHeight + 16) + 'px';
   }
 
-  getAuthorization(){
-    if(this.group.name==="")
+  getAuthorization() {
+    if (this.group.name === "")
       return false;
-    else  
+    else
       return true;
   }
 }

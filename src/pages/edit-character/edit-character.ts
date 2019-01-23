@@ -18,6 +18,7 @@ export class EditCharacterPage {
 
   imgHasChanged: boolean = false;
   imgSrc: string = "assets/imgs/Default-Profile.png";
+  backAction;
 
   @ViewChild(Navbar) navBar: Navbar;
 
@@ -31,48 +32,8 @@ export class EditCharacterPage {
   character: Character;
 
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
-    let backAction = platform.registerBackButtonAction(() => {
-      if (this.getAutorization()) {
-        let alert = this.alertCtrl.create({
-          title: 'Salvare le modifiche?',
-          buttons: [
-            {
-              text: 'Sì',
-              handler: () => {
-                this.editCharacter();
-              }
-            },
-            {
-              text: 'No',
-              handler: () => {
-                this.navCtrl.pop();
-              }
-            }
-          ]
-        });
-        alert.present();
-      }
-      else {
-        let alert = this.alertCtrl.create({
-          title: 'Campi vuoti, uscire senza salvare?',
-          buttons: [
-            {
-              text: 'Sì',
-              handler: () => {
-                this.navCtrl.pop();
-              }
-            },
-            {
-              text: 'No',
-              handler: () => {
-
-              }
-            }
-          ]
-        });
-        alert.present();
-      }
-      backAction();
+    this.backAction = platform.registerBackButtonAction(() => {
+      this.onBackButton();
     }, 2);
   }
 
@@ -91,54 +52,58 @@ export class EditCharacterPage {
   }
 
   ionViewDidLoad() {
-    // TODO: Back di Android, CSS dell'alert
     this.navBar.backButtonClick = (e: UIEvent) => {
-      if (this.getAutorization()) {
-        let alert = this.alertCtrl.create({
-          title: 'Salvare le modifiche?',
-          buttons: [
-            {
-              text: 'Sì',
-              handler: () => {
-                this.editCharacter();
-              }
-            },
-            {
-              text: 'No',
-              handler: () => {
-                this.navCtrl.pop();
-              }
-            }
-          ]
-        });
-        alert.present();
-      }
-      else {
-        let alert = this.alertCtrl.create({
-          title: 'Campi vuoti, uscire senza salvare?',
-          buttons: [
-            {
-              text: 'Sì',
-              handler: () => {
-                this.navCtrl.pop();
-              }
-            },
-            {
-              text: 'No',
-              handler: () => {
-
-              }
-            }
-          ]
-        });
-        alert.present();
-      }
-
+      this.onBackButton();
     }
     setTimeout(() => this.resizeName(), 0);
     setTimeout(() => this.resizeDesc(), 0);
     this.loadImageFromStorage();
     console.log("chiamato ionViewDidLoad");
+  }
+
+  onBackButton() {
+    if (this.getAutorization()) {
+      let alert = this.alertCtrl.create({
+        title: 'Salvare le modifiche?',
+        buttons: [
+          {
+            text: 'Sì',
+            handler: () => {
+              this.editCharacter();
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+              this.navCtrl.pop();
+              this.backAction();
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+    else {
+      let alert = this.alertCtrl.create({
+        title: 'Campi vuoti, uscire senza salvare?',
+        buttons: [
+          {
+            text: 'Sì',
+            handler: () => {
+              this.navCtrl.pop();
+              this.backAction();
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
   }
 
   editCharacter() {
@@ -152,6 +117,7 @@ export class EditCharacterPage {
       toast.present();
       //this.navCtrl.push('ViewGroupPage', { group: this.group });
       this.navCtrl.pop();
+      this.backAction();
     });
   }
 
@@ -165,6 +131,7 @@ export class EditCharacterPage {
       toast.present();
     });
     this.navCtrl.pop();
+    this.backAction();
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;

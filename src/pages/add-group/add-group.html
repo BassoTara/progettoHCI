@@ -1,4 +1,3 @@
-
 <ion-header no-border>
 
   <ion-navbar>
@@ -11,7 +10,8 @@
 <ion-content padding>
   <ion-item>
     <ion-label floating>Nome:</ion-label>
-    <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="group.name" type="text" ></ion-textarea>
+    <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="group.name"
+      type="text"></ion-textarea>
   </ion-item>
 
   <ion-item>
@@ -20,13 +20,13 @@
   </ion-item>
 
   <ion-fab bottom right>
-      <button ion-fab *ngIf="getAuthorization()" (click)="addGroup(group)">
-        <ion-icon name="checkmark"></ion-icon>
-      </button>
-    </ion-fab>
-    <ion-fab bottom right>
-      <button ion-fab disabled *ngIf="!getAuthorization()">
-        <ion-icon name="checkmark"></ion-icon>
-      </button>
-    </ion-fab>
+    <button ion-fab *ngIf="getAuthorization()" (click)="addGroup(group)">
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </ion-fab>
+  <ion-fab bottom right>
+    <button ion-fab disabled *ngIf="!getAuthorization()">
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

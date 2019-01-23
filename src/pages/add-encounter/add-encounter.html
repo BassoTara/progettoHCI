@@ -68,7 +68,15 @@
     <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="encounter.description"></ion-textarea>
   </ion-item>
 
+  <ion-fab bottom right>
+    <button ion-fab *ngIf="getAuthorization()" (click)="addEncounter(encounter)">
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </ion-fab>
+  <ion-fab bottom right>
+    <button ion-fab disabled *ngIf="!getAuthorization()">
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </ion-fab>
 
-
-  <button ion-button block clear (click)="addEncounter(encounter)">Add</button>
 </ion-content>
