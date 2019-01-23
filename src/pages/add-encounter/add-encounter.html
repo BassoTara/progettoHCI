@@ -16,14 +16,19 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
 
-  <ion-item>
-    <ion-label>
-      Personaggi dei Giocatori:
-    </ion-label>
-    <ion-icon item-right name="add" (click)="pushToPlayerChoice()"></ion-icon>
-  </ion-item>
+
+
+    <ion-item>
+        <ion-label class="creature-heading">Personaggi dei Giocatori</ion-label>
+      </ion-item>
+      <button ion-item no-lines (click)="pushToPlayerChoice()">
+        <ion-label>
+          Aggiungi personaggio
+        </ion-label>
+        <ion-icon item-right name="add"></ion-icon>
+      </button>
 
   <ion-list padding-left no-lines>
     <ion-item *ngFor="let character of characterList$">
@@ -32,11 +37,14 @@
   </ion-list>
 
   <ion-item>
-    <ion-label>
-      Personaggi del Master:
-    </ion-label>
-    <ion-icon item-right name="add" (click)="pushToNPCChoice()"></ion-icon>
-  </ion-item>
+      <ion-label class="creature-heading">Personaggi del Master</ion-label>
+    </ion-item>
+    <button ion-item no-lines (click)="pushToNPCChoice()">
+      <ion-label>
+        Aggiungi personaggio
+      </ion-label>
+      <ion-icon item-right name="add"></ion-icon>
+    </button>
 
   <ion-list padding-left no-lines>
     <ion-item *ngFor="let character of npcList$">
@@ -45,11 +53,14 @@
   </ion-list>
 
   <ion-item>
-    <ion-label>
-      Mostri dal Manuale:
-    </ion-label>
-    <ion-icon item-right name="add" (click)="pushToMonsterChoice()"></ion-icon>
-  </ion-item>
+      <ion-label class="creature-heading">Mostri dal Manuale</ion-label>
+    </ion-item>
+    <button ion-item no-lines (click)="pushToMonsterChoice()">
+      <ion-label>
+        Aggiungi mostro
+      </ion-label>
+      <ion-icon item-right name="add"></ion-icon>
+    </button>
 
   <ion-list padding-left no-lines>
     <ion-item *ngFor="let monster of monsterList$">
@@ -57,14 +68,14 @@
     </ion-item>
   </ion-list>
 
-
   <ion-item>
-    <ion-label stacked>Nome dell'Incontro</ion-label>
+    <ion-label floating>Nome dell'Incontro</ion-label>
     <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="encounter.name"></ion-textarea>
   </ion-item>
 
+
   <ion-item>
-    <ion-label stacked>Descrizione</ion-label>
+    <ion-label floating>Descrizione (facoltativa)</ion-label>
     <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="encounter.description"></ion-textarea>
   </ion-item>
 

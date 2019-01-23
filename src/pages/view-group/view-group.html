@@ -1,3 +1,6 @@
+<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:700" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
 <ion-header no-border>
 
   <ion-navbar>
@@ -7,48 +10,55 @@
 </ion-header>
 
 
-<ion-content class="content-total" padding>
-
+<ion-content class="content-total">
 
   <ion-item>
-      <ion-label>
-        Membri
-      </ion-label>
-      <ion-icon item-right name = "add" navPush="AddCharacterPage" [navParams]="{group: group}" ></ion-icon>
+    <ion-label class="creature-heading">Membri</ion-label>
   </ion-item>
+  <button ion-item no-lines navPush="AddCharacterPage" [navParams]="{group: group}">
+    <ion-label>
+      Aggiungi membro
+    </ion-label>
+    <ion-icon item-right name="add"></ion-icon>
+  </button>
 
-  <ion-list list-color no-lines>
+  <ion-list no-lines list-color>
 
-    <ion-item-sliding #slidingItem padding-left *ngFor="let character of charactersList$ | async" (press)="presentPopover($event, character)"><button ion-item navPush="ViewCharacterPage" [navParams]="
+    <ion-item-sliding #slidingItem padding-left *ngFor="let character of charactersList$ | async" (press)="presentPopover($event, character)"><button
+        ion-item navPush="ViewCharacterPage" [navParams]="
       {character: character, group: group}">
-      {{character.name}}
-    </button>
-  
-    <ion-item-options>
-      <button ion-button class="slidingButton" color="secondary" (click)="pushToEditCharacter(character); slidingItem.close();">
-        <ion-icon name="open"></ion-icon>
-        Edit
+        {{character.name}}
       </button>
-      <button ion-button *ngIf="group.players" class="slidingButton" color="dark" navPush="SelectPlayerGroupPage" [navParams]="{character: character}" (click)="slidingItem.close()">
-        <ion-icon name="share-alt"></ion-icon>
-        Export
-      </button>
-      <button ion-button *ngIf="!group.players" class="slidingButton" color="dark" navPush="SelectNpcGroupPage" [navParams]="{character: character}" (click)="slidingItem.close()">
-        <ion-icon name="share-alt"></ion-icon>
-        Export
-      </button>
-      <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
-        <ion-icon name="trash"></ion-icon>
-        Remove
-      </button>
-</ion-item-options>
-  
-  </ion-item-sliding>
+      
+      <ion-item-options>
+        <button ion-button class="slidingButton" color="secondary" (click)="pushToEditCharacter(character); slidingItem.close();">
+          <ion-icon name="open"></ion-icon>
+          Edit
+        </button>
+        <button ion-button *ngIf="group.players" class="slidingButton" color="dark" navPush="SelectPlayerGroupPage"
+          [navParams]="{character: character}" (click)="slidingItem.close()">
+          <ion-icon name="share-alt"></ion-icon>
+          Export
+        </button>
+        <button ion-button *ngIf="!group.players" class="slidingButton" color="dark" navPush="SelectNpcGroupPage"
+          [navParams]="{character: character}" (click)="slidingItem.close()">
+          <ion-icon name="share-alt"></ion-icon>
+          Export
+        </button>
+        <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
+          <ion-icon name="trash"></ion-icon>
+          Remove
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
   </ion-list>
 
-  <ion-item *ngIf="group.description != ''">
-    <h2>Descrizione:</h2>
-    <p text-wrap type="text" > {{group.description}} </p>
+  <ion-item-divider *ngIf="group.description!=''" color="page"></ion-item-divider>
+
+  <ion-item no-lines *ngIf="group.description != ''">
+    <h1 class="creature-heading">Descrizione:</h1>
+    <p text-wrap type="text"> {{group.description}} </p>
   </ion-item>
 
 
