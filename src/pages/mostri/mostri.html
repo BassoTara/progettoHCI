@@ -45,7 +45,7 @@
       <button ion-item *ngIf="monster.name.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 || !searchString"
         navPush='ViewMonsterPage' [navParams]="{monster: monster}">
         <ion-thumbnail item-left>
-          <img src="assets/img/Cpi6p9LQAiactID2WF1e_26178837_10215476951743182_2135416190_o.jpg">
+          <img src="assets/img/{{monster.name}}.jpg">
         </ion-thumbnail>
         <h3 class="challenge_rating" item-right>{{toFraction(monster.challenge_rating)}}</h3>
         <h2 class="creature-heading">{{monster.name}}</h2>

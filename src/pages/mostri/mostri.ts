@@ -21,7 +21,6 @@ export class MostriPage {
   numOrder: number; // -1 Descending, +1 Ascending, 0 not shown
   alphaOrder: number;// -1 Z->A, +1 A->Z, 0 not shown
 
-  
 
   constructor(public navCtrl: NavController, private dataFinder: DataFinder, public renderer: Renderer, public platform: Platform) {
     this.alphaOrder=1;

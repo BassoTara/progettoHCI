@@ -9,12 +9,16 @@ import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 })
 export class ViewMonsterPage {
 
+  imgSrc = ''
+
   @ViewChild(Content) content: Content;
 
   monster: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.monster = this.navParams.get('monster');
+    this.imgSrc = "assets/img/"+this.monster.name+".jpg";
+    console.log(this.imgSrc);
   }
 
   ionViewDidLoad() {
