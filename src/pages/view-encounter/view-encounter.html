@@ -13,9 +13,14 @@
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="let member of encounterMembers$ | async, let i=index" (click)="selectHealth(member)" [class.highlight]="getTurnMember() == i" >
-      {{member.name}} {{initiatives[member.key]}} {{member.currentHealth}}
+      <ion-thumbnail item-left>
+        <img src= "getImgSrc(member)">
+      </ion-thumbnail>
+      <h2 class="creature-heading">{{member.name}}</h2>
+      <p>{{member.currentHealth}} {{initiatives[member.key]}}</p>
     </button>
   </ion-list>
+
 
   <ion-fab right bottom>
     <button (click)="combat()" ion-fab color="light">

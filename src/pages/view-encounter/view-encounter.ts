@@ -5,6 +5,7 @@ import { CharactersListService } from '../../services/characters-list/characters
 import { Observable, Subject } from 'rxjs';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
 import { WheelSelector } from '@ionic-native/wheel-selector';
+import { DataProvider } from '../../app/data';
 
 
 
@@ -26,7 +27,7 @@ export class ViewEncounterPage {
   encounterMembers$;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public toastCtrl: ToastController
+  constructor(private dataProvider: DataProvider, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public toastCtrl: ToastController
     , private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController, public wheelSelector: WheelSelector) {
 
     this.encounter = this.navParams.get('encounter');
@@ -200,7 +201,7 @@ export class ViewEncounterPage {
 
         if (result[0].description == "Healing")
           offset *= -1;
-        
+
         this.editMemberHP(member, offset);
       }
     );
@@ -212,6 +213,22 @@ export class ViewEncounterPage {
 
   getTurnMember() {
     return this.encounter.turn % this.encounterMembers.length;
+  }
+
+  getImgSrc(member) {
+    let imgSrc;
+    if (member.group == null)
+      imgSrc = "assets/img/" + member.name + ".jpg";
+    else
+      imgSrc = this.dataProvider.getCharacterImgDownloadUrl(member.key).then(
+        (url) => {
+          imgSrc = url;
+        },
+        () => {
+          imgSrc = "assets/img/Default-Profile.png";
+        });
+    console.log(imgSrc);
+    return imgSrc;   
   }
 
 }
