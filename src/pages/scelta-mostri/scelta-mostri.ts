@@ -180,7 +180,7 @@ export class SceltaMostriPage {
   confirmMonsters() {
     for (let monster of this.monsters) {
       while (this.counters[monster.index] > 0) {
-        monster["currentHealth"] = monster.hit_points;
+        monster["currentHealth"] = monster.healthPoints;
         this.chosenMonsters.push(monster);
         this.counters[monster.index] = this.counters[monster.index] - 1;
       }
