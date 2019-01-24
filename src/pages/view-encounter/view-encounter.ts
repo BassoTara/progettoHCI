@@ -20,7 +20,9 @@ export class ViewEncounterPage {
 
   charactersList$;
   monstersList$;
+
   initiatives = {};
+  charactersImgSrcs = {};
 
   encounterMembers = [];
 
@@ -88,6 +90,9 @@ export class ViewEncounterPage {
         return data;
       });
     })
+
+    this.loadImagesFromStorage();
+
   }
 
   ionViewDidLoad() {
@@ -212,20 +217,15 @@ export class ViewEncounterPage {
     return this.encounter.turn % this.encounterMembers.length;
   }
 
-  getImgSrc(member) {
-    let imgSrc;
-    if (member.group == null)
-      imgSrc = "assets/img/" + member.name + ".jpg";
-    else
-      imgSrc = this.dataProvider.getCharacterImgDownloadUrl(member.key).then(
+  loadImagesFromStorage() {
+    for (let key of this.encounter.characterKeys)
+      this.dataProvider.getCharacterImgDownloadUrl(key).then(
         (url) => {
-          imgSrc = url;
+          this.charactersImgSrcs[key] = url;
         },
         () => {
-          imgSrc = "assets/img/Default-Profile.png";
+          this.charactersImgSrcs[key] = "assets/imgs/Default-Profile.png";
         });
-    console.log(imgSrc);
-    return imgSrc;   
   }
 
 }

@@ -14,7 +14,8 @@
   <ion-list>
     <button ion-item *ngFor="let member of encounterMembers$ | async, let i=index" (click)="selectHealth(member)" [class.highlight]="getTurnMember() == i" >
       <ion-thumbnail item-left>
-        <img src= "getImgSrc(member)">
+        <img *ngIf="member.group==null" src = "assets/img/{{member.name}}.jpg">
+        <img *ngIf="member.group!=null" [src] = "charactersImgSrcs[member.key]">
       </ion-thumbnail>
       <h2 class="creature-heading">{{member.name}}</h2>
       <p>{{member.currentHealth}} {{initiatives[member.key]}}</p>
