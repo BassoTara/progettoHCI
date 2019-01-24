@@ -1,3 +1,8 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+  crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:700" rel="stylesheet" type="text/css">
+
 <ion-header no-border>
   <ion-navbar>
     <button ion-button menuToggle>
@@ -18,7 +23,11 @@
         <img *ngIf="member.group!=null" [src] = "charactersImgSrcs[member.key]">
       </ion-thumbnail>
       <h2 class="creature-heading">{{member.name}}</h2>
-      <p>{{member.currentHealth}} {{initiatives[member.key]}}</p>
+      <div class="myDiv">
+        <p class= "myArmor"><ion-icon name="custom-shield"></ion-icon>{{ member.armorClass }}</p>
+        <p item-right><ion-icon name="custom-health"></ion-icon>{{ member.currentHealth }} </p>
+        <!-- <ion-icon name="custom-dice"></ion-icon>{{ initiatives[member.key] }} -->
+      </div>
     </button>
   </ion-list>
 
