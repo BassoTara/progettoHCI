@@ -1,7 +1,15 @@
 page-view-encounter {
     
 .highlight {
-   background-color: #FFFF33 !important;
+   background-color: rgba(0,255,0,0.5) !important;
+}
+
+.myDiv{
+   display: inline-flex;
+}
+
+.myArmor{
+   margin-right : 5 px;
 }
 
 }
