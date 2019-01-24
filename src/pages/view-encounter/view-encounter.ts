@@ -101,17 +101,14 @@ export class ViewEncounterPage {
     if (member.currentHealth < 0)
       member.currentHealth = 0;
 
-    if (member.group != undefined) {
-      if (member.currentHealth > member.healthPoints)
-        member.currentHealth = member.healthPoints;
+    if (member.currentHealth > member.healthPoints)
+      member.currentHealth = member.healthPoints;
 
+    if (member.group != undefined)
       this.characters.editCharacter(member);
-    }
-    else {
-      if (member.currentHealth > member.hit_points)
-        member.currentHealth = member.hit_points;
+
+    else
       this.encounters.editEncounterByMonster(this.encounter, member);
-    }
   }
 
   presentPopover(myEvent, member) {
