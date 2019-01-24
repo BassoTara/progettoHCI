@@ -13673,7 +13673,7 @@
 	"url": "http://www.dnd5eapi.co/api/monsters/270"
 }, {
 	"index": 271,
-	"name": "Succubus/Incubus",
+	"name": "Succubus",
 	"size": "Medium",
 	"type": "fiend",
 	"subtype": "shapechanger",
