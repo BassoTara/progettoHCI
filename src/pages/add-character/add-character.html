@@ -21,9 +21,9 @@
 
 <ion-content>
   <div class="imgDiv">
-    <img [src]="imgSrc" class="characterImg" (click)="pickAndCropImage();" />
+    <img [src]="imgSrc" class="characterImg" />
     <ion-fab bottom right edge>
-      <button ion-fab>
+      <button ion-fab (click)="pickAndCropImage();">
         <ion-icon name="camera"></ion-icon>
       </button>
     </ion-fab>

@@ -85,5 +85,17 @@
     &[class*="custom-text"] {
       mask-image: url(../assets/imgs/text-file.svg);
     }
+    &[class*="custom-combat"] {
+      mask-image: url(../assets/imgs/swords-crossed.svg);
+    }
+    &[class*="custom-dragon"] {
+      mask-image: url(../assets/imgs/dragon.svg);
+    }
+    &[class*="custom-players"] {
+      mask-image: url(../assets/imgs/team.svg);
+    }
+    &[class*="custom-npc"] {
+      mask-image: url(../assets/imgs/npc.svg);
+    }
     
   }

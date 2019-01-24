@@ -8,8 +8,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title center>
-      Nuovo Incontro
+    <ion-title *ngIf="encounter.turn==-1" center>
+      {{encounter.name}}
+    </ion-title>
+    <ion-title *ngIf="encounter.turn!=-1" center>
+      Round: {{getRound()}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -17,16 +20,26 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let member of encounterMembers$ | async, let i=index" (click)="selectHealth(member)" [class.highlight]="getTurnMember() == i" >
+    <button ion-item *ngFor="let member of encounterMembers$ | async, let i=index" (click)="selectHealth(member)"
+      [class.highlight]="getTurnMember() == i">
       <ion-thumbnail item-left>
-        <img *ngIf="member.group==null" src = "assets/img/{{member.name}}.jpg">
-        <img *ngIf="member.group!=null" [src] = "charactersImgSrcs[member.key]">
+        <img *ngIf="member.group==null" src="assets/img/{{member.name}}.jpg">
+        <img *ngIf="member.group!=null" [src]="charactersImgSrcs[member.key]">
       </ion-thumbnail>
       <h2 class="creature-heading">{{member.name}}</h2>
-      <div class="myDiv">
-        <p class= "myArmor"><ion-icon name="custom-shield"></ion-icon>{{ member.armorClass }}</p>
-        <p item-right><ion-icon name="custom-health"></ion-icon>{{ member.currentHealth }} </p>
-        <!-- <ion-icon name="custom-dice"></ion-icon>{{ initiatives[member.key] }} -->
+      <div>
+        <p style="float: left; width: 40%; text-align: left;">
+          <ion-icon style="float: left; text-align: left;" name="custom-health"></ion-icon><label style="float: left; text-align: left;">{{
+            member.currentHealth}}/{{member.healthPoints }}</label>
+        </p>
+        <p style="float: left; width: 30%; text-align: center;">
+          <ion-icon style="float: left; text-align: center;" name="custom-shield"></ion-icon><label style="float: left; text-align: center;">{{
+            member.armorClass }}</label>
+        </p>
+        <p style="float: left; width: 30%; text-align: right;">
+          <ion-icon style="float: left; text-align: center;" name="custom-dice"></ion-icon><label style="float: left; text-align: center;">{{
+            initiatives[member.key] }}</label>
+        </p>
       </div>
     </button>
   </ion-list>
@@ -34,10 +47,9 @@
 
   <ion-fab right bottom>
     <button (click)="combat()" ion-fab color="light">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="custom-combat"></ion-icon>
     </button>
   </ion-fab>
 
-  Turno:{{encounter.turn}} 
 
 </ion-content>
