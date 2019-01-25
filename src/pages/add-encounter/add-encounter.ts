@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, List, AlertController, Navbar, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, List, AlertController, Navbar, Platform, PopoverController } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
 import { Character } from '../../models/character/character.model';
@@ -26,7 +26,7 @@ export class AddEncounterPage {
 
   backAction;
 
-  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService, public characters: CharactersListService, public alertCtrl: AlertController) {
+  constructor(public popoverCtrl: PopoverController,public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService, public characters: CharactersListService, public alertCtrl: AlertController) {
 
     this.backAction = platform.registerBackButtonAction(() => {
       this.onBackButton();
@@ -172,6 +172,16 @@ export class AddEncounterPage {
     });
   }
 
+  presentPopoverCharacter(myEvent, myChar) {
+    let popover = this.popoverCtrl.create('PopoverViewGroupPage', {
+      character: myChar,
+      encounter: this.encounter,
+    });
+    popover.present({
+      ev: myEvent
+    });
+  }
+
   pushToMonsterChoice() {
     var myCallbackFunction = (_params) => {
       return new Promise((resolve, reject) => {
@@ -191,6 +201,10 @@ export class AddEncounterPage {
       return false;
     else
       return true;
+  }
+
+  removeCharacter(character){
+    
   }
 
 }

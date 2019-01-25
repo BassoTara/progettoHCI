@@ -18,6 +18,8 @@
     <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="encounter.name"></ion-textarea>
   </ion-item>
 
+  <br><br>
+
   <ion-item>
     <ion-label class="creature-heading">Personaggi dei Giocatori</ion-label>
   </ion-item>
@@ -29,7 +31,7 @@
   </button>
 
   <ion-list padding-left no-lines>
-    <ion-item-sliding #slidingItem padding-left *ngFor="let character of characterList$ | async" (press)="presentPopover($event, character)">
+    <ion-item-sliding #slidingItem padding-left *ngFor="let character of characterList$" (press)="presentPopoverCharacter($event, character)">
         {{character.name}}      
       <ion-item-options>
         <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
@@ -52,7 +54,7 @@
   </button>
 
   <ion-list padding-left no-lines>
-    <ion-item-sliding #slidingItem padding-left *ngFor="let character of npcList$ | async" (press)="presentPopover($event, character)">
+    <ion-item-sliding #slidingItem padding-left *ngFor="let character of npcList$" >
         {{character.name}}      
       <ion-item-options>
         <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
