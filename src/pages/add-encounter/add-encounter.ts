@@ -26,13 +26,8 @@ export class AddEncounterPage {
 
   backAction;
 
-  constructor(public popoverCtrl: PopoverController,public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService, public characters: CharactersListService, public alertCtrl: AlertController) {
-
-    this.backAction = platform.registerBackButtonAction(() => {
-      this.onBackButton();
-    }, 2);
+  constructor(public popoverCtrl: PopoverController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService, public characters: CharactersListService, public alertCtrl: AlertController) {
   }
-
 
   addEncounter(encounter: Encounter) {
     for (let character of this.characterList$.concat(this.npcList$)) {
@@ -56,6 +51,7 @@ export class AddEncounterPage {
 
     this.encounters.addEncounter(encounter).then(ref => {
       this.navCtrl.pop();
+      this.backAction();
     });
   }
 
@@ -68,6 +64,12 @@ export class AddEncounterPage {
 
     setTimeout(() => this.resizeName(), 0);
     console.log('ionViewDidLoad AddGroupPage');
+  }
+
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
   }
 
   onBackButton() {
@@ -146,6 +148,7 @@ export class AddEncounterPage {
     this.navCtrl.push('SceltaGruppiDeiGiocatoriPage', {
       callback: myCallbackFunction
     });
+    this.backAction();
 
   }
 
@@ -170,6 +173,7 @@ export class AddEncounterPage {
     this.navCtrl.push('SceltaGruppiDeiPngPage', {
       callback: myCallbackFunction
     });
+    this.backAction();
   }
 
   presentPopoverCharacter(myEvent, index: number) {
@@ -180,7 +184,7 @@ export class AddEncounterPage {
       });
     }
     let popover = this.popoverCtrl.create('PopoverAddEncounterCharacterPage', {
-      index: index, 
+      index: index,
       callback: myCallbackFunction
     });
     popover.present({
@@ -196,7 +200,7 @@ export class AddEncounterPage {
       });
     }
     let popover = this.popoverCtrl.create('PopoverAddEncounterCharacterPage', {
-      index: index, 
+      index: index,
       callback: myCallbackFunction
     });
     popover.present({
@@ -212,7 +216,7 @@ export class AddEncounterPage {
       });
     }
     let popover = this.popoverCtrl.create('PopoverAddEncounterCharacterPage', {
-      index: index, 
+      index: index,
       callback: myCallbackFunction
     });
     popover.present({
@@ -232,6 +236,7 @@ export class AddEncounterPage {
     this.navCtrl.push('SceltaMostriPage', {
       callback: myCallbackFunction
     });
+    this.backAction();
   }
 
   getAuthorization() {
@@ -241,16 +246,16 @@ export class AddEncounterPage {
       return true;
   }
 
-  removeCharacter(index : number){
-    this.characterList$.splice(index,1);
+  removeCharacter(index: number) {
+    this.characterList$.splice(index, 1);
   }
 
-  removeNpc(index : number){
-    this.npcList$.splice(index,1);
+  removeNpc(index: number) {
+    this.npcList$.splice(index, 1);
   }
-  
-  removeMonster(index : number){
-    this.monsterList$.splice(index,1);
+
+  removeMonster(index: number) {
+    this.monsterList$.splice(index, 1);
   }
 
 }

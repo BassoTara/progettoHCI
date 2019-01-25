@@ -28,9 +28,6 @@ export class AddGroupPage {
     console.log(navParams.get("players"));
     this.group.players = navParams.get('players');
     // this.group.key = groups.getGroupKey();
-    this.backAction = platform.registerBackButtonAction(() => {
-      this.onBackButton();
-    }, 2);
   }
 
   addGroup(group: Group) {
@@ -50,6 +47,12 @@ export class AddGroupPage {
     setTimeout(() => this.resizeName(), 0);
     setTimeout(() => this.resizeDesc(), 0);
     console.log("chiamato ionViewDidLoad");
+  }
+
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
   }
 
   onBackButton() {

@@ -45,10 +45,6 @@ export class AddCharacterPage {
 
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
     private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
-
-    this.backAction = platform.registerBackButtonAction(() => {
-      this.onBackButton();
-    }, 2);
   }
 
   uploadInformation(base64String: string, name: string) {
@@ -72,6 +68,12 @@ export class AddCharacterPage {
     setTimeout(() => this.resizeName(), 0);
     setTimeout(() => this.resizeDesc(), 0);
     console.log(this.navParams.get('group'));
+  }
+
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
   }
 
   onBackButton() {
@@ -132,6 +134,7 @@ export class AddCharacterPage {
       toast.present();
       //this.navCtrl.push('ViewGroupPage', { group: this.group });
       this.navCtrl.pop();
+      this.backAction();
     });
   }
 

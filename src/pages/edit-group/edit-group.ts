@@ -24,10 +24,6 @@ export class EditGroupPage {
   constructor(public platform: Platform, public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public toastCtrl: ToastController) {
     console.log(navParams.get("players"));
     this.group.players = navParams.get('players');
-
-    this.backAction = platform.registerBackButtonAction(() => {
-      this.onBackButton();
-    }, 2);
   }
 
   onBackButton() {
@@ -85,6 +81,12 @@ export class EditGroupPage {
     setTimeout(() => this.resizeName(), 0);
     setTimeout(() => this.resizeDesc(), 0);
     console.log("chiamato ionViewDidLoad");
+  }
+
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
   }
 
 

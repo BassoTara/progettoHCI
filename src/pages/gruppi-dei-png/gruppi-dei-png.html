@@ -19,8 +19,7 @@
         </button>
   
         <ion-item-options>
-          <button ion-button class="slidingButton" color="secondary" navPush="EditGroupPage" [navParams]="{group: group}"
-            (click)="slidingItem.close()">
+          <button ion-button class="slidingButton" color="secondary" (click)="pushToEditGroupPage(group); slidingItem.close();">
             <ion-icon name="open"></ion-icon>
             Modifica
           </button>

@@ -28,7 +28,10 @@ export class GruppiDeiGiocatoriPage {
       }
     );
 
-    this.backAction = platform.registerBackButtonAction(() => {
+  }
+
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
       this.navCtrl.setRoot("IncontriPage");
       this.backAction();
     }, 2);
@@ -45,6 +48,7 @@ export class GruppiDeiGiocatoriPage {
 
   goToNewGroupPage() {
     this.navCtrl.push('AddGroupPage', { players: this.players });
+    this.backAction();
   }
 
   removeGroup(group: Group) {
@@ -56,6 +60,11 @@ export class GruppiDeiGiocatoriPage {
       toast.present();
 
     });
+  }
+
+  pushToEditGroupPage(group: Group) {
+    this.navCtrl.push("EditGroupPage", {group: group});
+    this.backAction();
   }
 
 }

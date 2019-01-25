@@ -27,8 +27,10 @@ export class GruppiDeiPNGPage {
         }));
       }
     );
+  }
 
-    this.backAction = platform.registerBackButtonAction(() => {
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
       this.navCtrl.setRoot("IncontriPage");
       this.backAction();
     }, 2);
@@ -45,7 +47,14 @@ export class GruppiDeiPNGPage {
 
   goToNewGroupPage() {
     this.navCtrl.push('AddGroupPage', { players: this.players });
+    this.backAction();
   }
+
+  pushToEditGroupPage(group: Group) {
+    this.navCtrl.push("EditGroupPage", { group: group });
+    this.backAction();
+  }
+
 
   removeGroup(group: Group) {
     this.groups.removeGroup(group).then(() => {

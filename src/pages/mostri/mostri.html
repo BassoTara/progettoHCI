@@ -43,7 +43,7 @@
 
     <ng-container *ngFor="let monster of monsters">
       <button ion-item *ngIf="monster.name.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 || !searchString"
-        navPush='ViewMonsterPage' [navParams]="{monster: monster}">
+        (click)="pushToViewMonsterPage(monster);">
         <ion-thumbnail item-left>
           <img src="assets/img/{{monster.name}}.jpg">
         </ion-thumbnail>

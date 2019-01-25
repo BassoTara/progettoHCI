@@ -32,9 +32,6 @@ export class EditCharacterPage {
   character: Character;
 
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
-    this.backAction = platform.registerBackButtonAction(() => {
-      this.onBackButton();
-    }, 2);
   }
 
   loadImageFromStorage() {
@@ -49,6 +46,12 @@ export class EditCharacterPage {
     this.character = this.navParams.get('character');
     this.group = this.navParams.get('group');
     console.log("chiamato ionViewWillLoad");
+  }
+
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
   }
 
   ionViewDidLoad() {
