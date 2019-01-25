@@ -11,62 +11,74 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content>
 
+  <ion-item>
+    <ion-label floating>Nome dell'Incontro</ion-label>
+    <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="encounter.name"></ion-textarea>
+  </ion-item>
 
-
-    <ion-item>
-        <ion-label class="creature-heading">Personaggi dei Giocatori</ion-label>
-      </ion-item>
-      <button ion-item no-lines (click)="pushToPlayerChoice()">
-        <ion-label>
-          Aggiungi personaggio
-        </ion-label>
-        <ion-icon item-right name="add"></ion-icon>
-      </button>
+  <ion-item>
+    <ion-label class="creature-heading">Personaggi dei Giocatori</ion-label>
+  </ion-item>
+  <button ion-item no-lines (click)="pushToPlayerChoice()">
+    <ion-label>
+      Aggiungi personaggio
+    </ion-label>
+    <ion-icon item-right name="add"></ion-icon>
+  </button>
 
   <ion-list padding-left no-lines>
-    <ion-item *ngFor="let character of characterList$">
-      {{character.name}}
-    </ion-item>
+    <ion-item-sliding #slidingItem padding-left *ngFor="let character of characterList$ | async" (press)="presentPopover($event, character)">
+        {{character.name}}      
+      <ion-item-options>
+        <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
+          <ion-icon name="trash"></ion-icon>
+          Elimina
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
   </ion-list>
 
   <ion-item>
-      <ion-label class="creature-heading">Personaggi del Master</ion-label>
-    </ion-item>
-    <button ion-item no-lines (click)="pushToNPCChoice()">
-      <ion-label>
-        Aggiungi personaggio
-      </ion-label>
-      <ion-icon item-right name="add"></ion-icon>
-    </button>
+    <ion-label class="creature-heading">Personaggi del Master</ion-label>
+  </ion-item>
+  <button ion-item no-lines (click)="pushToNPCChoice()">
+    <ion-label>
+      Aggiungi personaggio
+    </ion-label>
+    <ion-icon item-right name="add"></ion-icon>
+  </button>
 
   <ion-list padding-left no-lines>
-    <ion-item *ngFor="let character of npcList$">
-      {{character.name}}
-    </ion-item>
+    <ion-item-sliding #slidingItem padding-left *ngFor="let character of npcList$ | async" (press)="presentPopover($event, character)">
+        {{character.name}}      
+      <ion-item-options>
+        <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
+          <ion-icon name="trash"></ion-icon>
+          Elimina
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
   </ion-list>
 
   <ion-item>
-      <ion-label class="creature-heading">Mostri dal Manuale</ion-label>
-    </ion-item>
-    <button ion-item no-lines (click)="pushToMonsterChoice()">
-      <ion-label>
-        Aggiungi mostro
-      </ion-label>
-      <ion-icon item-right name="add"></ion-icon>
-    </button>
+    <ion-label class="creature-heading">Mostri dal Manuale</ion-label>
+  </ion-item>
+  <button ion-item no-lines (click)="pushToMonsterChoice()">
+    <ion-label>
+      Aggiungi mostro
+    </ion-label>
+    <ion-icon item-right name="add"></ion-icon>
+  </button>
 
   <ion-list padding-left no-lines>
     <ion-item *ngFor="let monster of monsterList$">
       {{monster.name}}
     </ion-item>
   </ion-list>
-
-  <ion-item>
-    <ion-label floating>Nome dell'Incontro</ion-label>
-    <ion-textarea #myInputName id="myInputName" rows="1" maxLength="500" (input)="resizeName()" [(ngModel)]="encounter.name"></ion-textarea>
-  </ion-item>
 
   <ion-fab bottom right>
     <button ion-fab *ngIf="getAuthorization()" (click)="addEncounter(encounter)">

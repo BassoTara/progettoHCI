@@ -111,7 +111,7 @@ export class EditCharacterPage {
       if (this.imgHasChanged)
         this.uploadInformation(this.imgSrc, this.character.key);
       let toast = this.toastCtrl.create({
-        message: 'Character edited successfully!',
+        message: this.character.name + ' modificato con successo!',
         duration: 3000
       });
       toast.present();
@@ -125,7 +125,7 @@ export class EditCharacterPage {
     this.characters.removeCharacter(this.character).then(res => {
       console.log('res: ', res);
       let toast = this.toastCtrl.create({
-        message: 'Character removed successfully!',
+        message: this.character.name +' rimosso con successo!',
         duration: 3000
       });
       toast.present();

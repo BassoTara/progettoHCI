@@ -40,7 +40,7 @@ export class IncontriPage {
     this.encounters.removeEncounter(encounter).then(res => {
       console.log('res: ', res);
       let toast = this.toastCtrl.create({
-        message: 'Encounter removed successfully!',
+        message: 'Incontro eliminato con successo!',
         duration: 3000
       });
       toast.present();

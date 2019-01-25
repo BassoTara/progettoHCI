@@ -43,7 +43,7 @@ export class GruppiDeiGiocatoriPage {
   removeGroup(group: Group) {
     this.groups.removeGroup(group).then(() => {
       let toast = this.toastCtrl.create({
-        message: 'Group removed successfully!',
+        message: this.groups+' rimosso con successo!',
         duration: 3000
       });
       toast.present();

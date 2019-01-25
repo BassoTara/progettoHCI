@@ -25,7 +25,7 @@ export class PopoverEncounterPage {
     this.close();
     this.encounters.removeEncounter(this.encounter).then(() => {
       let toast = this.toastCtrl.create({
-        message: 'Encounter removed successfully!',
+        message: 'Incontro eliminato con successo!',
         duration: 3000
       });
       toast.present();

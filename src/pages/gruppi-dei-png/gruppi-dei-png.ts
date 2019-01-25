@@ -43,7 +43,7 @@ export class GruppiDeiPNGPage {
   removeGroup(group: Group) {
     this.groups.removeGroup(group).then(() => {
       let toast = this.toastCtrl.create({
-        message: 'Group removed successfully!',
+        message: 'Gruppo eliminato con successo!',
         duration: 3000
       });
       toast.present();

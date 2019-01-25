@@ -20,7 +20,7 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let member of encounterMembers$ | async, let i=index" (click)="selectHealth(member)"
+    <button ion-item #slidingItem *ngFor="let member of encounterMembers$ | async, let i=index" (click)="selectHealth(member)"
       [class.highlight]="getTurnMember() == i">
       <ion-thumbnail item-left>
         <img *ngIf="member.group==null" src="assets/img/{{member.name}}.jpg">

@@ -91,7 +91,7 @@ export class EditGroupPage {
   editGroup(group: Group) {
     this.groups.editGroup(group).then(() => {
       let toast = this.toastCtrl.create({
-        message: 'Group edited successfully!',
+        message: this.group.name + ' modificato con successo!',
         duration: 3000
       });
       toast.present();
@@ -104,7 +104,7 @@ export class EditGroupPage {
   removeGroup(group: Group) {
     this.groups.removeGroup(group).then(() => {
       let toast = this.toastCtrl.create({
-        message: 'Group removed successfully!',
+        message: this.group.name + ' eliminato con successo!',
         duration: 3000
       });
       toast.present();

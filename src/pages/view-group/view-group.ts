@@ -50,7 +50,7 @@ export class ViewGroupPage {
     this.characters.removeCharacter(character).then(res => {
       console.log('res: ', res);
       let toast = this.toastCtrl.create({
-        message: 'Character removed successfully!',
+        message: character.name + ' eliminato con successo!',
         duration: 3000
       });
       toast.present();

@@ -34,7 +34,7 @@ export class PopoverViewGroupPage {
     this.characters.removeCharacter(this.character).then(res => {
       console.log('res: ', res);
       let toast = this.toastCtrl.create({
-        message: 'Character removed successfully!',
+        message: this.character.name+' eliminato con successo!',
         duration: 3000
       });
       toast.present();
