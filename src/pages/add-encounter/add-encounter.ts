@@ -172,10 +172,48 @@ export class AddEncounterPage {
     });
   }
 
-  presentPopoverCharacter(myEvent, myChar) {
-    let popover = this.popoverCtrl.create('PopoverViewGroupPage', {
-      character: myChar,
-      encounter: this.encounter,
+  presentPopoverCharacter(myEvent, index: number) {
+    var myCallbackFunction = (_params) => {
+      return new Promise((resolve, reject) => {
+        this.removeCharacter(_params);
+        resolve();
+      });
+    }
+    let popover = this.popoverCtrl.create('PopoverAddEncounterCharacterPage', {
+      index: index, 
+      callback: myCallbackFunction
+    });
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  presentPopoverNpc(myEvent, index: number) {
+    var myCallbackFunction = (_params) => {
+      return new Promise((resolve, reject) => {
+        this.removeNpc(_params);
+        resolve();
+      });
+    }
+    let popover = this.popoverCtrl.create('PopoverAddEncounterCharacterPage', {
+      index: index, 
+      callback: myCallbackFunction
+    });
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  presentPopoverMonster(myEvent, index: number) {
+    var myCallbackFunction = (_params) => {
+      return new Promise((resolve, reject) => {
+        this.removeMonster(_params);
+        resolve();
+      });
+    }
+    let popover = this.popoverCtrl.create('PopoverAddEncounterCharacterPage', {
+      index: index, 
+      callback: myCallbackFunction
     });
     popover.present({
       ev: myEvent
@@ -205,6 +243,10 @@ export class AddEncounterPage {
 
   removeCharacter(index : number){
     this.characterList$.splice(index,1);
+  }
+
+  removeNpc(index : number){
+    this.npcList$.splice(index,1);
   }
   
   removeMonster(index : number){

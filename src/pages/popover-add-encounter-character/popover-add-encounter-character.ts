@@ -13,12 +13,12 @@ import { Character } from '../../models/character/character.model';
 })
 export class PopoverAddEncounterCharacterPage {
 
-  encounter: Encounter;
-  character: Character;
+  index: number;
+  callback;
 
   constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService, public toastCtrl: ToastController) {
-    this.encounter = this.navParams.get('encounter');
-    this.character = this.navParams.get('character');
+      this.index = this.navParams.get('index');
+      this.callback = this.navParams.get('callback');
   }
 
 
@@ -26,16 +26,9 @@ export class PopoverAddEncounterCharacterPage {
     this.viewCtrl.dismiss();
   }
 
-  removeCharacter() {
+  remove(){
     this.close();
-    this.encounters.removeEncounter(this.encounter).then(() => {
-      let toast = this.toastCtrl.create({
-        message: 'Incontro eliminato con successo!',
-        duration: 3000
-      });
-      toast.present();
-    });
+    this.callback(this.index);
   }
-
 
 }
