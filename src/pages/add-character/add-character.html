@@ -18,7 +18,7 @@
   <div class="imgDiv">
     <img [src]="imgSrc" class="characterImg" />
     <ion-fab bottom right edge>
-      <button ion-fab (click)="pickAndCropImage();">
+      <button ion-fab (click)="pickAndCropImage();" >
         <ion-icon name="camera"></ion-icon>
       </button>
     </ion-fab>
@@ -65,12 +65,12 @@
   </ion-item>
 
   <ion-fab bottom right>
-    <button ion-fab *ngIf="getAuthorization()" (click)="addCharacter(character)">
+    <button ion-fab *ngIf="getAuthorization()" (click)="addCharacter(character)" >
       <ion-icon name="checkmark"></ion-icon>
     </button>
   </ion-fab>
   <ion-fab bottom right>
-    <button ion-fab disabled *ngIf="!getAuthorization()">
+    <button ion-fab disabled *ngIf="!getAuthorization()" >
       <ion-icon name="checkmark"></ion-icon>
     </button>
   </ion-fab>

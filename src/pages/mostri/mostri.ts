@@ -16,36 +16,34 @@ declare var require: any
 export class MostriPage {
   monsters = [];
   isOn: boolean = false;
-  searchString : string ="";
+  searchString: string = "";
 
   numOrder: number; // -1 Descending, +1 Ascending, 0 not shown
   alphaOrder: number;// -1 Z->A, +1 A->Z, 0 not shown
 
+  backAction;
 
   constructor(public navCtrl: NavController, private dataFinder: DataFinder, public renderer: Renderer, public platform: Platform) {
-    this.alphaOrder=1;
-    this.numOrder=0;
+    this.alphaOrder = 1;
+    this.numOrder = 0;
 
 
-    platform.registerBackButtonAction(() => {
-      if (this.searchString != "") {
+    this.backAction = platform.registerBackButtonAction(() => {
+      if (this.searchString != "" || this.isOn) {
         this.searchString = "";
         this.isOn = false;
       }
       else {
-        if (navCtrl.canGoBack()) { // CHECK IF THE USER IS IN THE ROOT PAGE.
-          navCtrl.pop(); // IF IT'S NOT THE ROOT, POP A PAGE.
-        } else {
-          platform.exitApp(); // IF IT'S THE ROOT, EXIT THE APP
-        }
+        this.navCtrl.setRoot("IncontriPage");
+        this.backAction();
       }
-    });
+    }, 2);
 
   }
 
-  ionViewWillEnter(){
-    this.isOn=false;
-    this.searchString="";
+  ionViewWillEnter() {
+    this.isOn = false;
+    this.searchString = "";
   }
 
 
@@ -56,22 +54,22 @@ export class MostriPage {
     });
 
   }
- 
+
   /* Sets data with returned JSON array */
-  SetQueryOptionsData(data : any) {
+  SetQueryOptionsData(data: any) {
     this.monsters = data;
   }
-  
-  @ViewChild('mainSearchBar') searchBar: Searchbar ;
 
-  openSearchBar(){
-    this.isOn=true;
+  @ViewChild('mainSearchBar') searchBar: Searchbar;
+
+  openSearchBar() {
+    this.isOn = true;
     setTimeout(() => {
       this.searchBar.setFocus();
     }, 0);
   }
-  
-  onInput(event){
+
+  onInput(event) {
     this.searchString = event.target.value;
   }
 
@@ -79,45 +77,45 @@ export class MostriPage {
     this.renderer.invokeElementMethod(event.target, 'blur');
   }
 
-  predicateBy(prop){
-    return function(a,b){
-       if( a[prop] > b[prop]){
-           return 1;
-       }else if( a[prop] < b[prop] ){
-           return -1;
-       }
-       return 0;
+  predicateBy(prop) {
+    return function (a, b) {
+      if (a[prop] > b[prop]) {
+        return 1;
+      } else if (a[prop] < b[prop]) {
+        return -1;
+      }
+      return 0;
     }
   }
 
-  predicateByDesc(prop){
-    return function(a,b){
-       if( a[prop] > b[prop]){
-           return -1;
-       }else if( a[prop] < b[prop] ){
-           return 1;
-       }
-       return 0;
+  predicateByDesc(prop) {
+    return function (a, b) {
+      if (a[prop] > b[prop]) {
+        return -1;
+      } else if (a[prop] < b[prop]) {
+        return 1;
+      }
+      return 0;
     }
   }
 
-  toFraction(num : number){
+  toFraction(num: number) {
 
     var Fraction = require('fractional').Fraction;
-  
+
     var frac = new Fraction(num);
 
     return frac.toString();
   }
- 
-  nameClicked(){
-    if(this.alphaOrder!=1){
-      this.monsters=this.monsters.sort(this.predicateBy('name') );
+
+  nameClicked() {
+    if (this.alphaOrder != 1) {
+      this.monsters = this.monsters.sort(this.predicateBy('name'));
       this.alphaOrder = 1;
     }
 
-    else{
-      this.monsters=this.monsters.sort(this.predicateByDesc('name') );
+    else {
+      this.monsters = this.monsters.sort(this.predicateByDesc('name'));
       this.alphaOrder = -1;
     }
 
@@ -125,14 +123,14 @@ export class MostriPage {
 
   }
 
-  gsClicked(){
-    if(this.numOrder!=1){
-      this.monsters=this.monsters.sort(this.predicateBy('challenge_rating') );
+  gsClicked() {
+    if (this.numOrder != 1) {
+      this.monsters = this.monsters.sort(this.predicateBy('challenge_rating'));
       this.numOrder = 1;
     }
 
-    else{
-      this.monsters=this.monsters.sort(this.predicateByDesc('challenge_rating') );
+    else {
+      this.monsters = this.monsters.sort(this.predicateByDesc('challenge_rating'));
       this.numOrder = -1;
     }
 
