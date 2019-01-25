@@ -33,21 +33,21 @@
       <ion-item-options>
         <button ion-button class="slidingButton" color="secondary" (click)="pushToEditCharacter(character); slidingItem.close();">
           <ion-icon name="open"></ion-icon>
-          Edit
+          Modifica
         </button>
         <button ion-button *ngIf="group.players" class="slidingButton" color="dark" navPush="SelectPlayerGroupPage"
           [navParams]="{character: character}" (click)="slidingItem.close()">
           <ion-icon name="share-alt"></ion-icon>
-          Export
+          Sposta
         </button>
         <button ion-button *ngIf="!group.players" class="slidingButton" color="dark" navPush="SelectNpcGroupPage"
           [navParams]="{character: character}" (click)="slidingItem.close()">
           <ion-icon name="share-alt"></ion-icon>
-          Export
+          Sposta
         </button>
         <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
           <ion-icon name="trash"></ion-icon>
-          Remove
+          Elimina
         </button>
       </ion-item-options>
 

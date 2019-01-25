@@ -2,10 +2,10 @@
 
   <ion-list>
     <button ion-item no-lines navPush="EditCharacterPage" [navParams]="
-    {character: character, group: group}" (click)="close()">Edit character</button>
-    <button ion-item no-lines *ngIf="group.players" navPush="SelectPlayerGroupPage" [navParams]="{character: character}" (click)="this.viewCtrl.dismiss()">Move to another group</button>
-    <button ion-item no-lines *ngIf="!group.players" navPush="SelectNpcGroupPage" [navParams]="{character: character}" (click)="this.viewCtrl.dismiss()">Move to another group</button>
-    <button ion-item no-lines (click)="removeCharacter()">Remove from the group</button>
+    {character: character, group: group}" (click)="close()">Modifica personaggio</button>
+    <button ion-item no-lines *ngIf="group.players" navPush="SelectPlayerGroupPage" [navParams]="{character: character}" (click)="this.viewCtrl.dismiss()">Sposta in un altro gruppo</button>
+    <button ion-item no-lines *ngIf="!group.players" navPush="SelectNpcGroupPage" [navParams]="{character: character}" (click)="this.viewCtrl.dismiss()">Sposta in un altro gruppo</button>
+    <button ion-item no-lines (click)="removeCharacter()">Elimina personaggio</button>
   </ion-list>
 
 </ion-content>

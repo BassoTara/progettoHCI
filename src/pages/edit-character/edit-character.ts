@@ -62,7 +62,7 @@ export class EditCharacterPage {
   }
 
   onBackButton() {
-    if (this.getAutorization()) {
+    if (this.getAuthorization()) {
       let alert = this.alertCtrl.create({
         title: 'Salvare le modifiche?',
         buttons: [
@@ -156,7 +156,7 @@ export class EditCharacterPage {
   pickAndCropImage() {
 
     const options: CameraOptions = {
-      quality: 70,
+      quality: 40,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -178,15 +178,10 @@ export class EditCharacterPage {
 
     upload.then().then(res => {
       console.log('res: ', res);
-      let toast = this.toastCtrl.create({
-        message: 'New file added!',
-        duration: 3000
-      });
-      toast.present();
     });
   }
 
-  getAutorization() {
+  getAuthorization() {
     if (this.character.name != '' && this.character.initiativeModifier != undefined && this.character.armorClass != undefined && this.character.armorClass != 0 && this.character.healthPoints != undefined && this.character.healthPoints != 0)
       return true;
     else

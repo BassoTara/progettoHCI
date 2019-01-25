@@ -46,9 +46,9 @@ export class AddCharacterPage {
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
     private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
 
-      this.backAction = platform.registerBackButtonAction(() => {
-        this.onBackButton();
-      }, 2);
+    this.backAction = platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
   }
 
   uploadInformation(base64String: string, name: string) {
@@ -56,11 +56,6 @@ export class AddCharacterPage {
 
     upload.then().then(res => {
       console.log('res: ', res);
-      let toast = this.toastCtrl.create({
-        message: 'New file added!',
-        duration: 3000
-      });
-      toast.present();
     });
   }
 
@@ -131,7 +126,7 @@ export class AddCharacterPage {
       if (this.defaultImgSrc != this.imgSrc)
         this.uploadInformation(this.imgSrc, ref.key);
       let toast = this.toastCtrl.create({
-        message: 'Character added successfully!',
+        message: this.character.name + ' aggiunto a ' + this.group.name + '!',
         duration: 3000
       });
       toast.present();
@@ -159,7 +154,7 @@ export class AddCharacterPage {
   pickAndCropImage() {
 
     const options: CameraOptions = {
-      quality: 70,
+      quality: 40,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
