@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController, Navbar, Platform } from 'ionic-angular';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Group } from '../../models/group/group.model';
@@ -41,8 +41,14 @@ export class AddCharacterPage {
     group: "0"
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
+  backAction;
+
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
     private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
+
+      this.backAction = platform.registerBackButtonAction(() => {
+        this.onBackButton();
+      }, 2);
   }
 
   uploadInformation(base64String: string, name: string) {
@@ -58,12 +64,65 @@ export class AddCharacterPage {
     });
   }
 
+  @ViewChild(Navbar) navBar: Navbar;
+
   ionViewDidLoad() {
     this.group = this.navParams.get('group');
     this.character.group = this.navParams.get('group').key;
+
+    this.navBar.backButtonClick = (e: UIEvent) => {
+      this.onBackButton();
+    }
+
     setTimeout(() => this.resizeName(), 0);
     setTimeout(() => this.resizeDesc(), 0);
     console.log(this.navParams.get('group'));
+  }
+
+  onBackButton() {
+    if (this.getAuthorization()) {
+      let alert = this.alertCtrl.create({
+        title: 'Salvare le modifiche?',
+        buttons: [
+          {
+            text: 'Sì',
+            handler: () => {
+              this.addCharacter(this.character);
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+              this.navCtrl.pop();
+              this.backAction();
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+    else {
+      let alert = this.alertCtrl.create({
+        title: 'Campi vuoti, uscire senza salvare?',
+        buttons: [
+          {
+            text: 'Sì',
+            handler: () => {
+              this.navCtrl.pop();
+              this.backAction();
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+
   }
 
   addCharacter(character: Character) {
@@ -116,10 +175,10 @@ export class AddCharacterPage {
 
   }
 
-  getAutorization(){
-    if(this.character.name !='' && this.character.initiativeModifier!=undefined && this.character.armorClass != undefined && this.character.armorClass!=0 && this.character.healthPoints!=undefined && this.character.healthPoints!= 0)
+  getAuthorization() {
+    if (this.character.name != '' && this.character.initiativeModifier != undefined && this.character.armorClass != undefined && this.character.armorClass != 0 && this.character.healthPoints != undefined && this.character.healthPoints != 0)
       return true;
-    else 
+    else
       return false;
   }
 

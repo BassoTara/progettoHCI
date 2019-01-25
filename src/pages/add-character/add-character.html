@@ -70,12 +70,12 @@
   </ion-item>
 
   <ion-fab bottom right>
-    <button ion-fab *ngIf="getAutorization()" (click)="addCharacter(character)">
+    <button ion-fab *ngIf="getAuthorization()" (click)="addCharacter(character)">
       <ion-icon name="checkmark"></ion-icon>
     </button>
   </ion-fab>
   <ion-fab bottom right>
-    <button ion-fab disabled *ngIf="!getAutorization()">
+    <button ion-fab disabled *ngIf="!getAuthorization()">
       <ion-icon name="checkmark"></ion-icon>
     </button>
   </ion-fab>
