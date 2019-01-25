@@ -12,9 +12,11 @@
 
 <ion-content class="character-total">
 
+    <img *ngIf="imgSrc!=''" id="characterImg" class="characterImg" [src]="imgSrc"/>
+
   <div class="stat-block">
 
-    <img *ngIf="imgSrc!=''" id="characterImg" class="characterImg" [src]="imgSrc"/>
+    
 
     <div class="section-left">
       <div class="creature-heading">
