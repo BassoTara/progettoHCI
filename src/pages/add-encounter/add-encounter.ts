@@ -203,8 +203,12 @@ export class AddEncounterPage {
       return true;
   }
 
-  removeCharacter(character){
-    
+  removeCharacter(index : number){
+    this.characterList$.splice(index,1);
+  }
+  
+  removeMonster(index : number){
+    this.monsterList$.splice(index,1);
   }
 
 }

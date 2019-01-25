@@ -31,10 +31,10 @@
   </button>
 
   <ion-list padding-left no-lines>
-    <ion-item-sliding #slidingItem padding-left *ngFor="let character of characterList$" (press)="presentPopoverCharacter($event, character)">
+    <ion-item-sliding #slidingItem padding-left *ngFor="let character of characterList$, let i = index" (press)="presentPopoverCharacter($event, character)">
         <ion-item>{{character.name}}</ion-item>  
       <ion-item-options>
-        <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
+        <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(i); slidingItem.close();">
           <ion-icon name="trash"></ion-icon>
           Elimina
         </button>
@@ -54,10 +54,10 @@
   </button>
 
   <ion-list padding-left no-lines>
-    <ion-item-sliding #slidingItem padding-left *ngFor="let character of npcList$" >
+    <ion-item-sliding #slidingItem padding-left *ngFor="let character of npcList$, let i = index" >
     <ion-item>{{character.name}}</ion-item>  
       <ion-item-options>
-        <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
+        <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(i); slidingItem.close();">
           <ion-icon name="trash"></ion-icon>
           Elimina
         </button>
@@ -77,9 +77,16 @@
   </button>
 
   <ion-list padding-left no-lines>
-    <ion-item *ngFor="let monster of monsterList$">
-      {{monster.name}}
-    </ion-item>
+    <ion-item-sliding #slidingItem padding-left *ngFor="let monster of monsterList$, let i = index" >
+    <ion-item>{{monster.name}}</ion-item>  
+      <ion-item-options>
+        <button ion-button class="slidingButton" color="danger" (click)="removeMonster(i); slidingItem.close();">
+          <ion-icon name="trash"></ion-icon>
+          Elimina
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
   </ion-list>
 
   <br><br><br><br><br><br><br><br><br>
