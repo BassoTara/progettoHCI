@@ -32,7 +32,7 @@
 
   <ion-list padding-left no-lines>
     <ion-item-sliding #slidingItem padding-left *ngFor="let character of characterList$" (press)="presentPopoverCharacter($event, character)">
-        {{character.name}}      
+        <ion-item>{{character.name}}</ion-item>  
       <ion-item-options>
         <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
           <ion-icon name="trash"></ion-icon>
@@ -55,7 +55,7 @@
 
   <ion-list padding-left no-lines>
     <ion-item-sliding #slidingItem padding-left *ngFor="let character of npcList$" >
-        {{character.name}}      
+    <ion-item>{{character.name}}</ion-item>  
       <ion-item-options>
         <button ion-button class="slidingButton" color="danger" (click)="removeCharacter(character); slidingItem.close();">
           <ion-icon name="trash"></ion-icon>
@@ -81,6 +81,8 @@
       {{monster.name}}
     </ion-item>
   </ion-list>
+
+  <br><br><br><br><br><br><br><br><br>
 
   <ion-fab bottom right>
     <button ion-fab *ngIf="getAuthorization()" (click)="addEncounter(encounter)" >
