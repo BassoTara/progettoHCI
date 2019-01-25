@@ -34,13 +34,12 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
+  primary:    #f44336,
+  secondary:  #4CAF50,
   danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
+  light:      #ff7961,
+  dark:       #ba000d,
   page:       #FDF1DC,
-  toolbar:    #CABEAA,
   titles:     #922610
 );
 
@@ -55,10 +54,10 @@ $background-wp-color: #FDF1DC;
 
 $ion-item-background-color : #FDF1DC; 
 $list-background-color : #FDF1DC; 
-$toolbar-background : #CABEAA;
-$toolbar-md-title-text-color : #000;
+$toolbar-background : #f44336;
+$toolbar-md-title-text-color : #fff;
 $toolbar-md-border-color : rgba(0,0,0,0.6);
-$searchbar-md-input-background-color : #CABEAA;
+$searchbar-md-input-background-color : #FDF1DC;
 $searchbar-md-input-placeholder-color : rgba(0,0,0,0.5);
 $list-md-border-color: rgba(146,38,16,0.3);
 

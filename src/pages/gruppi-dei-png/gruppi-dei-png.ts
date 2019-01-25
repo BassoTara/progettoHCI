@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { NavController, IonicPage, NavParams, PopoverController, ToastController } from 'ionic-angular';
+import { NavController, IonicPage, NavParams, PopoverController, ToastController, Platform } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { Group } from '../../models/group/group.model';
 import 'rxjs/add/operator/map';
@@ -16,7 +16,9 @@ export class GruppiDeiPNGPage {
 
   groupsList$: Observable<Group[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public popoverCtrl: PopoverController, public toastCtrl: ToastController) {
+  backAction;
+
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public popoverCtrl: PopoverController, public toastCtrl: ToastController) {
     this.players = false;
     this.groupsList$ = groups.getGroupsList(this.players).snapshotChanges().map(
       changes => {
@@ -25,6 +27,11 @@ export class GruppiDeiPNGPage {
         }));
       }
     );
+
+    this.backAction = platform.registerBackButtonAction(() => {
+      this.navCtrl.setRoot("IncontriPage");
+      this.backAction();
+    }, 2);
   }
 
   presentPopover(myEvent, myGroup) {

@@ -81,12 +81,12 @@
   </ion-list>
 
   <ion-fab bottom right>
-    <button ion-fab *ngIf="getAuthorization()" (click)="addEncounter(encounter)">
+    <button ion-fab *ngIf="getAuthorization()" (click)="addEncounter(encounter)" >
       <ion-icon name="checkmark"></ion-icon>
     </button>
   </ion-fab>
   <ion-fab bottom right>
-    <button ion-fab disabled *ngIf="!getAuthorization()">
+    <button ion-fab disabled *ngIf="!getAuthorization()" >
       <ion-icon name="checkmark"></ion-icon>
     </button>
   </ion-fab>
