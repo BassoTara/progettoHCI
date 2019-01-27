@@ -195,6 +195,8 @@ export class ViewEncounterPage {
         jsonData.type,
         jsonData.numbers,
       ],
+      positiveButtonText: "OK",
+      negativeButtonText: "Annulla",
     }).then(
       result => {
 
