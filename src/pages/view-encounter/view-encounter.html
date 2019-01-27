@@ -14,7 +14,7 @@
     <ion-title *ngIf="encounter.turn!=-1" center>
       Round: {{getRound()}}
     </ion-title>
-    <ion-buttons end padding-right>
+    <ion-buttons *ngIf="encounter.turn!=-1" end padding-right>
       <button (click)="restartEncounter()" ion-button icon-only>
         <ion-icon name="refresh"></ion-icon>
       </button>

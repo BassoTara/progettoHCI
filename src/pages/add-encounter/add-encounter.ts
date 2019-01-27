@@ -98,6 +98,12 @@ export class AddEncounterPage {
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
     else {
@@ -119,6 +125,12 @@ export class AddEncounterPage {
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
 

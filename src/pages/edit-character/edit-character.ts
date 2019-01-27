@@ -88,6 +88,12 @@ export class EditCharacterPage {
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
     else {
@@ -109,6 +115,12 @@ export class EditCharacterPage {
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
   }
