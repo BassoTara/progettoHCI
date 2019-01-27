@@ -54,6 +54,10 @@ export class EditCharacterPage {
     }, 2);
   }
 
+  ionViewDidLeave() {
+    this.backAction();
+  }
+
   ionViewDidLoad() {
     this.navBar.backButtonClick = (e: UIEvent) => {
       this.onBackButton();
@@ -67,7 +71,7 @@ export class EditCharacterPage {
   onBackButton() {
     if (this.getAuthorization()) {
       let alert = this.alertCtrl.create({
-        title: 'Salvare le modifiche?',
+        title: 'Salvare le modifiche prima di uscire?',
         buttons: [
           {
             text: 'Sì',
@@ -79,7 +83,7 @@ export class EditCharacterPage {
             text: 'No',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           }
         ]
@@ -94,7 +98,7 @@ export class EditCharacterPage {
             text: 'Sì',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           },
           {
@@ -120,7 +124,7 @@ export class EditCharacterPage {
       toast.present();
       //this.navCtrl.push('ViewGroupPage', { group: this.group });
       this.navCtrl.pop();
-      this.backAction();
+      
     });
   }
 
@@ -134,7 +138,7 @@ export class EditCharacterPage {
       toast.present();
     });
     this.navCtrl.pop();
-    this.backAction();
+    
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;

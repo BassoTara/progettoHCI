@@ -76,10 +76,16 @@ export class AddCharacterPage {
     }, 2);
   }
 
+  ionViewDidLeave() {
+    this.backAction();
+  }
+
   onBackButton() {
-    if (this.getAuthorization()) {
+    if(this.isEmpty())
+      this.navCtrl.pop();
+    else if (this.getAuthorization()) {
       let alert = this.alertCtrl.create({
-        title: 'Salvare le modifiche?',
+        title: 'Salvare le modifiche prima di uscire?',
         buttons: [
           {
             text: 'Sì',
@@ -91,7 +97,7 @@ export class AddCharacterPage {
             text: 'No',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           }
         ]
@@ -106,7 +112,7 @@ export class AddCharacterPage {
             text: 'Sì',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           },
           {
@@ -134,7 +140,7 @@ export class AddCharacterPage {
       toast.present();
       //this.navCtrl.push('ViewGroupPage', { group: this.group });
       this.navCtrl.pop();
-      this.backAction();
+      
     });
   }
 
@@ -178,6 +184,10 @@ export class AddCharacterPage {
       return true;
     else
       return false;
+  }
+
+  isEmpty() {
+    return this.character.name=="" && this.character.initiativeModifier == undefined && (this.character.armorClass == undefined || this.character.armorClass ==0) && (this.character.healthPoints == undefined || this.character.healthPoints == 0) && this.character.description == "";
   }
 
 }

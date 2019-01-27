@@ -1,5 +1,5 @@
 import { Component, group } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ToastController, Platform } from 'ionic-angular';
 import { Group } from '../../models/group/group.model';
 import { Character } from '../../models/character/character.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
@@ -22,7 +22,7 @@ export class ViewGroupPage {
 
   charactersList$: Observable<Character[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController, public toastCtrl: ToastController) {
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public popoverCtrl: PopoverController, public toastCtrl: ToastController) {
     this.charactersList$ = characters.getCharactersListByGroupKey(this.navParams.get('group').key).snapshotChanges().map(
       changes => {
         return changes.map(c => ({
@@ -39,6 +39,14 @@ export class ViewGroupPage {
     });
     popover.present({
       ev: myEvent
+    });
+
+    let popoverBack = this.platform.registerBackButtonAction(() => {
+      popover.dismiss();
+    }, 3);
+
+    popover.onDidDismiss(() => {
+      popoverBack();
     });
   }
 

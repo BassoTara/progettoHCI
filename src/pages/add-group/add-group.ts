@@ -33,7 +33,7 @@ export class AddGroupPage {
   addGroup(group: Group) {
     this.groups.addGroup(group);
     this.navCtrl.pop();
-    this.backAction();
+
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;
@@ -55,10 +55,16 @@ export class AddGroupPage {
     }, 2);
   }
 
+  ionViewDidLeave() {
+    this.backAction();
+  }
+
   onBackButton() {
-    if (this.getAuthorization()) {
+    if (this.isEmpty())
+      this.navCtrl.pop();
+    else if (this.getAuthorization()) {
       let alert = this.alertCtrl.create({
-        title: 'Salvare le modifiche?',
+        title: 'Salvare le modifiche prima di uscire?',
         buttons: [
           {
             text: 'Sì',
@@ -70,7 +76,7 @@ export class AddGroupPage {
             text: 'No',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+
             }
           }
         ]
@@ -85,7 +91,7 @@ export class AddGroupPage {
             text: 'Sì',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+
             }
           },
           {
@@ -122,5 +128,9 @@ export class AddGroupPage {
       return false;
     else
       return true;
+  }
+
+  isEmpty() {
+    return this.group.name == "" && this.group.description == "";
   }
 }

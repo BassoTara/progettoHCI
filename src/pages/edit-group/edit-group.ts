@@ -29,7 +29,7 @@ export class EditGroupPage {
   onBackButton() {
     if (this.getAuthorization()) {
       let alert = this.alertCtrl.create({
-        title: 'Salvare le modifiche?',
+        title: 'Salvare le modifiche prima di uscire?',
         buttons: [
           {
             text: 'Sì',
@@ -41,7 +41,7 @@ export class EditGroupPage {
             text: 'No',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           }
         ]
@@ -56,7 +56,7 @@ export class EditGroupPage {
             text: 'Sì',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           },
           {
@@ -89,6 +89,9 @@ export class EditGroupPage {
     }, 2);
   }
 
+  ionViewDidLeave() {
+    this.backAction();
+  }
 
   editGroup(group: Group) {
     this.groups.editGroup(group).then(() => {
@@ -99,7 +102,7 @@ export class EditGroupPage {
       toast.present();
 
       this.navCtrl.pop();
-      this.backAction();
+      
     });
   }
 
@@ -111,7 +114,7 @@ export class EditGroupPage {
       });
       toast.present();
       this.navCtrl.pop();
-      this.backAction();
+      
     });
   }
 

@@ -51,7 +51,7 @@ export class AddEncounterPage {
 
     this.encounters.addEncounter(encounter).then(ref => {
       this.navCtrl.pop();
-      this.backAction();
+
     });
   }
 
@@ -72,10 +72,16 @@ export class AddEncounterPage {
     }, 2);
   }
 
+  ionViewDidLeave() {
+    this.backAction();
+  }
+
   onBackButton() {
-    if (this.getAuthorization()) {
+    if (this.isEmpty())
+      this.navCtrl.pop();
+    else if (this.getAuthorization()) {
       let alert = this.alertCtrl.create({
-        title: 'Salvare le modifiche?',
+        title: 'Salvare le modifiche prima di uscire?',
         buttons: [
           {
             text: 'Sì',
@@ -87,7 +93,7 @@ export class AddEncounterPage {
             text: 'No',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+
             }
           }
         ]
@@ -102,7 +108,7 @@ export class AddEncounterPage {
             text: 'Sì',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+
             }
           },
           {
@@ -148,7 +154,7 @@ export class AddEncounterPage {
     this.navCtrl.push('SceltaGruppiDeiGiocatoriPage', {
       callback: myCallbackFunction
     });
-    this.backAction();
+
 
   }
 
@@ -173,7 +179,7 @@ export class AddEncounterPage {
     this.navCtrl.push('SceltaGruppiDeiPngPage', {
       callback: myCallbackFunction
     });
-    this.backAction();
+
   }
 
   presentPopoverCharacter(myEvent, index: number) {
@@ -189,6 +195,14 @@ export class AddEncounterPage {
     });
     popover.present({
       ev: myEvent
+    });
+
+    let popoverBack = this.platform.registerBackButtonAction(() => {
+      popover.dismiss();
+    }, 3);
+
+    popover.onDidDismiss(() => {
+      popoverBack();
     });
   }
 
@@ -206,6 +220,14 @@ export class AddEncounterPage {
     popover.present({
       ev: myEvent
     });
+
+    let popoverBack = this.platform.registerBackButtonAction(() => {
+      popover.dismiss();
+    }, 3);
+
+    popover.onDidDismiss(() => {
+      popoverBack();
+    });
   }
 
   presentPopoverMonster(myEvent, index: number) {
@@ -222,6 +244,14 @@ export class AddEncounterPage {
     popover.present({
       ev: myEvent
     });
+
+    let popoverBack = this.platform.registerBackButtonAction(() => {
+      popover.dismiss();
+    }, 3);
+
+    popover.onDidDismiss(() => {
+      popoverBack();
+    });
   }
 
   pushToMonsterChoice() {
@@ -236,7 +266,7 @@ export class AddEncounterPage {
     this.navCtrl.push('SceltaMostriPage', {
       callback: myCallbackFunction
     });
-    this.backAction();
+
   }
 
   getAuthorization() {
@@ -244,6 +274,10 @@ export class AddEncounterPage {
       return false;
     else
       return true;
+  }
+
+  isEmpty() {
+    return this.encounter.name=="" && this.characterList$.length == 0 && this.npcList$.length == 0 && this.monsterList$.length == 0;
   }
 
   removeCharacter(index: number) {

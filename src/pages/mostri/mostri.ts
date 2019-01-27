@@ -49,14 +49,18 @@ export class MostriPage {
       }
       else {
         this.navCtrl.setRoot("IncontriPage");
-        this.backAction();
+        
       }
     }, 2);
   }
 
+  ionViewDidLeave() {
+    this.backAction();
+  }
+
   pushToViewMonsterPage(monster) {
     this.navCtrl.push("ViewMonsterPage", {monster: monster});
-    this.backAction();
+    
   }
 
   /* Sets data with returned JSON array */

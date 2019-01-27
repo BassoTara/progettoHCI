@@ -32,8 +32,11 @@ export class GruppiDeiPNGPage {
   ionViewDidEnter() {
     this.backAction = this.platform.registerBackButtonAction(() => {
       this.navCtrl.setRoot("IncontriPage");
-      this.backAction();
     }, 2);
+  }
+
+  ionViewDidLeave() {
+    this.backAction();
   }
 
   presentPopover(myEvent, myGroup) {
@@ -43,16 +46,26 @@ export class GruppiDeiPNGPage {
     popover.present({
       ev: myEvent
     });
+
+    let popoverBack = this.platform.registerBackButtonAction(() => {
+      popover.dismiss();
+    }, 3);
+
+    popover.onDidDismiss(() => {
+      popoverBack();
+    });
   }
 
   goToNewGroupPage() {
     this.navCtrl.push('AddGroupPage', { players: this.players });
-    this.backAction();
+  }
+
+  pushToViewGroupPage(group: Group) {
+    this.navCtrl.push("ViewGroupPage", { group: group });
   }
 
   pushToEditGroupPage(group: Group) {
     this.navCtrl.push("EditGroupPage", { group: group });
-    this.backAction();
   }
 
 

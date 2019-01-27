@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ModalController, Item, Modal, ModalOptions, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ModalController, Item, Modal, ModalOptions, ToastController, Platform, AlertController } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { CharactersListService } from '../../services/characters-list/characters-list.service';
 import { Observable, Subject } from 'rxjs';
@@ -29,8 +29,8 @@ export class ViewEncounterPage {
   encounterMembers$;
 
 
-  constructor(private dataProvider: DataProvider, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public toastCtrl: ToastController
-    , private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController, public wheelSelector: WheelSelector) {
+  constructor(public platform: Platform, private dataProvider: DataProvider, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, public toastCtrl: ToastController
+    , private encounters: EncountersListService, public popoverCtrl: PopoverController, public modalCtrl: ModalController, public wheelSelector: WheelSelector, public alertCtrl: AlertController) {
 
     this.encounter = this.navParams.get('encounter');
 
@@ -123,15 +123,14 @@ export class ViewEncounterPage {
     popover.present({
       ev: myEvent
     });
-  }
 
-  presentModal(member) {
-    let modal = this.modalCtrl.create('ModalViewEncounterPage', {
-      encounterMember: member,
-    }, {
-        cssClass: 'select-modal',
-      });
-    modal.present();
+    let popoverBack = this.platform.registerBackButtonAction(() => {
+      popover.dismiss();
+    }, 3);
+
+    popover.onDidDismiss(() => {
+      popoverBack();
+    });
   }
 
   combat() {
@@ -181,8 +180,8 @@ export class ViewEncounterPage {
       numbers: [
       ],
       type: [
-        { description: "Damage" },
-        { description: "Healing" },
+        { description: "Danno" },
+        { description: "Cura" },
       ],
     }
 
@@ -191,7 +190,7 @@ export class ViewEncounterPage {
     }
 
     this.wheelSelector.show({
-      title: "How Many?",
+      title: "Cosa vuoi fare?",
       items: [
         jsonData.type,
         jsonData.numbers,
@@ -201,7 +200,7 @@ export class ViewEncounterPage {
 
         var offset = parseInt(result[1].description);
 
-        if (result[0].description == "Healing")
+        if (result[0].description == "Cura")
           offset *= -1;
 
         this.editMemberHP(member, offset);
@@ -215,6 +214,27 @@ export class ViewEncounterPage {
 
   getTurnMember() {
     return this.encounter.turn % this.encounterMembers.length;
+  }
+
+  restartEncounter() {
+    let alert = this.alertCtrl.create({
+      title: "Riavviare l'incontro?",
+      buttons: [
+        {
+          text: 'Sì',
+          handler: () => {
+            this.encounter.turn = -1;
+            this.encounters.editTurn(this.encounter, this.encounter.turn);
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   loadImagesFromStorage() {

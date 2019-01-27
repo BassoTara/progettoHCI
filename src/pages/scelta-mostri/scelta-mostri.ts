@@ -165,7 +165,7 @@ export class SceltaMostriPage {
     }
 
     this.wheelSelector.show({
-      title: "How Many "+monster.name+"s?",
+      title: "Quanti " + monster.name + "?",
       items: [
         jsonData.numbers,
       ],
