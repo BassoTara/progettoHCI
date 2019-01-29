@@ -45,10 +45,6 @@ export class AddCharacterPage {
 
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService,
     private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
-
-    this.backAction = platform.registerBackButtonAction(() => {
-      this.onBackButton();
-    }, 2);
   }
 
   uploadInformation(base64String: string, name: string) {
@@ -74,10 +70,22 @@ export class AddCharacterPage {
     console.log(this.navParams.get('group'));
   }
 
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
+  }
+
+  ionViewDidLeave() {
+    this.backAction();
+  }
+
   onBackButton() {
-    if (this.getAuthorization()) {
+    if(this.isEmpty())
+      this.navCtrl.pop();
+    else if (this.getAuthorization()) {
       let alert = this.alertCtrl.create({
-        title: 'Salvare le modifiche?',
+        title: 'Salvare le modifiche prima di uscire?',
         buttons: [
           {
             text: 'Sì',
@@ -89,11 +97,17 @@ export class AddCharacterPage {
             text: 'No',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
     else {
@@ -104,7 +118,7 @@ export class AddCharacterPage {
             text: 'Sì',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           },
           {
@@ -115,6 +129,12 @@ export class AddCharacterPage {
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
 
@@ -132,6 +152,7 @@ export class AddCharacterPage {
       toast.present();
       //this.navCtrl.push('ViewGroupPage', { group: this.group });
       this.navCtrl.pop();
+      
     });
   }
 
@@ -175,6 +196,10 @@ export class AddCharacterPage {
       return true;
     else
       return false;
+  }
+
+  isEmpty() {
+    return this.character.name=="" && this.character.initiativeModifier == undefined && (this.character.armorClass == undefined || this.character.armorClass ==0) && (this.character.healthPoints == undefined || this.character.healthPoints == 0) && this.character.description == "";
   }
 
 }

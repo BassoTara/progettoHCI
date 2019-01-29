@@ -26,19 +26,6 @@ export class MostriPage {
   constructor(public navCtrl: NavController, private dataFinder: DataFinder, public renderer: Renderer, public platform: Platform) {
     this.alphaOrder = 1;
     this.numOrder = 0;
-
-
-    this.backAction = platform.registerBackButtonAction(() => {
-      if (this.searchString != "" || this.isOn) {
-        this.searchString = "";
-        this.isOn = false;
-      }
-      else {
-        this.navCtrl.setRoot("IncontriPage");
-        this.backAction();
-      }
-    }, 2);
-
   }
 
   ionViewWillEnter() {
@@ -52,7 +39,28 @@ export class MostriPage {
       this.SetQueryOptionsData(data);
       console.log(typeof this.monsters)
     });
+  }
 
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      if (this.searchString != "" || this.isOn) {
+        this.searchString = "";
+        this.isOn = false;
+      }
+      else {
+        this.navCtrl.setRoot("IncontriPage");
+        
+      }
+    }, 2);
+  }
+
+  ionViewDidLeave() {
+    this.backAction();
+  }
+
+  pushToViewMonsterPage(monster) {
+    this.navCtrl.push("ViewMonsterPage", {monster: monster});
+    
   }
 
   /* Sets data with returned JSON array */

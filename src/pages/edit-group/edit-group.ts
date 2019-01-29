@@ -24,16 +24,12 @@ export class EditGroupPage {
   constructor(public platform: Platform, public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private groups: GroupsListService, public toastCtrl: ToastController) {
     console.log(navParams.get("players"));
     this.group.players = navParams.get('players');
-
-    this.backAction = platform.registerBackButtonAction(() => {
-      this.onBackButton();
-    }, 2);
   }
 
   onBackButton() {
     if (this.getAuthorization()) {
       let alert = this.alertCtrl.create({
-        title: 'Salvare le modifiche?',
+        title: 'Salvare le modifiche prima di uscire?',
         buttons: [
           {
             text: 'Sì',
@@ -45,11 +41,17 @@ export class EditGroupPage {
             text: 'No',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
     else {
@@ -60,7 +62,7 @@ export class EditGroupPage {
             text: 'Sì',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           },
           {
@@ -71,6 +73,12 @@ export class EditGroupPage {
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
   }
@@ -87,6 +95,15 @@ export class EditGroupPage {
     console.log("chiamato ionViewDidLoad");
   }
 
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
+  }
+
+  ionViewDidLeave() {
+    this.backAction();
+  }
 
   editGroup(group: Group) {
     this.groups.editGroup(group).then(() => {
@@ -97,7 +114,7 @@ export class EditGroupPage {
       toast.present();
 
       this.navCtrl.pop();
-      this.backAction();
+      
     });
   }
 
@@ -109,7 +126,7 @@ export class EditGroupPage {
       });
       toast.present();
       this.navCtrl.pop();
-      this.backAction();
+      
     });
   }
 

@@ -28,15 +28,12 @@ export class AddGroupPage {
     console.log(navParams.get("players"));
     this.group.players = navParams.get('players');
     // this.group.key = groups.getGroupKey();
-    this.backAction = platform.registerBackButtonAction(() => {
-      this.onBackButton();
-    }, 2);
   }
 
   addGroup(group: Group) {
     this.groups.addGroup(group);
     this.navCtrl.pop();
-    this.backAction();
+
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;
@@ -52,10 +49,22 @@ export class AddGroupPage {
     console.log("chiamato ionViewDidLoad");
   }
 
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
+  }
+
+  ionViewDidLeave() {
+    this.backAction();
+  }
+
   onBackButton() {
-    if (this.getAuthorization()) {
+    if (this.isEmpty())
+      this.navCtrl.pop();
+    else if (this.getAuthorization()) {
       let alert = this.alertCtrl.create({
-        title: 'Salvare le modifiche?',
+        title: 'Salvare le modifiche prima di uscire?',
         buttons: [
           {
             text: 'Sì',
@@ -67,11 +76,17 @@ export class AddGroupPage {
             text: 'No',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+
             }
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
     else {
@@ -82,7 +97,7 @@ export class AddGroupPage {
             text: 'Sì',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+
             }
           },
           {
@@ -93,6 +108,12 @@ export class AddGroupPage {
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
 
@@ -119,5 +140,9 @@ export class AddGroupPage {
       return false;
     else
       return true;
+  }
+
+  isEmpty() {
+    return this.group.name == "" && this.group.description == "";
   }
 }

@@ -28,10 +28,17 @@ export class GruppiDeiGiocatoriPage {
       }
     );
 
-    this.backAction = platform.registerBackButtonAction(() => {
+  }
+
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
       this.navCtrl.setRoot("IncontriPage");
-      this.backAction();
+      
     }, 2);
+  }
+
+  ionViewDidLeave() {
+    this.backAction();
   }
 
   presentPopover(myEvent, myGroup) {
@@ -41,10 +48,19 @@ export class GruppiDeiGiocatoriPage {
     popover.present({
       ev: myEvent
     });
+
+    let popoverBack = this.platform.registerBackButtonAction(() => {
+      popover.dismiss();
+    }, 3);
+
+    popover.onDidDismiss(() => {
+      popoverBack();
+    });
   }
 
   goToNewGroupPage() {
     this.navCtrl.push('AddGroupPage', { players: this.players });
+    
   }
 
   removeGroup(group: Group) {
@@ -56,6 +72,16 @@ export class GruppiDeiGiocatoriPage {
       toast.present();
 
     });
+  }
+
+  pushToViewGroupPage(group: Group) {
+    this.navCtrl.push("ViewGroupPage", {group: group});
+    
+  }
+
+  pushToEditGroupPage(group: Group) {
+    this.navCtrl.push("EditGroupPage", {group: group});
+    
   }
 
 }

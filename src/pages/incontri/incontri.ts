@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, ToastController, PopoverController } from 'ionic-angular';
+import { NavController, IonicPage, ToastController, PopoverController, Platform } from 'ionic-angular';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -15,7 +15,7 @@ export class IncontriPage {
   encountersList$: Observable<Encounter[]>;
 
 
-  constructor(public navCtrl: NavController, private encounters: EncountersListService, public toastCtrl: ToastController, public popoverCtrl: PopoverController) {
+  constructor(public platform: Platform, public navCtrl: NavController, private encounters: EncountersListService, public toastCtrl: ToastController, public popoverCtrl: PopoverController) {
     this.encountersList$ = this.encounters
       .getEncountersList() // return an encounters list from the database
       .snapshotChanges()   // key and value of the changed data
@@ -33,6 +33,14 @@ export class IncontriPage {
     });
     popover.present({
       ev: myEvent
+    });
+
+    let popoverBack = this.platform.registerBackButtonAction(() => {
+      popover.dismiss();
+    }, 3);
+
+    popover.onDidDismiss(() => {
+      popoverBack();
     });
   }
 

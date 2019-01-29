@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ToastController, Platform } from 'ionic-angular';
 import { Encounter } from '../../models/encounter/encounter.model';
 import { EncountersListService } from '../../services/encounters-list/encounter-list.service';
 import { Character } from '../../models/character/character.model';
@@ -15,18 +15,18 @@ export class PopoverAddEncounterCharacterPage {
 
   index: number;
   callback;
+  backAction;
 
-  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService, public toastCtrl: ToastController) {
-      this.index = this.navParams.get('index');
-      this.callback = this.navParams.get('callback');
+  constructor(public platform: Platform, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private encounters: EncountersListService, public toastCtrl: ToastController) {
+    this.index = this.navParams.get('index');
+    this.callback = this.navParams.get('callback');
   }
-
 
   close() {
     this.viewCtrl.dismiss();
   }
 
-  remove(){
+  remove() {
     this.close();
     this.callback(this.index);
   }

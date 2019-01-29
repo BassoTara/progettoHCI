@@ -1,5 +1,5 @@
 import { Component, ViewChild, Renderer } from '@angular/core';
-import { IonicPage, NavController, NavParams, Searchbar, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Searchbar, Platform, Navbar, AlertController } from 'ionic-angular';
 import { DataFinder } from '../../services/datafinder';
 import { WheelSelector } from '@ionic-native/wheel-selector';
 
@@ -17,6 +17,7 @@ export class SceltaMostriPage {
   isOn: boolean = false;
   searchString: string = "";
   callback;
+  backAction;
 
   chosenMonsters = [];
 
@@ -25,26 +26,10 @@ export class SceltaMostriPage {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dataFinder: DataFinder, public renderer: Renderer, public platform: Platform, public wheelSelector: WheelSelector) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dataFinder: DataFinder, public renderer: Renderer, public platform: Platform, public wheelSelector: WheelSelector, public alertCtrl: AlertController) {
     this.alphaOrder = 1;
     this.numOrder = 0;
     this.callback = this.navParams.get("callback");
-
-
-    platform.registerBackButtonAction(() => {
-      if (this.searchString != "") {
-        this.searchString = "";
-        this.isOn = false;
-      }
-      else {
-        if (navCtrl.canGoBack()) { // CHECK IF THE USER IS IN THE ROOT PAGE.
-          navCtrl.pop(); // IF IT'S NOT THE ROOT, POP A PAGE.
-        } else {
-          platform.exitApp(); // IF IT'S THE ROOT, EXIT THE APP
-        }
-      }
-    });
-
   }
 
   ionViewWillEnter() {
@@ -52,6 +37,7 @@ export class SceltaMostriPage {
     this.searchString = "";
   }
 
+  @ViewChild(Navbar) navBar: Navbar;
 
   ionViewDidLoad() {
     this.dataFinder.getJSONDataAsync("../assets/5e-SRD-Monsters.json").then(data => {
@@ -59,6 +45,64 @@ export class SceltaMostriPage {
       console.log(typeof this.monsters)
     });
 
+    this.navBar.backButtonClick = (e: UIEvent) => {
+      this.onBackButton();
+    }
+  }
+
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      if (this.searchString != "") {
+        this.searchString = "";
+        this.isOn = false;
+      }
+      else {
+        this.onBackButton();
+      }
+    }, 2);
+  }
+
+  ionViewDidLeave() {
+    this.backAction();
+  }
+
+  onBackButton() {
+    if (this.isEmpty()) {
+      this.navCtrl.pop();
+    }
+    else {
+      let alert = this.alertCtrl.create({
+        title: 'Confermare la scelta prima di uscire?',
+        buttons: [
+          {
+            text: 'Sì',
+            handler: () => {
+              this.confirmMonsters();
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+              this.navCtrl.pop();
+            }
+          }
+        ]
+      });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
+      alert.present();
+    }
+  }
+
+  isEmpty() {
+    for (let value of this.counters)
+      if (value != 0)
+        return false;
+    return true;
   }
 
   /* Sets data with returned JSON array */
@@ -165,10 +209,12 @@ export class SceltaMostriPage {
     }
 
     this.wheelSelector.show({
-      title: "How Many "+monster.name+"s?",
+      title: "Quanti " + monster.name + "?",
       items: [
         jsonData.numbers,
       ],
+      positiveButtonText: "OK",
+      negativeButtonText: "Annulla",
     }).then(
       result => {
 

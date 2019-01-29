@@ -32,9 +32,6 @@ export class EditCharacterPage {
   character: Character;
 
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private characters: CharactersListService, private camera: Camera, private dataProvider: DataProvider, private alertCtrl: AlertController, private toastCtrl: ToastController) {
-    this.backAction = platform.registerBackButtonAction(() => {
-      this.onBackButton();
-    }, 2);
   }
 
   loadImageFromStorage() {
@@ -51,6 +48,16 @@ export class EditCharacterPage {
     console.log("chiamato ionViewWillLoad");
   }
 
+  ionViewDidEnter() {
+    this.backAction = this.platform.registerBackButtonAction(() => {
+      this.onBackButton();
+    }, 2);
+  }
+
+  ionViewDidLeave() {
+    this.backAction();
+  }
+
   ionViewDidLoad() {
     this.navBar.backButtonClick = (e: UIEvent) => {
       this.onBackButton();
@@ -64,7 +71,7 @@ export class EditCharacterPage {
   onBackButton() {
     if (this.getAuthorization()) {
       let alert = this.alertCtrl.create({
-        title: 'Salvare le modifiche?',
+        title: 'Salvare le modifiche prima di uscire?',
         buttons: [
           {
             text: 'Sì',
@@ -76,11 +83,17 @@ export class EditCharacterPage {
             text: 'No',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
     else {
@@ -91,7 +104,7 @@ export class EditCharacterPage {
             text: 'Sì',
             handler: () => {
               this.navCtrl.pop();
-              this.backAction();
+              
             }
           },
           {
@@ -102,6 +115,12 @@ export class EditCharacterPage {
           }
         ]
       });
+      let alertBack = this.platform.registerBackButtonAction(() => {
+        alert.dismiss();
+      }, 3)
+      alert.onDidDismiss(() => {
+        alertBack();
+      })
       alert.present();
     }
   }
@@ -117,7 +136,7 @@ export class EditCharacterPage {
       toast.present();
       //this.navCtrl.push('ViewGroupPage', { group: this.group });
       this.navCtrl.pop();
-      this.backAction();
+      
     });
   }
 
@@ -131,7 +150,7 @@ export class EditCharacterPage {
       toast.present();
     });
     this.navCtrl.pop();
-    this.backAction();
+    
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;

@@ -11,7 +11,7 @@
 <ion-content>
   <ion-list id="gruppiDeiGiocatori-list4">
     <ion-item-sliding #slidingItem *ngFor="let group of groupsList$ | async" (press)="presentPopover($event, group)">
-      <button ion-item navPush="ViewGroupPage" [navParams]="{group: group}">
+      <button ion-item (click)="pushToViewGroupPage(group)">
         <ion-label>
           {{group.name}}
         </ion-label>
@@ -19,8 +19,7 @@
       </button>
 
       <ion-item-options>
-        <button ion-button class="slidingButton" color="secondary" navPush="EditGroupPage" [navParams]="{group: group}"
-          (click)="slidingItem.close()">
+        <button ion-button class="slidingButton" color="secondary" (click)="pushToEditGroupPage(group); slidingItem.close();">
           <ion-icon name="open"></ion-icon>
           Modifica
         </button>

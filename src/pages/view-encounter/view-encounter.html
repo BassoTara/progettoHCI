@@ -14,6 +14,12 @@
     <ion-title *ngIf="encounter.turn!=-1" center>
       Round: {{getRound()}}
     </ion-title>
+    <ion-buttons *ngIf="encounter.turn!=-1" end padding-right>
+      <button (click)="restartEncounter()" ion-button icon-only>
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
@@ -46,7 +52,7 @@
 
 
   <ion-fab right bottom>
-    <button (click)="combat()" ion-fab >
+    <button (click)="combat()" ion-fab>
       <ion-icon name="custom-combat"></ion-icon>
     </button>
   </ion-fab>
