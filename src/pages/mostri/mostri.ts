@@ -37,7 +37,6 @@ export class MostriPage {
   ionViewDidLoad() {
     this.dataFinder.getJSONDataAsync("../assets/5e-SRD-Monsters.json").then(data => {
       this.SetQueryOptionsData(data);
-      console.log(typeof this.monsters)
     });
   }
 
