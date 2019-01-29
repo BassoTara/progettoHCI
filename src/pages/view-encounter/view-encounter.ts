@@ -256,4 +256,12 @@ export class ViewEncounterPage {
         });
   }
 
+
+  seeDetails(member) {
+    if (member.group != null)
+      this.navCtrl.push('ViewCharacterPage', { character: member });
+    else
+      this.navCtrl.push('ViewMonsterPage', { monster: member });
+  }
+
 }

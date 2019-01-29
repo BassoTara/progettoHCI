@@ -97,5 +97,8 @@
     &[class*="custom-npc"] {
       mask-image: url(../assets/imgs/npc.svg);
     }
+    &[class*="custom-info"] {
+      mask-image: url(../assets/imgs/information-circle.svg);
+    }
     
   }

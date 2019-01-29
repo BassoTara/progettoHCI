@@ -16,12 +16,7 @@ export class ViewCharacterPage {
 
   @ViewChild(Content) content: Content;
 
-  group: Group = {
-    key: '',
-    name: '',
-    players: undefined,
-    description: undefined,
-  };
+  group: Group;
 
   character: Character = {
     name: '',
@@ -48,7 +43,8 @@ export class ViewCharacterPage {
 
   ionViewWillLoad() {
     this.character = this.navParams.get('character');
-    this.group = this.navParams.get('group');
+    if (this.navParams.get("group") != null)
+      this.group = this.navParams.get('group');
     console.log("chiamato ionViewWillLoad");
   }
 

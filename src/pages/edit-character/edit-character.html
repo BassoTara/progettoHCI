@@ -54,6 +54,9 @@
       </ion-label>
       <ion-textarea #myInputDesc id="myInputDesc" rows="1" maxLength="500" (input)="resizeDesc()" [(ngModel)]="character.description"></ion-textarea>
     </ion-item>
+
+    <br><br><br>
+    
     <ion-fab bottom right>
         <button ion-fab *ngIf="getAuthorization()" (click)="editCharacter()" >
           <ion-icon name="checkmark"></ion-icon>
