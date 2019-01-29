@@ -66,7 +66,7 @@ export class GruppiDeiGiocatoriPage {
   removeGroup(group: Group) {
     this.groups.removeGroup(group).then(() => {
       let toast = this.toastCtrl.create({
-        message: this.groups+' rimosso con successo!',
+        message: group.name+' rimosso con successo!',
         duration: 3000
       });
       toast.present();

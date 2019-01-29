@@ -30,18 +30,6 @@ export class GroupsListService {
     }
 
     removeCharactersListByGroupKey(key: string) {
-        /*  this.db.list<Character>('characters-list', ref => ref.orderByChild('group').equalTo(key)).valueChanges().subscribe(list => {
-             for (let character of list) {
-                 this.characters.removeCharacter(character);
-             }
-         }); */
-
-        /*         this.db.database.ref('characters-list').orderByChild('group').equalTo(key).once('value').then(snapshot => {
-                    snapshot.forEach((character) => {
-                        character.ref.remove();
-                    })
-                }); */
-
 
         let charactersList = this.characters.getCharactersListByGroupKey(key).snapshotChanges().map(
             changes => {
