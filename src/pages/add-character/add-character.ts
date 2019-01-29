@@ -182,7 +182,7 @@ export class AddCharacterPage {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       allowEdit: true,
       targetWidth: 300,
-      targetHeight: 256,
+      targetHeight: 300,
     }
 
     this.camera.getPicture(options).then((imageData) => {

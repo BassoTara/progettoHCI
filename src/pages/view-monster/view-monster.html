@@ -110,8 +110,8 @@
           <h4>{{action.name}}</h4>
           <p>{{action.desc}}</p>
         </div>
-        <h3>Legendary Actions</h3>
-        <p>{{monster.name}} can take 3 legendary actions, choosing from the options below. Only one legendary action
+        <h3 *ngIf="monster.legendary_actions != null">Legendary Actions</h3>
+        <p *ngIf="monster.legendary_actions != null">{{monster.name}} can take 3 legendary actions, choosing from the options below. Only one legendary action
           option can be used at a time and only at the end of another creature’s turn. {{monster.name}} regains spent
           legendary actions at the start of their turn.</p>
         <div *ngFor="let action of monster.legendary_actions" class="property-block">
