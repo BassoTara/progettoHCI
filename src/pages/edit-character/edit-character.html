@@ -27,7 +27,7 @@
       <ion-label floating>
         Classe Armatura:
       </ion-label>
-      <ion-input [(ngModel)]="character.armorClass"  type="number" ></ion-input>
+      <ion-input [(ngModel)]="character.armorClass"  type="number" (ionBlur)="checkArmorClass()"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>
@@ -39,7 +39,7 @@
       <ion-label floating>
         Punti Salute totali
       </ion-label>
-      <ion-input  [(ngModel)]="character.healthPoints" type="number" ></ion-input>
+      <ion-input  [(ngModel)]="character.healthPoints" type="number" (ionBlur)="checkHealthPoints()"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>

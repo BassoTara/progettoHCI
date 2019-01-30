@@ -192,7 +192,7 @@ export class AddCharacterPage {
   }
 
   getAuthorization() {
-    if (this.character.name != '' && this.character.initiativeModifier != undefined && this.character.armorClass != undefined && this.character.armorClass != 0 && this.character.healthPoints != undefined && this.character.healthPoints != 0)
+    if (this.character.name != '' && this.character.initiativeModifier != undefined && this.character.armorClass != undefined && this.character.healthPoints != undefined)
       return true;
     else
       return false;
@@ -200,6 +200,18 @@ export class AddCharacterPage {
 
   isEmpty() {
     return this.character.name=="" && this.character.initiativeModifier == undefined && (this.character.armorClass == undefined || this.character.armorClass ==0) && (this.character.healthPoints == undefined || this.character.healthPoints == 0) && this.character.description == "";
+  }
+
+  checkHealthPoints() {
+    // @ts-ignore
+    if (parseInt(this.character.healthPoints) < 1)
+      this.character.healthPoints = 1;
+  }
+
+  checkArmorClass() {
+    // @ts-ignore
+    if (parseInt(this.character.armorClass) < 0)
+      this.character.armorClass = 0;
   }
 
 }

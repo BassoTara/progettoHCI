@@ -34,7 +34,7 @@
       <ion-icon name="custom-shield"></ion-icon>
       Classe Armatura:
     </ion-label>
-    <ion-input [(ngModel)]="character.armorClass" type="number"></ion-input>
+    <ion-input [(ngModel)]="character.armorClass" type="number" (ionBlur)="checkArmorClass()"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -50,7 +50,7 @@
       <ion-icon name="custom-health"></ion-icon>
       Punti Salute:
     </ion-label>
-    <ion-input [(ngModel)]="character.healthPoints" type="number"></ion-input>
+    <ion-input [(ngModel)]="character.healthPoints" type="number" (ionBlur)="checkHealthPoints()"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating class="labelStacked">

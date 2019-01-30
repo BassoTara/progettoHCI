@@ -83,7 +83,7 @@ export class EditCharacterPage {
             text: 'No',
             handler: () => {
               this.navCtrl.pop();
-              
+
             }
           }
         ]
@@ -104,7 +104,7 @@ export class EditCharacterPage {
             text: 'Sì',
             handler: () => {
               this.navCtrl.pop();
-              
+
             }
           },
           {
@@ -136,7 +136,7 @@ export class EditCharacterPage {
       toast.present();
       //this.navCtrl.push('ViewGroupPage', { group: this.group });
       this.navCtrl.pop();
-      
+
     });
   }
 
@@ -144,13 +144,13 @@ export class EditCharacterPage {
     this.characters.removeCharacter(this.character).then(res => {
       console.log('res: ', res);
       let toast = this.toastCtrl.create({
-        message: this.character.name +' rimosso con successo!',
+        message: this.character.name + ' rimosso con successo!',
         duration: 3000
       });
       toast.present();
     });
     this.navCtrl.pop();
-    
+
   }
 
   @ViewChild('myInputName') myInputName: ElementRef;
@@ -201,16 +201,32 @@ export class EditCharacterPage {
   }
 
   getAuthorization() {
-    if (this.character.name != '' && this.character.initiativeModifier != undefined && this.character.armorClass != undefined && this.character.armorClass != 0 && this.character.healthPoints != undefined && this.character.healthPoints != 0)
+    if (this.character.name != '' && this.character.initiativeModifier != undefined && this.character.armorClass != undefined && this.character.healthPoints != undefined)
       return true;
     else
       return false;
+  }
+
+  checkHealthPoints() {
+    // @ts-ignore
+    if (parseInt(this.character.healthPoints) < 1)
+      this.character.healthPoints = 1;
+  }
+
+  checkArmorClass() {
+    // @ts-ignore
+    if (parseInt(this.character.armorClass) < 0)
+      this.character.armorClass = 0;
   }
 
   checkCurrentHealth() {
     // @ts-ignore
     if (parseInt(this.character.currentHealth) > parseInt(this.character.healthPoints))
       this.character.currentHealth = this.character.healthPoints;
+
+    // @ts-ignore
+    if (parseInt(this.character.currentHealth) < 0)
+      this.character.currentHealth = 0;
   }
 
 
