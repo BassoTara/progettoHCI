@@ -42,7 +42,7 @@
           <ion-icon style="float: left; text-align: center;" name="custom-shield"></ion-icon><label style="float: left; text-align: center;">{{
             member.armorClass }}</label>
         </p>
-        <p style="float: left; width: 30%; text-align: right;">
+        <p *ngIf="encounter.turn != -1" style="float: left; width: 30%; text-align: right;">
           <ion-icon style="float: left; text-align: center;" name="custom-dice"></ion-icon><label style="float: left; text-align: center;">{{
             initiatives[member.key] }}</label>
         </p>
@@ -52,7 +52,12 @@
   </ion-list>
 
 
-  <ion-fab right bottom>
+  <ion-fab *ngIf="encounter.turn == -1" right bottom>
+    <button (click)="combat()" ion-fab>
+      <ion-icon name="custom-dice"></ion-icon>
+    </button>
+  </ion-fab>
+  <ion-fab *ngIf="encounter.turn != -1" right bottom>
     <button (click)="combat()" ion-fab>
       <ion-icon name="custom-combat"></ion-icon>
     </button>
