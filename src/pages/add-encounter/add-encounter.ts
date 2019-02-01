@@ -282,7 +282,7 @@ export class AddEncounterPage {
   }
 
   getAuthorization() {
-    if (this.encounter.name === "")
+    if (this.encounter.name === "" || (this.characterList$.length + this.npcList$.length + this.monsterList$.length) < 2)
       return false;
     else
       return true;

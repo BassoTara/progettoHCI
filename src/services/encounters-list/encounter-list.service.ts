@@ -36,10 +36,10 @@ export class EncountersListService {
     }
 
     getInitiatives(encounter: Encounter) {
-        return this.db.list('encounters-list/'+ encounter.key + '/initiatives/');
+        return this.db.list('encounters-list/' + encounter.key + '/initiatives/');
     }
 
-    editTurn(encounter: Encounter, turn: number){
+    editTurn(encounter: Encounter, turn: number) {
         this.db.database.ref('encounters-list/' + encounter.key + '/turn/').set(turn);
     }
 
@@ -54,5 +54,4 @@ export class EncountersListService {
         }
         this.db.database.ref('encounters-list/' + encounter.key + '/initiatives/').set(initiatives_array);
     }
-
 }

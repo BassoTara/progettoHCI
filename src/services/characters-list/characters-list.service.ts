@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { Character } from "../../models/character/character.model";
 import { DataProvider } from "../../app/data";
+import { EncountersListService } from "../encounters-list/encounter-list.service";
 
 @Injectable()
 export class CharactersListService {
@@ -9,7 +10,7 @@ export class CharactersListService {
     // Create a list initialized with the content of table encounters
     private charactersListRef = this.db.list<Character>('characters-list');
 
-    constructor(private db: AngularFireDatabase, private dataProvider: DataProvider) { }
+    constructor(private db: AngularFireDatabase, private dataProvider: DataProvider, private encounters: EncountersListService) { }
 
     getCharactersList() {
         return this.charactersListRef;
@@ -33,7 +34,6 @@ export class CharactersListService {
 
     removeCharacter(character: Character) {
         console.log('Removing character ' + character.name);
-
         this.dataProvider.deleteCharacterImg(character.key);
         return this.charactersListRef.remove(character.key);
     }

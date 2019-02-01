@@ -77,7 +77,11 @@ export class ViewEncounterPage {
     })
 
     this.encounterMembers$.subscribe(list => {
-      this.encounterMembers = list;
+      for (let element of list) {
+        console.log(element);
+        if (element != null)
+          this.encounterMembers.push(element);
+      }
       this.encounterMembers$ = Observable.of(this.encounterMembers).map((data) => {
         data.sort((a, b) => {
           if (this.initiatives[a.key] > this.initiatives[b.key]) {
@@ -246,14 +250,16 @@ export class ViewEncounterPage {
   }
 
   loadImagesFromStorage() {
-    for (let key of this.encounter.characterKeys)
-      this.dataProvider.getCharacterImgDownloadUrl(key).then(
-        (url) => {
-          this.charactersImgSrcs[key] = url;
-        },
-        () => {
-          this.charactersImgSrcs[key] = "assets/imgs/Default-Profile.png";
-        });
+    if (this.encounter.characterKeys != null) {
+      for (let key of this.encounter.characterKeys)
+        this.dataProvider.getCharacterImgDownloadUrl(key).then(
+          (url) => {
+            this.charactersImgSrcs[key] = url;
+          },
+          () => {
+            this.charactersImgSrcs[key] = "assets/imgs/Default-Profile.png";
+          });
+    }
   }
 
 
