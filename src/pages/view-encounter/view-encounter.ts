@@ -77,11 +77,12 @@ export class ViewEncounterPage {
     })
 
     this.encounterMembers$.subscribe(list => {
-      for (let element of list) {
-        console.log(element);
-        if (element != null)
-          this.encounterMembers.push(element);
+      for (let index in list) {
+        console.log(index);
+        if (list[index] == null)
+          list.splice(index, 1);
       }
+      this.encounterMembers = list;
       this.encounterMembers$ = Observable.of(this.encounterMembers).map((data) => {
         data.sort((a, b) => {
           if (this.initiatives[a.key] > this.initiatives[b.key]) {
